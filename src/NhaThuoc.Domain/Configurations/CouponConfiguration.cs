@@ -20,6 +20,8 @@ namespace NhaThuoc.Domain.Configurations
             builder.Property(x => x.CouponEndDate).IsRequired();
             builder.Property(x => x.CreatedAt).IsRequired();
             builder.Property(x => x.UpdatedAt).IsRequired();
+            builder.Property(x => x.Discount).IsRequired();
+            builder.Property(x => x.IsActive).IsRequired();
         }
     }
 }

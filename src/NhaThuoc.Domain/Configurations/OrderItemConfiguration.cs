@@ -18,8 +18,9 @@ namespace NhaThuoc.Domain.Configurations
             builder.Property(x => x.Quantity).IsRequired();
 
 
-            builder.Property(x => x.CreatedAt).IsRequired();
+            builder.Property(x => x.CreatedAt).IsRequired(); 
             builder.Property(x => x.UpdatedAt).IsRequired();
+            builder.Property(x => x.TotalPrice).IsRequired();
 
 
         }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NhaThuoc.Domain.Entities;
+using System.Data;
 
 namespace NhaThuoc.Domain.Configurations
 {
@@ -17,8 +18,9 @@ namespace NhaThuoc.Domain.Configurations
             builder.Property(x => x.PhoneNumber).IsRequired();
             builder.Property(x => x.Email).IsRequired();
             builder.Property(x => x.Password).IsRequired();
-            builder.Property(x => x.IsActive).IsRequired();
+            builder.Property(x => x.IsActive).IsRequired(); 
             builder.Property(x => x.CreatedAt).IsRequired();
+            builder.Property(x => x.Role).IsRequired();
         }
     }
 }

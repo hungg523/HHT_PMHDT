@@ -21,6 +21,13 @@ namespace NhaThuoc.Domain.Configurations
             builder.Property(x => x.SeoAlias).HasMaxLength(200);
             builder.Property(x => x.CreatedAt).IsRequired();
             builder.Property(x => x.UpdatedAt).IsRequired();
+            builder.Property(x => x.DiscountPrice).IsRequired();
+            builder.Property(x => x.Brand).IsRequired();
+            builder.Property(x => x.Packaging).IsRequired();
+            builder.Property(x => x.Origin).IsRequired();
+            builder.Property(x => x.Manufacturer).IsRequired();
+            builder.Property(x => x.Ingredients).IsRequired();
+            builder.Property(x => x.IsActived).IsRequired();
         }
     }
 }

@@ -12,6 +12,9 @@ namespace NhaThuoc.Domain.Configurations
             builder.Property(x => x.Id).UseIdentityColumn();
             builder.Property(x => x.CouponId).IsRequired();
             builder.Property(x => x.CustomerId).IsRequired();
+            builder.Property(x => x.Status).IsRequired();
+            builder.Property(x => x.CreatedAt).IsRequired();
+            builder.Property(x => x.UpdatedAt).IsRequired();
         }
     }
 }

@@ -15,6 +15,10 @@ namespace NhaThuoc.Domain.Configurations
             builder.Property(x => x.ImagePath).IsRequired();
             builder.Property(x => x.CreatedAt).IsRequired();
             builder.Property(x => x.UpdatedAt).IsRequired();
+            builder.Property(x => x.ParentId).IsRequired();
+            builder.Property(x => x.Description).IsRequired();
+            builder.Property(x => x.IsActive).IsRequired();
+
 
         }
     }
