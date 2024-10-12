@@ -8,6 +8,5 @@ namespace NhaThuoc.Intergration
         Task<bool> CreateOrder(OrderCreateRequest request);
         Task<bool> ChangeStatusOrder(ChangeStatusRequest request);
 
-
     }
 }

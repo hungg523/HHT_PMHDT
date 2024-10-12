@@ -1,19 +1,6 @@
 ﻿namespace NhaThuoc.Domain.Exceptions
 {
-    public class NhaThuocException : Exception
+    public class NhaThuocException(bool IsSuccess, string Message)
     {
-        public NhaThuocException()
-        {
-        }
-
-        public NhaThuocException(string message)
-            : base(message)
-        {
-        }
-
-        public NhaThuocException(string message, Exception inner)
-            : base(message, inner)
-        {
-        }
     }
 }

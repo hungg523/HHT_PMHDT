@@ -4,7 +4,6 @@
     {
         public int Id { get; set; }
         public int ParentId { get; set; }
-
         public string CategoryName { get; set; }
         public string CategoryDescription { get; set; }
         public string ImagePath { get; set; }

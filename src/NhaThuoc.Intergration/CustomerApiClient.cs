@@ -17,8 +17,6 @@ namespace NhaThuocOnline.ApiIntergration
             _configuration = configuration;
         }
 
-
-
         public async Task<ApiResult<string>> Authenticate(LoginRequest request)
         {
             var json = JsonConvert.SerializeObject(request);

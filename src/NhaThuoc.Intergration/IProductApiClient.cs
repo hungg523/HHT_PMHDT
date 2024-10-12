@@ -5,7 +5,6 @@ namespace NhaThuocOnline.ApiIntergration
 {
     public interface IProductApiClient
     {
-
         Task<bool> Create(ProductCreateRequest request);
 
         Task<PagedResult<ProductBasicVm>> GetProductByCategoryIdPaging(GetPublicProductPagingRequest request);

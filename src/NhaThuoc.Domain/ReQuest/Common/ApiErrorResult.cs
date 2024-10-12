@@ -12,7 +12,6 @@ namespace NNhaThuoc.Domain.ReQuest.Common
             IsSuccessed = false;
             Message = message;
         }
-
         public ApiErrorResult(string[] validationErrors)
         {
             IsSuccessed= false;

@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NhaThuoc.Domain.Entities;
-using System.Data;
 
 namespace NhaThuoc.Domain.Configurations
 {

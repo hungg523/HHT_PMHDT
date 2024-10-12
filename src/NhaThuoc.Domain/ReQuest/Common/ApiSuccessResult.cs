@@ -5,7 +5,6 @@
         public ApiSuccessResult() { 
             IsSuccessed = true;
         }
-
         public ApiSuccessResult(T result)
         {
             IsSuccessed = true;

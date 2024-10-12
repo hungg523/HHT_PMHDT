@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace NhaThuoc.Domain.Data
 {
-    public class NhaThuocOnlineDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
+    public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
     {
         public ApplicationDbContext CreateDbContext(string[] args)
         {

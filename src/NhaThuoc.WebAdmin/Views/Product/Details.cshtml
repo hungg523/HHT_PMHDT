@@ -1,0 +1,125 @@
+﻿@model NhaThuocOnline.ViewModel.Product.ProductVm
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<head>
+    <title></title>
+    <link rel="stylesheet" href="/assets2/css/dashlitee5ca.css?ver=3.2.3" />
+    <link id="skin-default" rel="stylesheet" href="/assets2/css/themee5ca.css?ver=3.2.3" />
+    <style>
+        .nk-content {
+            margin-top: 80px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nk-content ">
+        <div class="container-fluid">
+            <div class="nk-content-inner">
+                <div class="nk-content-body">
+                    <div class="nk-block-head nk-block-head-sm">
+                        <div class="nk-block-between g-3">
+                            <div class="nk-block-head-content">
+                                <h3 class="nk-block-title page-title">Chi tiết thuốc</h3>
+                            </div>
+                            <div class="nk-block-head-content"><a href="medicine-list.html" class="btn btn-outline-light bg-white d-none d-sm-inline-flex"><em class="icon ni ni-arrow-left"></em><span>Back</span></a><a href="medicine-list.html" class="btn btn-icon btn-outline-light bg-white d-inline-flex d-sm-none"><em class="icon ni ni-arrow-left"></em></a></div>
+                        </div>
+                    </div>
+                    <div class="nk-block row p-0 m-0">
+                        <div class="card card-bordered col-3 p-0">
+                            <img height="200px" class="img-fluid" loading="lazy" src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZHVjdHxlbnwwfHwwfHx8MA%3D%3D" />
+                        </div>
+                        <div class="card card-bordered col-9">
+                            <div class="card-aside-wrap">
+                                <div class="card-content">
+                                    <div class="card-inner">
+                                        <div class="nk-block">
+                                            <div class="nk-block-head nk-block-head-sm nk-block-between">
+                                                <h5 class="title">Chi tiết thuốc</h5>
+                                            </div>
+                                            <div class="row gy-5">
+                                                <div class="col-md-3 col-lg-2 col-6">
+                                                    <div class="profile-stats"><span class="profile-ud-label">Tên</span><span>@Model.ProductName</span></div>
+                                                </div>
+
+
+                                                <div class="col-md-3 col-lg-2  col-6">
+                                                    <div class="profile-stats"><span class="profile-ud-label">Danh mục</span><span>@Model.CategoryName</span></div>
+                                                </div>
+                                                <div class="col-md-3 col-lg-2  col-6">
+                                                    <div class="profile-stats"><span class="profile-ud-label">Nhà sản xuất</span><span>@Model.Manufacturer</span></div>
+                                                </div>
+                                                <div class="col-md-3 col-lg-2 col-6">
+                                                    <div class="profile-stats"><span class="profile-ud-label">Ngày hết hạn</span><span>24/12/2024</span></div>
+                                                </div>
+                                            </div>
+                                            <div class="row gy-5">
+                                                <div class="col-md-3 col-lg-2 col-6">
+                                                    <div class="profile-stats">
+                                                       
+                                                        <div>
+                                                            <em class="icon ni ni-star-fill text-warning"></em><em class="icon ni ni-star-fill text-warning"></em><em class="icon ni ni-star-fill text-warning"></em><em class="icon ni ni-star-fill text-warning"></em>
+                                                            <em class="icon ni ni-star-fill text-warning"></em>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="nk-divider divider md"></div>
+                                        <div class="nk-block">
+                                            <div class="nk-block-head nk-block-head-sm nk-block-between">
+                                                <h5 class="title">Tồn kho</h5>
+                                            </div>
+                                            <div class="row gy-5">
+                                                <div class="col-md-3 col-sm-4">
+                                                    <div class="profile-stats"><span class="profile-ud-label">Số hàng nhập</span><span class="amount">230 hộp</span></div>
+                                                </div>
+                                                <div class="col-md-3 col-sm-4">
+                                                    <div class="profile-stats"><span class="profile-ud-label">Số hàng còn lại</span><span class="amount">180 hộp</span></div>
+                                                </div>
+                                                <div class="col-md-3 col-sm-4">
+                                                    <div class="profile-stats"><span class="profile-ud-label">Tình trạng</span><span class="badge bg-primary">Sẵn sàng</span></div>
+                                                </div>
+                                            </div>
+                                         
+                                        </div>
+                                        <div class="nk-divider divider md"></div>
+                                        <div class="nk-block">
+                                            <div class="nk-block-head nk-block-head-sm nk-block-between">
+                                                <h5 class="title">Ước lượng</h5>
+                                            </div>
+                                            <div class="row gy-5">
+                                                <div class="col-md-3 col-sm-4">
+                                                    <div class="profile-stats"><span class="profile-ud-label">Giá gốc</span><span class="amount">@Model.RegularPrice<span> VNĐ</span></span></div>
+                                                </div>
+                                                <div class="col-md-3 col-sm-4">
+                                                    <div class="profile-stats"><span class="profile-ud-label">Giá bán</span><span class="amount">@Model.DiscountPrice <span>VNĐ</span></span></div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                       
+                        <div class=" d-flex m-0 p-0">
+                            <ul>
+
+                            <li class="nk-block-tools-opt mr-3"><a href="https://localhost:7017/Product/2/Batch" class="btn btn-icon btn-primary d-md-none">
+                                <em class="icon ni ni-plus"></em></a><a href="https://localhost:7017/Product/2/Batch" class="btn btn-primary d-none d-md-inline-flex">
+                                    <em class="icon ni ni-plus"></em><span>Thêm lô hàng</span></a></li>
+                            </ul>
+
+                        </div>
+                        
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

@@ -8,7 +8,6 @@ namespace NhaThuoc.Domain.Configurations
     {
         public void Configure(EntityTypeBuilder<Coupon> builder)
         {
-
             builder.ToTable("Coupons");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).UseIdentityColumn();

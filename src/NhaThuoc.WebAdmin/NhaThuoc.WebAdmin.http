@@ -1,0 +1,6 @@
+@NhaThuoc.WebAdmin_HostAddress = http://localhost:5226
+
+GET {{NhaThuoc.WebAdmin_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
