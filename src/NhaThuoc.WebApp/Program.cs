@@ -1,5 +1,7 @@
-var builder = WebApplication.CreateBuilder(args);
+using NhaThuoc.Data.Extensions;
 
+var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddData(builder.Configuration);
 // Add services to the container.
 
 builder.Services.AddControllers();

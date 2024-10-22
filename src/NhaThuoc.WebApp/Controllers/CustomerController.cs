@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
-using NhaThuocOnline.ApiIntergration;
+using NhaThuoc.Intergration.IApiClient;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 

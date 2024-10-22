@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NhaThuoc.Domain.ReQuest.Product;
-using NhaThuocOnline.ApiIntergration;
+using NhaThuoc.Intergration.IApiClient;
 
 namespace NhaThuoc.WebApp.Controllers
 {

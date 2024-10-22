@@ -1,4 +1,5 @@
-﻿using NhaThuoc.Domain.ReQuest.Category;
+﻿using NhaThuoc.Application.Request.Category;
+using NhaThuoc.Domain.ReQuest.Category;
 
 namespace NhaThuoc.Application.Interface
 {

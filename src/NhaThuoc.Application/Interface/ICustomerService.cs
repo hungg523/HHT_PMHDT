@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.Data;
+using NhaThuoc.Application.Request.Customer;
 using NhaThuoc.Domain.ReQuest.Common;
 using NhaThuoc.Domain.ReQuest.Customer;
 

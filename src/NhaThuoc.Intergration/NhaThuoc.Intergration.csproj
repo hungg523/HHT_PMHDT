@@ -10,7 +10,8 @@
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\NhaThuoc.Domain\NhaThuoc.Domain.csproj" />
+	  <ProjectReference Include="..\NhaThuoc.Application\NhaThuoc.Application.csproj" />
+	  <ProjectReference Include="..\NhaThuoc.Data\NhaThuoc.Data.csproj" />
 	</ItemGroup>
 
 </Project>

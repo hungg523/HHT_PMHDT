@@ -1,6 +1,8 @@
-﻿namespace NhaThuoc.Domain.Entities
+﻿using NhaThuoc.Domain.Abtractions.Common;
+
+namespace NhaThuoc.Domain.Entities
 {
-    public class Customer
+    public class Customer : BaseEntity
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

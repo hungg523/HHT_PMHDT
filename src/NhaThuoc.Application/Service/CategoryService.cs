@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using NhaThuoc.Application.Interface;
+using NhaThuoc.Application.Request.Category;
 using NhaThuoc.Domain.Data;
 using NhaThuoc.Domain.Entities;
 using NhaThuoc.Domain.ReQuest.Category;

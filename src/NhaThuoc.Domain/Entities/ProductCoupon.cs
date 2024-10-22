@@ -1,6 +1,8 @@
-﻿namespace NhaThuoc.Domain.Entities
+﻿using NhaThuoc.Domain.Abtractions.Common;
+
+namespace NhaThuoc.Domain.Entities
 {
-    public class ProductCoupon
+    public class ProductCoupon : BaseEntity
     {
         public int CouponId { get; set; }
         public int ProductId { get; set; }

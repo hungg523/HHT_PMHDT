@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NhaThuoc.Application.Interface;
-using NhaThuoc.Domain.ReQuest.Category;
+using NhaThuoc.Application.Request.Category;
 
 namespace NhaThuocOnline.WebApi.Controllers
 {
@@ -23,7 +23,7 @@ namespace NhaThuocOnline.WebApi.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Create([FromBody] CategoryCreateRequest request)
+        public async Task<IActionResult> Create([FromBody] CreateCategoryRequest request)
         {
 
             if (!ModelState.IsValid)
