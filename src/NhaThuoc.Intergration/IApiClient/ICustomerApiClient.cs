@@ -1,5 +1,4 @@
-﻿using NhaThuoc.Domain.ReQuest.Common;
-using NhaThuoc.Domain.ReQuest.Customer;
+﻿using NhaThuoc.Application.Request.Customer;
 
 namespace NhaThuoc.Intergration.IApiClient
 {

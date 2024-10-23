@@ -1,5 +1,4 @@
 ﻿using NhaThuoc.Domain.Abtractions.Enums;
-using NhaThuoc.Domain.Entities;
 
 namespace NhaThuoc.Domain.ReQuest.Order
 {

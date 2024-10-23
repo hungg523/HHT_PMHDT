@@ -1,8 +1,7 @@
 ﻿namespace NhaThuoc.Domain.ReQuest.Order
 {
     public class OrderItemVm
-    {
-        
+    {     
         public string ProductName { get; set; }
         public string ProductImagePath { get; set; }
         public double Price { get; set; }

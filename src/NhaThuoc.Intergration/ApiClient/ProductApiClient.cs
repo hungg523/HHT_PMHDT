@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json;
-using NhaThuoc.Domain.ReQuest.Common;
+using NhaThuoc.Application.Request.Common;
 using NhaThuoc.Domain.ReQuest.Product;
 using NhaThuoc.Intergration.IApiClient;
 using System.Text;

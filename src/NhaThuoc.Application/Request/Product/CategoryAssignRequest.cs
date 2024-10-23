@@ -1,4 +1,4 @@
-﻿using NhaThuoc.Domain.ReQuest.Common;
+﻿using NhaThuoc.Application.Request.Common;
 
 namespace NhaThuoc.Domain.ReQuest.Product
 {

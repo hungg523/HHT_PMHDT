@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-
-namespace NhaThuoc.Domain.ReQuest.Product
+﻿namespace NhaThuoc.Domain.ReQuest.Product
 {
     public class ProductCreateRequest
     {
