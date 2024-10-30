@@ -11,7 +11,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NhaThuoc.Intergration\NhaThuoc.Intergration.csproj" />
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NhaThuoc.Application\NhaThuoc.Application.csproj" />
+    <ProjectReference Include="..\NhaThuoc.Data\NhaThuoc.Data.csproj" />
   </ItemGroup>
 
 </Project>

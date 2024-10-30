@@ -9,8 +9,8 @@ namespace NhaThuoc.Application.Mapping
     {
         public ApplicationMappingProfile()
         {
-            CreateMap<CreateCategoryRequest, Category>().ReverseMap();
-            CreateMap<CreateCategoryRequest, CreateCategoryRequestValidator>().ReverseMap();
+            //CreateMap<CreateCategoryRequest, Category>().ReverseMap();
+            //CreateMap<CreateCategoryRequest, CreateCategoryRequestValidator>().ReverseMap();
         }
     }
 }

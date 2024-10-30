@@ -27,15 +27,6 @@ namespace NhaThuoc.Application.Validators.Categories
 
             RuleFor(c => c.IsActive)
                 .NotNull().WithMessage("Trạng thái hoạt động không được để trống.");
-
-            RuleFor(c => c.CreatedAt)
-                .NotNull().WithMessage("Ngày tạo không được để trống.")
-                .LessThanOrEqualTo(DateTime.Now).WithMessage("Ngày tạo phải là ngày hiện tại hoặc trong quá khứ.");
-
-            RuleFor(c => c.UpdatedAt)
-                .NotNull().WithMessage("Ngày cập nhật không được để trống.")
-                .GreaterThanOrEqualTo(c => c.CreatedAt).WithMessage("Ngày cập nhật phải lớn hơn hoặc bằng ngày tạo.")
-                .LessThanOrEqualTo(DateTime.Now).WithMessage("Ngày cập nhật phải là ngày hiện tại hoặc trong quá khứ.");
         }
     }
 }

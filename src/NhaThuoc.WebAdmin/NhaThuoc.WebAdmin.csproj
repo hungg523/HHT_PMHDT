@@ -11,7 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\NhaThuoc.Intergration\NhaThuoc.Intergration.csproj" />
+    <ProjectReference Include="..\NhaThuoc.Application\NhaThuoc.Application.csproj" />
+    <ProjectReference Include="..\NhaThuoc.Data\NhaThuoc.Data.csproj" />
   </ItemGroup>
 
 </Project>

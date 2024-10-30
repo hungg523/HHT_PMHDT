@@ -13,8 +13,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NhaThuoc.Domain", "src\NhaThuoc.Domain\NhaThuoc.Domain.csproj", "{357C55E5-FEE1-471A-9705-9B7C770DD43E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NhaThuoc.Intergration", "src\NhaThuoc.Intergration\NhaThuoc.Intergration.csproj", "{160D665B-5721-41CD-BCB9-CACA2A1F6FE3}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NhaThuoc.WebAdmin", "src\NhaThuoc.WebAdmin\NhaThuoc.WebAdmin.csproj", "{5D283D3C-5338-4513-8A21-FEC724E9D9B3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NhaThuoc.WebApi", "src\NhaThuoc.WebApi\NhaThuoc.WebApi.csproj", "{977F1F25-306B-446D-B6D1-8A6EB3CAC289}"
@@ -23,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NhaThuoc.WebApp", "src\NhaT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NhaThuoc.Application", "src\NhaThuoc.Application\NhaThuoc.Application.csproj", "{486CBC79-9F3F-4775-8EA1-3D1AD729934F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NhaThuoc.Data", "src\NhaThuoc.Data\NhaThuoc.Data.csproj", "{D5E46FD7-803F-417E-B9DD-2B11E691CBBD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NhaThuoc.Data", "src\NhaThuoc.Data\NhaThuoc.Data.csproj", "{D5E46FD7-803F-417E-B9DD-2B11E691CBBD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +33,6 @@ Global
 		{357C55E5-FEE1-471A-9705-9B7C770DD43E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{357C55E5-FEE1-471A-9705-9B7C770DD43E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{357C55E5-FEE1-471A-9705-9B7C770DD43E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{160D665B-5721-41CD-BCB9-CACA2A1F6FE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{160D665B-5721-41CD-BCB9-CACA2A1F6FE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{160D665B-5721-41CD-BCB9-CACA2A1F6FE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{160D665B-5721-41CD-BCB9-CACA2A1F6FE3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5D283D3C-5338-4513-8A21-FEC724E9D9B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5D283D3C-5338-4513-8A21-FEC724E9D9B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D283D3C-5338-4513-8A21-FEC724E9D9B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -65,7 +59,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{357C55E5-FEE1-471A-9705-9B7C770DD43E} = {5A5CC241-E382-4C38-9DE6-99927A8C0A1E}
-		{160D665B-5721-41CD-BCB9-CACA2A1F6FE3} = {5A5CC241-E382-4C38-9DE6-99927A8C0A1E}
 		{5D283D3C-5338-4513-8A21-FEC724E9D9B3} = {5A5CC241-E382-4C38-9DE6-99927A8C0A1E}
 		{977F1F25-306B-446D-B6D1-8A6EB3CAC289} = {5A5CC241-E382-4C38-9DE6-99927A8C0A1E}
 		{EA4C62ED-E226-429A-9E19-FFD696FDC748} = {5A5CC241-E382-4C38-9DE6-99927A8C0A1E}
