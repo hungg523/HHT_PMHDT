@@ -11,13 +11,13 @@ namespace NhaThuoc.Data.Configurations
             builder.ToTable("CustomerAddresses");
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).UseIdentityColumn();
-            builder.Property(x => x.CustomerId).IsRequired();
-            builder.Property(x => x.Address).HasMaxLength(200).IsRequired();
-            builder.Property(x => x.FullName).IsRequired();
-            builder.Property(x => x.Phone).IsRequired();
-            builder.Property(x => x.Province).IsRequired();
-            builder.Property(x => x.District).IsRequired();
-            builder.Property(x => x.Ward).IsRequired();
+            builder.Property(x => x.CustomerId);
+            builder.Property(x => x.Address).HasMaxLength(200);
+            builder.Property(x => x.FullName);
+            builder.Property(x => x.Phone);
+            builder.Property(x => x.Province);
+            builder.Property(x => x.District);
+            builder.Property(x => x.Ward);
         }
     }
 }

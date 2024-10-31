@@ -10,8 +10,8 @@ namespace NhaThuoc.Data.Configurations
         {
             builder.ToTable("ProductCoupons");
             builder.HasNoKey();
-            builder.Property(x => x.ProductId).IsRequired();
-            builder.Property(x => x.CouponId).IsRequired();
+            builder.Property(x => x.ProductId);
+            builder.Property(x => x.CouponId);
         }
     }
 }

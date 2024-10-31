@@ -7,9 +7,6 @@ namespace NhaThuoc.Application.Validators.Customer
     {
         public CreateCustomerAddressRequestValidator() 
         {
-            RuleFor(c => c.CustomerId)
-                .NotNull().WithMessage("Mã khách hàng không được để trống.")
-                .GreaterThan(0).WithMessage("Mã khách hàng phải lớn hơn 0.");
 
             RuleFor(c => c.AddressLine1)
                 .NotNull().WithMessage("Địa chỉ không được để trống.")

@@ -7,7 +7,7 @@ namespace NhaThuoc.Application.Validators.Customer
     {
         public UpdateCustomerRequestValidator() 
         {
-            RuleFor(c => c.CustomerId)
+            RuleFor(c => c.Id)
                 .NotNull().WithMessage("Mã khách hàng không được để trống.")
                 .GreaterThan(0).WithMessage("Mã khách hàng phải lớn hơn 0.");
 

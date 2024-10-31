@@ -9,12 +9,13 @@ namespace NhaThuoc.Data.Configurations
         public void Configure(EntityTypeBuilder<Order> builder)
         {
             builder.ToTable("Order");
+            builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).UseIdentityColumn();
-            builder.Property(x => x.CouponId).IsRequired();
-            builder.Property(x => x.CustomerId).IsRequired();
-            builder.Property(x => x.Status).IsRequired();
-            builder.Property(x => x.CreatedAt).IsRequired();
-            builder.Property(x => x.UpdatedAt).IsRequired();
+            builder.Property(x => x.CouponId);
+            builder.Property(x => x.CustomerId);
+            builder.Property(x => x.Status);
+            builder.Property(x => x.CreatedAt);
+            builder.Property(x => x.UpdatedAt);
         }
     }
 }

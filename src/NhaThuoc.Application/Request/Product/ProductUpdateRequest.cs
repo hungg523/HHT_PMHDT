@@ -1,7 +1,11 @@
-﻿namespace NhaThuoc.Domain.ReQuest.Product
+﻿using System.Text.Json.Serialization;
+
+namespace NhaThuoc.Application.Request.Product
 {
-    public class ProductCreateRequest
+    public class ProductUpdateRequest
     {
+        [JsonIgnore]
+        public int? Id { get; set; }
         public string? ProductName { get; set; }
         public string? SKU { get; set; }
         public double? RegularPrice { get; set; }
@@ -16,7 +20,6 @@
         public string? SeoTitle { get; set; }
         public string? SeoAlias { get; set; }
         public bool? IsActived { get; set; }
-        public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
     }
 }
