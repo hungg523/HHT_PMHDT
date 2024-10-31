@@ -10,8 +10,8 @@ namespace NhaThuoc.Data.Configurations
         {
             builder.ToTable("Coupons");
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Id).UseIdentityColumn();
-            builder.Property(x => x.Code).IsRequired();
+            builder.Property(x => x.Id);
+            builder.Property(x => x.Code);
             builder.Property(x => x.Description).HasMaxLength(200);
             builder.Property(x => x.TimesUsed);
             builder.Property(x => x.MaxUsage);

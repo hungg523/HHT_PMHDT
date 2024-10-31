@@ -10,7 +10,7 @@ namespace NhaThuoc.Data.Configurations
         {
             builder.ToTable("Products");
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Id).UseIdentityColumn();
+            builder.Property(x => x.Id);
             builder.Property(x => x.ProductName).HasMaxLength(200);
             builder.HasIndex(x => x.ProductName);
             builder.Property(x => x.SKU);

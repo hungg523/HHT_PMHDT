@@ -10,7 +10,7 @@ namespace NhaThuoc.Data.Configurations
         {
             builder.ToTable("Order");
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Id).UseIdentityColumn();
+            builder.Property(x => x.Id);
             builder.Property(x => x.CouponId);
             builder.Property(x => x.CustomerId);
             builder.Property(x => x.Status);

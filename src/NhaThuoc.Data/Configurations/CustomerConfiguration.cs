@@ -10,7 +10,7 @@ namespace NhaThuoc.Data.Configurations
         {
             builder.ToTable("Customers");
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Id).UseIdentityColumn();
+            builder.Property(x => x.Id);
             builder.Property(x => x.FirstName).HasMaxLength(200);
             builder.Property(x => x.LastName).HasMaxLength(200);
             builder.Property(x => x.AvatarImagePath).HasMaxLength(200);

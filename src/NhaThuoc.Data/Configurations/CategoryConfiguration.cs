@@ -10,7 +10,7 @@ namespace NhaThuoc.Data.Configurations
         {
             builder.ToTable("Categories");
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Id).HasColumnName("Id").UseIdentityColumn();
+            builder.Property(x => x.Id).HasColumnName("Id");
             builder.Property(x => x.ParentId).HasColumnName("ParentId");
             builder.Property(x => x.Name).HasColumnName("CategoryName");
             builder.Property(x => x.Description).HasColumnName("CategoryDescription");
