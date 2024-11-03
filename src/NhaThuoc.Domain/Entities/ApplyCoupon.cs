@@ -2,12 +2,11 @@
 
 namespace NhaThuoc.Domain.Entities
 {
-    public class OrderItem : BaseEntity
+    public class ApplyCoupon : BaseEntity
     {
         public int Id { get; set; }
+        public int CouponId { get; set; }
         public int OrderId { get; set; }
-        public int ProductId { get; set; }
-        public int Quantity { get; set; }
-        public decimal TotalPrice { get; set; }
+        public Decimal DiscoundAmount { get; set; }
     }
 }

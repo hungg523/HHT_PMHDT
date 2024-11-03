@@ -3,24 +3,15 @@ using NhaThuoc.Application.Request.Product;
 
 namespace NhaThuoc.Application.Validators.Product
 {
-    public class UpdateProductRequestValidator : AbstractValidator<ProductUpdateRequest>
+    public class UpdateProductRequestValidator : AbstractValidator<UpdateProductRequest>
     {
         public UpdateProductRequestValidator() 
         {
             RuleFor(c => c.Id)
-                .NotNull().WithMessage("Id không được để trống.")
-                .NotEmpty()
                 .GreaterThan(0).WithMessage("Id phải lớn hơn 0.");
 
             RuleFor(p => p.ProductName)
-               .NotNull().WithMessage("Tên sản phẩm không được để trống.")
-               .NotEmpty().WithMessage("Tên sản phẩm không được rỗng.")
                .MaximumLength(100).WithMessage("Tên sản phẩm không được vượt quá 100 ký tự.");
-
-            RuleFor(p => p.SKU)
-                .NotNull().WithMessage("Mã SKU không được để trống.")
-                .NotEmpty().WithMessage("Mã SKU không được rỗng.")
-                .MaximumLength(50).WithMessage("Mã SKU không được vượt quá 50 ký tự.");
 
             RuleFor(p => p.RegularPrice)
                 .GreaterThanOrEqualTo(0).WithMessage("Giá bán phải lớn hơn hoặc bằng 0.");
@@ -46,11 +37,6 @@ namespace NhaThuoc.Application.Validators.Product
             RuleFor(p => p.Ingredients)
                 .MaximumLength(1000).WithMessage("Thành phần không được vượt quá 1000 ký tự.");
 
-            RuleFor(p => p.ImagePath)
-                .Matches(@"^(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|jpeg|png)$")
-                .When(p => !string.IsNullOrEmpty(p.ImagePath))
-                .WithMessage("Đường dẫn hình ảnh không hợp lệ. Chỉ chấp nhận các định dạng jpg, jpeg, png.");
-
             RuleFor(p => p.SeoTitle)
                 .MaximumLength(100).WithMessage("Tiêu đề SEO không được vượt quá 100 ký tự.");
 
@@ -59,12 +45,7 @@ namespace NhaThuoc.Application.Validators.Product
                 .When(p => !string.IsNullOrEmpty(p.SeoAlias))
                 .WithMessage("Định dạng đường dẫn SEO không hợp lệ.");
 
-            RuleFor(p => p.IsActived)
-                .NotNull().WithMessage("Trạng thái kích hoạt không được để trống.");
-
-            RuleFor(p => p.UpdatedAt)
-                .NotNull().WithMessage("Ngày cập nhật không được để trống.")
-                .LessThanOrEqualTo(DateTime.Now).WithMessage("Ngày cập nhật không được lớn hơn ngày hiện tại.");
+            RuleFor(x => x.CategoryIds).Must(list => list.All(id => id > 0));
         }
     }
 }

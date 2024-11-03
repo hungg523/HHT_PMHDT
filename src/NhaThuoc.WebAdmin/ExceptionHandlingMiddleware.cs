@@ -1,4 +1,4 @@
-﻿using NhaThuoc.Domain.Exceptions;
+﻿using NhaThuoc.Share.Exceptions;
 using System.Text.Json;
 
 namespace NhaThuoc.WebAdmin

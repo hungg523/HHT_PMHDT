@@ -1,6 +1,6 @@
 using AutoMapper;
 using NhaThuoc.Application.Request.Category;
-using NhaThuoc.Application.Validators.Categories;
+using NhaThuoc.Application.Request.Product;
 using NhaThuoc.Domain.Entities;
 
 namespace NhaThuoc.Application.Mapping
@@ -9,8 +9,15 @@ namespace NhaThuoc.Application.Mapping
     {
         public ApplicationMappingProfile()
         {
-            //CreateMap<CreateCategoryRequest, Category>().ReverseMap();
-            //CreateMap<CreateCategoryRequest, CreateCategoryRequestValidator>().ReverseMap();
+            #region Category
+            CreateMap<Category, CreateCategoryRequest > ().ReverseMap();
+            CreateMap<Category, UpdateCategoryRequest > ().ReverseMap();
+            #endregion
+
+            #region Product
+            CreateMap<Product, CreateProductRequest>().ReverseMap();
+            CreateMap<Product, UpdateProductRequest>().ReverseMap();
+            #endregion
         }
     }
 }

@@ -1,11 +1,12 @@
-﻿using NhaThuoc.Domain.Abtractions.Common;
+﻿using MediatR;
+using NhaThuoc.Domain.Entities;
+using NhaThuoc.Share.Exceptions;
 using System.Text.Json.Serialization;
 
-namespace NhaThuoc.Domain.Entities
+namespace NhaThuoc.Application.Request.Product
 {
-    public class Product : BaseEntity
+    public class CreateProductRequest : IRequest<ApiResponse>
     {
-        public int? Id { get; set; }
         public string? ProductName { get; set; }
         public double? RegularPrice { get; set; }
         public double? DiscountPrice { get; set; }
@@ -18,10 +19,10 @@ namespace NhaThuoc.Domain.Entities
         public string? ImagePath { get; set; }
         public string? SeoTitle { get; set; }
         public string? SeoAlias { get; set; }
-        public bool? IsActived { get; set; }
-        public DateTime? CreatedAt { get; set; }
-        
+        public bool? IsActived { get; set; } = false;
+
         [JsonIgnore]
-        public ICollection<ProductCategory>? ProductCategories { get; set; }
+        public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;
+        public ICollection<int?> CategoryIds { get; set; }
     }
 }

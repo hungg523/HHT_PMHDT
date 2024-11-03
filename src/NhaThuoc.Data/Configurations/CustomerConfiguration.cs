@@ -10,16 +10,15 @@ namespace NhaThuoc.Data.Configurations
         {
             builder.ToTable("Customers");
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Id);
-            builder.Property(x => x.FirstName).HasMaxLength(200);
-            builder.Property(x => x.LastName).HasMaxLength(200);
-            builder.Property(x => x.AvatarImagePath).HasMaxLength(200);
-            builder.Property(x => x.PhoneNumber);
-            builder.Property(x => x.Email);
-            builder.Property(x => x.Password);
-            builder.Property(x => x.Role);
-            builder.Property(x => x.IsActive);
-            builder.Property(x => x.CreatedAt);
+            builder.Property(x => x.Id).HasColumnName("CustomerId");
+            builder.Property(x => x.FirstName).HasColumnName("FirstName");
+            builder.Property(x => x.LastName).HasColumnName("LastName");
+            builder.Property(x => x.PhoneNumber).HasColumnName("PhoneNumber");
+            builder.Property(x => x.Email).HasColumnName("Email");
+            builder.Property(x => x.AvatarImagePath).HasColumnName("AvatarImagePath");
+            builder.Property(x => x.Password).HasColumnName("Password");
+            builder.Property(x => x.IsActive).HasColumnName("IsActive");
+            builder.Property(x => x.CreatedAt).HasColumnName("CreatedAt");
         }
     }
 }

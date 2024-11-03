@@ -10,14 +10,14 @@ namespace NhaThuoc.Data.Configurations
         {
             builder.ToTable("CustomerAddresses");
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Id);
-            builder.Property(x => x.CustomerId);
-            builder.Property(x => x.Address).HasMaxLength(200);
-            builder.Property(x => x.FullName);
-            builder.Property(x => x.Phone);
-            builder.Property(x => x.Province);
-            builder.Property(x => x.District);
-            builder.Property(x => x.Ward);
+            builder.Property(x => x.Id).HasColumnName("CustomerAddressesId");
+            builder.Property(x => x.CustomerId).HasColumnName("CustomerId");
+            builder.Property(x => x.Address).HasColumnName("Address");
+            builder.Property(x => x.FullName).HasColumnName("FullName");
+            builder.Property(x => x.Phone).HasColumnName("Phone");
+            builder.Property(x => x.Province).HasColumnName("Province");
+            builder.Property(x => x.District).HasColumnName("District");
+            builder.Property(x => x.Ward).HasColumnName("Ward");
         }
     }
 }

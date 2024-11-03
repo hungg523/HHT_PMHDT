@@ -1,5 +1,6 @@
 ﻿using MediatR;
-using NhaThuoc.Application.Exceptions;
+using NhaThuoc.Share.Exceptions;
+using System.Text.Json.Serialization;
 
 namespace NhaThuoc.Application.Request.Category
 {
@@ -9,6 +10,8 @@ namespace NhaThuoc.Application.Request.Category
         public string? Name { get; set; }
         public string? Description { get; set; }
         public string? ImagePath { get; set; }
-        public bool? IsActive { get; set; }
+        public bool? IsActive { get; set; } = false;
+        [JsonIgnore]
+        public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;
     }
 }

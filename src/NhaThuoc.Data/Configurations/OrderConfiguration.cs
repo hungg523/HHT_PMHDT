@@ -10,12 +10,11 @@ namespace NhaThuoc.Data.Configurations
         {
             builder.ToTable("Order");
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Id);
-            builder.Property(x => x.CouponId);
-            builder.Property(x => x.CustomerId);
-            builder.Property(x => x.Status);
-            builder.Property(x => x.CreatedAt);
-            builder.Property(x => x.UpdatedAt);
+            builder.Property(x => x.Id).HasColumnName("OrderId");
+            builder.Property(x => x.CustomerId).HasColumnName("CustomerId");
+            builder.Property(x => x.Status).HasColumnName("Status");
+            builder.Property(x => x.CreatedAt).HasColumnName("CreatedAt");
+            builder.Property(x => x.UpdatedAt).HasColumnName("UpdatedAt");
         }
     }
 }

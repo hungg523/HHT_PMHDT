@@ -10,17 +10,18 @@ namespace NhaThuoc.Data.Configurations
         {
             builder.ToTable("Coupons");
             builder.HasKey(x => x.Id);
-            builder.Property(x => x.Id);
-            builder.Property(x => x.Code);
-            builder.Property(x => x.Description).HasMaxLength(200);
-            builder.Property(x => x.TimesUsed);
-            builder.Property(x => x.MaxUsage);
-            builder.Property(x => x.Discount);
-            builder.Property(x => x.IsActive);
-            builder.Property(x => x.CouponStartDate);
-            builder.Property(x => x.CouponEndDate);
-            builder.Property(x => x.CreatedAt);
-            builder.Property(x => x.UpdatedAt);
+            builder.Property(x => x.Id).HasColumnName("CouponId");
+            builder.Property(x => x.Code).HasColumnName("Code");
+            builder.Property(x => x.Description).HasColumnName("Description");
+            builder.Property(x => x.TimesUsed).HasColumnName("TimesUsed");
+            builder.Property(x => x.MaxUsage).HasColumnName("MaxUsage");
+            builder.Property(x => x.Discount).HasColumnName("Discount");
+            builder.Property(x => x.IsActive).HasColumnName("IsActive");
+            builder.Property(x => x.CouponStartDate).HasColumnName("CouponStartDate");
+            builder.Property(x => x.CouponEndDate).HasColumnName("CouponEndDate");
+            builder.Property(x => x.CreatedAt).HasColumnName("CreatedAt");
+            builder.Property(x => x.UpdatedAt).HasColumnName("UpdatedAt");
+
         }
     }
 }

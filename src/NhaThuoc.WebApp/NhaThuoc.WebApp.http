@@ -1,6 +1,0 @@
-@NhaThuoc.WebApp_HostAddress = http://localhost:5185
-
-GET {{NhaThuoc.WebApp_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

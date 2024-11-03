@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using NhaThuoc.Application.Exceptions;
+using NhaThuoc.Share.Exceptions;
 using System.Text.Json.Serialization;
 
 namespace NhaThuoc.Application.Request.Category
