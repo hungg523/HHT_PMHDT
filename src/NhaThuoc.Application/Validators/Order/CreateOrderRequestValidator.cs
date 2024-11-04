@@ -8,19 +8,11 @@ namespace NhaThuoc.Application.Validators.Order
         public CreateOrderRequestValidator() 
         {
             RuleFor(o => o.CouponId)
-                .GreaterThan(0).When(o => o.CouponId > 0).WithMessage("Mã giảm giá phải lớn hơn 0 nếu có.");
+                .GreaterThan(0).WithMessage("CouponId phải lớn hơn 0.");
 
             RuleFor(o => o.CustomerId)
-                .NotNull().WithMessage("Mã khách hàng không được để trống.")
-                .GreaterThan(0).WithMessage("Mã khách hàng phải lớn hơn 0.");
-
-            RuleFor(o => o.CreatedAt)
-                .NotNull().WithMessage("Ngày tạo không được để trống.")
-                .LessThanOrEqualTo(DateTime.Now).WithMessage("Ngày tạo không được lớn hơn ngày hiện tại.");
-
-            RuleFor(o => o.UpdatedAt)
-                .NotNull().WithMessage("Ngày cập nhật không được để trống.")
-                .LessThanOrEqualTo(DateTime.Now).WithMessage("Ngày cập nhật không được lớn hơn ngày hiện tại.");
+                .NotNull().WithMessage("CustomerId không được để trống.")
+                .GreaterThan(0).WithMessage("CustomerId phải lớn hơn 0.");
         }
     }
 }

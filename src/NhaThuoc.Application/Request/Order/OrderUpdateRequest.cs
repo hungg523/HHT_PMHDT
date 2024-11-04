@@ -1,4 +1,4 @@
-﻿using NhaThuoc.Domain.Abtractions.Enums;
+﻿using NhaThuoc.Share.Enums;
 using System.Text.Json.Serialization;
 
 namespace NhaThuoc.Application.Request.Order

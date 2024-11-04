@@ -1,4 +1,4 @@
-﻿namespace NhaThuoc.Application.Request.Customer
+﻿namespace NhaThuoc.Application.Request.Customers.Customer
 {
     public class ChangePasswordRequest
     {

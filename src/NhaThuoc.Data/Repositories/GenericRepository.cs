@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using NhaThuoc.Domain.Abtractions.Common;
 using NhaThuoc.Domain.Abtractions.IRepositories;
+using System.Linq.Expressions;
+using System.Linq;
 
 namespace NhaThuoc.Data.Repositories
 {
@@ -32,10 +34,17 @@ namespace NhaThuoc.Data.Repositories
             dbContext.Add(entity);
         }
 
-        public async Task<IReadOnlyList<T>> GetAll()
+        public IQueryable<T> FindAll(Expression<Func<T, bool>>? predicate = null, params Expression<Func<T, object>>[] includeProperties)
         {
-            var units = await dbContext.Set<T>().AsNoTracking().ToListAsync();
-            return mapper.Map<List<T>>(units);
+            var query = dbContext.Set<T>().AsQueryable();
+            if (includeProperties.Any())
+            {
+                foreach (var includeProperty in includeProperties)
+                {
+                    query = query.Include(includeProperty);
+                }
+            }
+            return predicate is not null ? query.Where(predicate) : query;
         }
 
         public async Task<T?> FindByIdAsync(object id)
@@ -48,7 +57,10 @@ namespace NhaThuoc.Data.Repositories
 
             return mapper.Map<T>(unit);
         }
-
+        public void RemoveMultiple(IEnumerable<T> entities)
+        {
+            dbContext.Set<T>().RemoveRange(entities);
+        }
         public Task<int> SaveChangesAsync(CancellationToken cancellationToken = default) => dbContext.SaveChangesAsync();
 
         public IDbContextTransaction BeginTransaction()

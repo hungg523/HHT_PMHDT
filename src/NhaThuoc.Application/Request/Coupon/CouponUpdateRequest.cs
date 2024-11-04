@@ -1,8 +1,10 @@
-﻿using System.Text.Json.Serialization;
+﻿using MediatR;
+using NhaThuoc.Share.Exceptions;
+using System.Text.Json.Serialization;
 
 namespace NhaThuoc.Application.Request.Coupon
 {
-    public class CouponUpdateRequest
+    public class CouponUpdateRequest : IRequest<ApiResponse>
     {
         [JsonIgnore]
         public int? Id { get; set; }
@@ -10,10 +12,11 @@ namespace NhaThuoc.Application.Request.Coupon
         public string? Description { get; set; }
         public int? TimesUsed { get; set; }
         public int? MaxUsage { get; set; }
-        public decimal? Discount { get; set; }
+        public string? Discount { get; set; }
         public bool? IsActive { get; set; }
         public DateTime CouponStartDate { get; set; }
         public DateTime CouponEndDate { get; set; }
-        public DateTime UpdatedAt { get; set; }
+        [JsonIgnore]
+        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
     }
 }

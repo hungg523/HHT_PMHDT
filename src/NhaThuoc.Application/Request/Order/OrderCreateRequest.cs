@@ -1,4 +1,4 @@
-﻿using NhaThuoc.Domain.Abtractions.Enums;
+﻿using NhaThuoc.Share.Enums;
 
 namespace NhaThuoc.Domain.ReQuest.Order
 {
@@ -9,7 +9,5 @@ namespace NhaThuoc.Domain.ReQuest.Order
         public OrderStatus Status { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-
     }
-
 }
