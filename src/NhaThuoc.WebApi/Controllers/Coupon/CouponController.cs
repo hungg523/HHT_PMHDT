@@ -1,26 +1,27 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NhaThuoc.Application.Request.Category;
+using NhaThuoc.Application.Request.Coupon;
 using NhaThuoc.Share.Exceptions;
 
-namespace NhaThuoc.WebApi.Controllers.Category
+namespace NhaThuoc.WebApi.Controllers.Coupon
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoryController : ControllerBase
+    public class CouponController : ControllerBase
     {
         private readonly IMediator mediator;
 
-        public CategoryController(IMediator mediator)
+        public CouponController(IMediator mediator)
         {
             this.mediator = mediator;
         }
-        [HttpGet("/get-category-name")]
-        public async Task<IActionResult> GetByNameCategory(int id)
+        [HttpGet("/get-coupon-name")]
+        public async Task<IActionResult> GetByNameCoupon(int id)
         {
             try
             {
-                var command = new GetByNameCategoryRequest();
+                var command = new GetByNameCouponRequest();
                 command.Id = id;
                 var result = await mediator.Send(command);
                 return Ok(result);
@@ -31,12 +32,12 @@ namespace NhaThuoc.WebApi.Controllers.Category
             }
         }
 
-        [HttpGet("/get-categories")]
-        public async Task<IActionResult> GetAllCategory()
+        [HttpGet("/get-coupons")]
+        public async Task<IActionResult> GetAllCoupon()
         {
             try
             {
-                var command = new GetAllCategoryRequest();
+                var command = new GetAllCouponRequest();
                 var result = await mediator.Send(command);
                 return Ok(result);
             }

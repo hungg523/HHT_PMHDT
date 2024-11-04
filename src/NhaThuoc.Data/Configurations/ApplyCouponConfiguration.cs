@@ -12,7 +12,7 @@ namespace NhaThuoc.Data.Configurations
             builder.Property(x => x.Id).HasJsonPropertyName("ApplyCouponId");
             builder.Property(x => x.OrderId).HasJsonPropertyName("OrderId");
             builder.Property(x => x.CouponId).HasJsonPropertyName("CouponId");
-            builder.Property(x => x.DiscoundAmount).HasJsonPropertyName("DiscoundAmount").HasPrecision(18, 2);
+            builder.Property(x => x.DiscoundAmount).HasJsonPropertyName("DiscoundAmount");
             builder.HasKey(x => new
             {
                 x.Id,

@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using NhaThuoc.Application.Request.Coupon;
 using NhaThuoc.Share.Exceptions;
 
-namespace NhaThuoc.WebAdmin.Controller.Category
+namespace NhaThuoc.WebAdmin.Controller.Coupon
 {
     public class AdminCouponController : ControllerBase
     {
