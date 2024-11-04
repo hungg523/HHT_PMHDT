@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Nhà Thuốc - Danh Sách Danh Mục</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="../../assets/vendors/feather/feather.css">
+    <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../../assets/vendors/ti-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="../../assets/vendors/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../assets/vendors/typicons/typicons.css">
+    <link rel="stylesheet" href="../../assets/vendors/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="../../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="shortcut icon" href="../../assets/images/favicon.png" />
+</head>
+<body>
+    <div class="container-scroller">
+        <!-- partial:partials/_navbar.html -->
+        <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
+                <div class="me-3">
+                    <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-bs-toggle="minimize">
+                        <span class="icon-menu"></span>
+                    </button>
+                </div>
+                <div>
+                    <a class="navbar-brand brand-logo" href="/index.html">
+                        <img src="/assets/images/logo.svg" alt="logo" />
+                    </a>
+                    <a class="navbar-brand brand-logo-mini" href="/index.html">
+                        <img src="/assets/images/logo-mini.svg" alt="logo" />
+                    </a>
+                </div>            
+            </div> 
+        </nav>
+
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/index.html">
+                            <i class="mdi mdi-grid-large menu-icon"></i>
+                            <span class="menu-title">Trang chủ</span>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-category">Danh mục</li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/pages/category/index.html">
+                            <i class="menu-icon mdi mdi-floor-plan"></i>
+                            <span class="menu-title">Quản lý danh mục</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Main panel for displaying categories -->
+            <div class="main-panel">        
+                <div class="content-wrapper">
+                    <div class="row">
+                        <div class="col-lg-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h4 class="card-title">Danh Sách Danh Mục</h4>
+                                        <!-- Nút "Thêm Mới" bên phải -->
+                                        <a href="/pages/category/create.html" class="btn btn-primary">Thêm Mới</a>
+                                    </div>
+                                    <p class="card-description"> <code>Danh sách các danh mục hiện tại</code> </p>
+                                    <div class="table-responsive">
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th> ID </th>
+                                                    <th> Tên danh mục </th>
+                                                    <th> Mô tả </th>
+                                                    <th> Đường dẫn ảnh </th>
+                                                    <th> Kích hoạt </th>
+                                                    <th> Thao tác </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="categoryTableBody">
+                                                <!-- Dữ liệu danh mục sẽ được hiển thị ở đây -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div id="message" style="display: none; padding: 10px; margin-top: 10px; border-radius: 5px; font-weight: bold;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+        </div>
+    </div>
+
+    <!-- plugins:js -->
+    <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
+    <script src="../../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <script src="../../assets/js/off-canvas.js"></script>
+    <script src="../../assets/js/template.js"></script>
+    <script src="../../assets/js/settings.js"></script>
+    <script src="../../assets/js/hoverable-collapse.js"></script>
+    <script src="../../assets/js/todolist.js"></script>
+
+    <!-- Script to Fetch and Display Categories -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const categoryTableBody = document.getElementById("categoryTableBody");
+            const messageDiv = document.getElementById("message");
+        
+            // Fetch categories from the server
+            fetch('https://localhost:7099/get-categories', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                categoryTableBody.innerHTML = "";
+        
+                data.forEach(category => {
+                    const row = document.createElement("tr");
+        
+                    const statusBadge = category.isActive 
+                    ? `<span style="display: inline-block; width: 60px; height: 30px; line-height: 30px; text-align: center; 
+                    border-radius: 5px; color: white; background-color: #28a745; font-weight: bold;">Có</span>`
+                    
+                    : `<span style="display: inline-block; width: 60px; height: 30px; line-height: 30px; text-align: center; 
+                    border-radius: 5px; color: white; background-color: #dc3545; font-weight: bold;">Không</span>`;
+        
+                    row.innerHTML = `
+                        <td>${category.id}</td>
+                        <td>${category.name}</td>
+                        <td>${category.description || ""}</td>
+                        <td>${category.imagePath || ""}</td>
+                        <td>${statusBadge}</td>
+                        <td>
+                            <a href="/pages/category/edit.html?id=${category.id}" class="btn btn-sm btn-warning">Sửa</a>
+                        </td>
+                    `;
+        
+                    categoryTableBody.appendChild(row);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching categories:', error);
+                messageDiv.style.display = 'block';
+                messageDiv.style.backgroundColor = '#f8d7da';
+                messageDiv.style.color = '#721c24'; 
+                messageDiv.innerHTML = 'Có lỗi xảy ra khi tải danh sách danh mục.';
+            });
+        });        
+    </script>
+</body>
+</html>

@@ -50,7 +50,13 @@
                     </li>
                     <li class="nav-item nav-category">Danh mục</li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Category/create.html">
+                        <a class="nav-link active" href="/pages/category/index.html">
+                            <i class="menu-icon mdi mdi-floor-plan"></i>
+                            <span class="menu-title">Quản lý danh mục</span>
+                        </a>
+                    </li>                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="/pages/category/create.html">
                             <i class="menu-icon mdi mdi-floor-plan"></i>
                             <span class="menu-title">Tạo danh mục</span>
                         </a>
@@ -166,7 +172,7 @@
             }
     
             // Gửi request nếu không có lỗi
-            fetch('https://localhost:7069/create-category', {
+            fetch('https://localhost:7099/create-category', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
