@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Nhà Thuốc - Thêm Danh Mục</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="../../assets/vendors/feather/feather.css">
+    <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../../assets/vendors/ti-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="../../assets/vendors/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../assets/vendors/typicons/typicons.css">
+    <link rel="stylesheet" href="../../assets/vendors/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="../../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="shortcut icon" href="../../assets/images/favicon.png" />
+</head>
+<body>
+    <div class="container-scroller">
+        <!-- partial:partials/_navbar.html -->
+        <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
+                <div class="me-3">
+                    <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-bs-toggle="minimize">
+                        <span class="icon-menu"></span>
+                    </button>
+                </div>
+                <div>
+                    <a class="navbar-brand brand-logo" href="/index.html">
+                        <img src="/assets/images/logo.svg" alt="logo" />
+                    </a>
+                    <a class="navbar-brand brand-logo-mini" href="/index.html">
+                        <img src="/assets/images/logo-mini.svg" alt="logo" />
+                    </a>
+                </div>
+            </div>        
+        </nav>
+
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/index.html">
+                            <i class="mdi mdi-grid-large menu-icon"></i>
+                            <span class="menu-title">Trang chủ</span>
+                        </a>
+                    </li>
+                    <li class="nav-item nav-category">Danh mục</li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/Category/create.html">
+                            <i class="menu-icon mdi mdi-floor-plan"></i>
+                            <span class="menu-title">Tạo danh mục</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!-- Main panel for the form -->
+            <div class="main-panel">        
+                <div class="content-wrapper">
+                    <div class="row">
+                        <div class="col-lg-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Thêm mới Danh Mục</h4>
+                                    <p class="card-description"> <code>Nhập thông tin danh mục</code> </p>
+                                    <form id="categoryForm">
+                                        <div class="form-group">
+                                            <label for="parentId">Parent ID</label>
+                                            <input type="number" class="form-control" id="parentId" placeholder="Parent ID">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="name">Tên danh mục</label>
+                                            <input type="text" class="form-control" id="name" placeholder="Tên danh mục" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="description">Mô tả</label>
+                                            <input type="text" class="form-control" id="description" placeholder="Mô tả">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="imagePath">Đường dẫn ảnh</label>
+                                            <input type="text" class="form-control" id="imagePath" placeholder="Đường dẫn ảnh">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="isActive">Kích hoạt</label>
+                                            <input type="checkbox" id="isActive">
+                                        </div>
+                                        <div id="message" style="display: none; padding: 10px; margin-top: 10px; border-radius: 5px; font-weight: bold;"></div>
+                                        <button type="button" class="btn btn-primary mt-3" onclick="submitForm()">Thêm Danh Mục</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- plugins:js -->
+    <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
+    <script src="../../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <script src="../../assets/js/off-canvas.js"></script>
+    <script src="../../assets/js/template.js"></script>
+    <script src="../../assets/js/settings.js"></script>
+    <script src="../../assets/js/hoverable-collapse.js"></script>
+    <script src="../../assets/js/todolist.js"></script>
+
+    <!-- Call Api Via Https Localhost -->
+<script>
+
+</script>
+
+</body>
+</html>
