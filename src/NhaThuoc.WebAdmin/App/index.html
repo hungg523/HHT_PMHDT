@@ -4,7 +4,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Star Admin2 </title>
+    <title>Nhà Thuốc - Trang chủ </title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="assets/vendors/feather/feather.css">
     <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
@@ -47,7 +47,7 @@
 
           <ul class="navbar-nav">
             <li class="nav-item fw-semibold d-none d-lg-block ms-0">
-              <h1 class="welcome-text">Good Morning, <span class="text-black fw-bold">Tới ngu</span></h1>
+              <h1 class="welcome-text" id="greeting">Good Morning, <span class="text-black fw-bold">Tới ngu</span></h1>
               <h3 class="welcome-sub-text"> Đây là trang quản lý nhà thuốc! </h3>
             </li>
           </ul>
@@ -114,5 +114,21 @@
     <script src="assets/js/dashboard.js"></script>
     <!-- <script src="assets/js/Chart.roundedBarCharts.js"></script> -->
     <!-- End custom js for this page-->
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          const greetingElement = document.getElementById("greeting");
+          const currentHour = new Date().getHours();
+          let greetingMessage = "Good Morning"; // Mặc định là "Good Morning"
+    
+          if (currentHour >= 12 && currentHour < 18) {
+              greetingMessage = "Good Afternoon";
+          } else if (currentHour >= 18 || currentHour < 5) {
+              greetingMessage = "Good Evening";
+          }
+    
+          greetingElement.innerHTML = `${greetingMessage}, <span class="text-black fw-bold">Tới ngu</span>`;
+      });
+    </script>    
   </body>
 </html>
