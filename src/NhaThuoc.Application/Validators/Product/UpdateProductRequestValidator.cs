@@ -11,39 +11,37 @@ namespace NhaThuoc.Application.Validators.Product
                 .GreaterThan(0).WithMessage("Id phải lớn hơn 0.");
 
             RuleFor(p => p.ProductName)
-               .MaximumLength(100).WithMessage("Tên sản phẩm không được vượt quá 100 ký tự.");
+               .MaximumLength(200).WithMessage("ProductName không được vượt quá 200 ký tự.");
 
             RuleFor(p => p.RegularPrice)
-                .GreaterThanOrEqualTo(0).WithMessage("Giá bán phải lớn hơn hoặc bằng 0.");
+                .GreaterThanOrEqualTo(0).WithMessage("RegularPrice phải lớn hơn hoặc bằng 0.");
 
             RuleFor(p => p.DiscountPrice)
-                .GreaterThanOrEqualTo(0).WithMessage("Giá khuyến mãi phải lớn hơn hoặc bằng 0.")
-                .LessThanOrEqualTo(p => p.RegularPrice).WithMessage("Giá khuyến mãi không được lớn hơn giá bán.");
+                .GreaterThanOrEqualTo(0).WithMessage("DiscountPrice phải lớn hơn hoặc bằng 0.");
 
-            RuleFor(p => p.Description);
+            RuleFor(p => p.Description)
+                .MaximumLength(200).WithMessage("Description không được vượt quá 200 ký tự.");
 
             RuleFor(p => p.Brand)
-                .MaximumLength(100).WithMessage("Thương hiệu không được vượt quá 100 ký tự.");
+                .MaximumLength(2000).WithMessage("Brand không được vượt quá 2000 ký tự.");
 
             RuleFor(p => p.Packaging)
-                .MaximumLength(100).WithMessage("Quy cách đóng gói không được vượt quá 100 ký tự.");
+                .MaximumLength(2000).WithMessage("Packaging không được vượt quá 2000 ký tự.");
 
             RuleFor(p => p.Origin)
-                .MaximumLength(100).WithMessage("Xuất xứ không được vượt quá 100 ký tự.");
+                .MaximumLength(2000).WithMessage("Origin không được vượt quá 2000 ký tự.");
 
             RuleFor(p => p.Manufacturer)
-                .MaximumLength(100).WithMessage("Nhà sản xuất không được vượt quá 100 ký tự.");
+                .MaximumLength(2000).WithMessage("Manufacturer không được vượt quá 2000 ký tự.");
 
             RuleFor(p => p.Ingredients)
-                .MaximumLength(1000).WithMessage("Thành phần không được vượt quá 1000 ký tự.");
+                .MaximumLength(2000).WithMessage("Ingredients không được vượt quá 2000 ký tự.");
 
             RuleFor(p => p.SeoTitle)
-                .MaximumLength(100).WithMessage("Tiêu đề SEO không được vượt quá 100 ký tự.");
+                .MaximumLength(200).WithMessage("SeoTitle không được vượt quá 200 ký tự.");
 
             RuleFor(p => p.SeoAlias)
-                .Matches(@"^[a-z0-9]+(?:-[a-z0-9]+)*$")
-                .When(p => !string.IsNullOrEmpty(p.SeoAlias))
-                .WithMessage("Định dạng đường dẫn SEO không hợp lệ.");
+                .MaximumLength(200).WithMessage("SeoAlias không được vượt quá 200 ký tự.");
 
             RuleFor(x => x.CategoryIds).Must(list => list.All(id => id > 0));
         }

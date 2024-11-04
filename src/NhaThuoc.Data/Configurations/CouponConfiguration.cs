@@ -21,7 +21,6 @@ namespace NhaThuoc.Data.Configurations
             builder.Property(x => x.CouponEndDate).HasColumnName("CouponEndDate");
             builder.Property(x => x.CreatedAt).HasColumnName("CreatedAt");
             builder.Property(x => x.UpdatedAt).HasColumnName("UpdatedAt");
-
         }
     }
 }

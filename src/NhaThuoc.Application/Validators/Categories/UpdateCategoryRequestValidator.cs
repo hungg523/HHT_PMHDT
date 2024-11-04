@@ -14,11 +14,13 @@ namespace NhaThuoc.Application.Validators.Categories
                 .GreaterThan(0).WithMessage("ParentId phải lớn hơn 0.");
 
             RuleFor(c => c.Name)
-                .MaximumLength(100).WithMessage("Tên không được vượt quá 100 ký tự.");
+                .MaximumLength(2000).WithMessage("Name không được vượt quá 2000 ký tự.");
 
             RuleFor(c => c.Description)
-                .MaximumLength(500).WithMessage("Description không được vượt quá 500 ký tự.");
-        }
+                .MaximumLength(2000).WithMessage("Description không được vượt quá 2000 ký tự.");
 
+            RuleFor(c => c.ImagePath)
+                .MaximumLength(2000).WithMessage("ImagePath không được vượt quá 2000 ký tự.");
+        }
     }
 }

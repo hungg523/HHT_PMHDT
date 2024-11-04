@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using NhaThuoc.Application.Request.Customer;
+using NhaThuoc.Application.Request.Customers.Customer;
 
 namespace NhaThuoc.Application.Validators.Customer
 {
@@ -10,12 +10,12 @@ namespace NhaThuoc.Application.Validators.Customer
             RuleFor(l => l.Email)
                 .NotNull().WithMessage("Email không được để trống.")
                 .NotEmpty().WithMessage("Email không được rỗng.")
-                .EmailAddress().WithMessage("Địa chỉ email không hợp lệ.");
+                .EmailAddress().WithMessage("EmailAddress không hợp lệ.");
 
             RuleFor(l => l.Password)
-                .NotNull().WithMessage("Mật khẩu không được để trống.")
-                .NotEmpty().WithMessage("Mật khẩu không được rỗng.")
-                .MinimumLength(6).WithMessage("Mật khẩu phải có ít nhất 6 ký tự.");
+                .NotNull().WithMessage("Password không được để trống.")
+                .NotEmpty().WithMessage("Password không được rỗng.")
+                .MinimumLength(2000).WithMessage("Password phải có ít nhất 2000 ký tự.");
         }
     }
 }
