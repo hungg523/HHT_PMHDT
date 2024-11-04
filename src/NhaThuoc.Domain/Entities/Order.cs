@@ -1,8 +1,9 @@
-﻿using NhaThuoc.Domain.Enums;
+﻿using NhaThuoc.Domain.Abtractions.Common;
+using NhaThuoc.Domain.Abtractions.Enums;
 
 namespace NhaThuoc.Domain.Entities
 {
-    public class Order
+    public class Order : BaseEntity
     {
         public int Id { get; set; }
         public int CouponId { get; set; }
