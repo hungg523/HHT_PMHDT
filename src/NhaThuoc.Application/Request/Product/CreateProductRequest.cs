@@ -22,7 +22,7 @@ namespace NhaThuoc.Application.Request.Product
         public bool? IsActived { get; set; } = false;
 
         [JsonIgnore]
-        public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime? CreatedAt { get; set; } = DateTime.Now;
         public ICollection<int?> CategoryIds { get; set; }
     }
 }

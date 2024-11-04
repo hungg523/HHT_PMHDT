@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
 using NhaThuoc.Application.Request.Customers.CustomerAddress;
 
-namespace NhaThuoc.Application.Validators.Customer
+namespace NhaThuoc.Application.Validators.CustomerAddress
 {
     public class UpdateCustomerAddressRequestValidator : AbstractValidator<CustomerAddressUpdateRequest>
     {
-        public UpdateCustomerAddressRequestValidator() 
+        public UpdateCustomerAddressRequestValidator()
         {
             RuleFor(c => c.Id)
                 .GreaterThan(0).WithMessage("Id phải lớn hơn 0.");

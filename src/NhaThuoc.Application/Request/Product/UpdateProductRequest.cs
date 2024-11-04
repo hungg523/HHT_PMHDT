@@ -23,7 +23,7 @@ namespace NhaThuoc.Application.Request.Product
         public string? SeoAlias { get; set; }
         public bool? IsActived { get; set; }
         [JsonIgnore]
-        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime UpdatedAt { get; set; } = DateTime.Now;
         public ICollection<int?> CategoryIds { get; set; }
     }
 }

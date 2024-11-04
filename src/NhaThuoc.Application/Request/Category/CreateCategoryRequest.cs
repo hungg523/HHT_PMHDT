@@ -12,6 +12,6 @@ namespace NhaThuoc.Application.Request.Category
         public string? ImagePath { get; set; }
         public bool? IsActive { get; set; } = false;
         [JsonIgnore]
-        public DateTime? CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime? CreatedAt { get; set; } = DateTime.Now;
     }
 }
