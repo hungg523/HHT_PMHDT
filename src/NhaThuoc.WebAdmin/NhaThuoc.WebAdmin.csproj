@@ -15,4 +15,9 @@
     <ProjectReference Include="..\NhaThuoc.Data\NhaThuoc.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="App\" />
+    <Folder Include="Views\" />
+  </ItemGroup>
+
 </Project>
