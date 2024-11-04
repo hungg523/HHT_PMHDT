@@ -1,6 +1,6 @@
-﻿namespace NhaThuoc.Application.Request.Customer
+﻿namespace NhaThuoc.Application.Request.Customers.Customer
 {
-    public class CustomerVm
+    public class CustomerDto
     {
         public int Id { get; set; }
         public string FirstName { get; set; }

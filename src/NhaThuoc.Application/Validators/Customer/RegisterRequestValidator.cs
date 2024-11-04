@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using NhaThuoc.Application.Request.Customer;
+using NhaThuoc.Application.Request.Customers.Customer;
 
 namespace NhaThuoc.Application.Validators.Customer
 {
@@ -7,30 +7,31 @@ namespace NhaThuoc.Application.Validators.Customer
     {
         public RegisterRequestValidator()
         {
-            RuleFor(r => r.FirstName)
-                .NotNull().WithMessage("Tên không được để trống.")
-                .NotEmpty().WithMessage("Tên không được rỗng.")
-                .MaximumLength(50).WithMessage("Tên không được vượt quá 50 ký tự.");
+            RuleFor(u => u.FirstName)
+                .NotNull().WithMessage("FirstName không được để trống.")
+                .NotEmpty().WithMessage("FirstName không được rỗng.")
+                .MaximumLength(200).WithMessage("FirstName không được vượt quá 200 ký tự.");
 
-            RuleFor(r => r.LastName)
-                .NotNull().WithMessage("Họ không được để trống.")
-                .NotEmpty().WithMessage("Họ không được rỗng.")
-                .MaximumLength(50).WithMessage("Họ không được vượt quá 50 ký tự.");
+            RuleFor(u => u.LastName)
+                .NotNull().WithMessage("LastName không được để trống.")
+                .NotEmpty().WithMessage("LastName không được rỗng.")
+                .MaximumLength(200).WithMessage("LastName không được vượt quá 200 ký tự.");
 
-            RuleFor(r => r.Email)
+            RuleFor(u => u.Email)
                 .NotNull().WithMessage("Email không được để trống.")
                 .NotEmpty().WithMessage("Email không được rỗng.")
-                .EmailAddress().WithMessage("Địa chỉ email không hợp lệ.");
+                .EmailAddress().WithMessage("Email không đúng định dạng.")
+                .MaximumLength(450).WithMessage("LastName không được vượt quá 450 ký tự.");
 
-            RuleFor(r => r.Password)
-                .NotNull().WithMessage("Mật khẩu không được để trống.")
-                .NotEmpty().WithMessage("Mật khẩu không được rỗng.")
-                .MinimumLength(6).WithMessage("Mật khẩu phải có ít nhất 6 ký tự.");
+            RuleFor(u => u.Password)
+                .NotNull().WithMessage("Password không được để trống.")
+                .NotEmpty().WithMessage("Password không được rỗng.")
+                .MinimumLength(2000).WithMessage("Password phải có ít nhất 2000 ký tự.");
 
-            RuleFor(r => r.ConfirmPassword)
-                .NotNull().WithMessage("Xác nhận mật khẩu không được để trống.")
-                .NotEmpty().WithMessage("Xác nhận mật khẩu không được rỗng.")
-                .Equal(r => r.Password).WithMessage("Mật khẩu xác nhận không khớp với mật khẩu.");
+            RuleFor(u => u.ConfirmPassword)
+                .NotNull().WithMessage("ConfirmPassword không được để trống.")
+                .NotEmpty().WithMessage("ConfirmPassword không được rỗng.")
+                .Equal(u => u.Password).WithMessage("ConfirmPassword phải trùng với Password.");
         }
     }
 }

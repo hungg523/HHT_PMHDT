@@ -8,44 +8,59 @@ namespace NhaThuoc.Application.Validators.Product
         public CreateProductRequestValidator() 
         {
             RuleFor(p => p.ProductName)
-                .NotNull().WithMessage("Tên sản phẩm không được để trống.")
-                .NotEmpty().WithMessage("Tên sản phẩm không được rỗng.")
-                .MaximumLength(100).WithMessage("Tên sản phẩm không được vượt quá 100 ký tự.");
+                .NotNull().WithMessage("ProductName không được để trống.")
+                .NotEmpty().WithMessage("ProductName không được rỗng.")
+                .MaximumLength(200).WithMessage("ProductName không được vượt quá 200 ký tự.");
 
             RuleFor(p => p.RegularPrice)
-                .GreaterThanOrEqualTo(0).WithMessage("Giá bán phải lớn hơn hoặc bằng 0.");
+                .GreaterThanOrEqualTo(0).WithMessage("RegularPrice phải lớn hơn hoặc bằng 0.");
 
             RuleFor(p => p.DiscountPrice)
-                .GreaterThanOrEqualTo(0).WithMessage("Giá khuyến mãi phải lớn hơn hoặc bằng 0.")
-                .LessThanOrEqualTo(p => p.RegularPrice).WithMessage("Giá khuyến mãi không được lớn hơn giá bán.");
+                .GreaterThanOrEqualTo(0).WithMessage("DiscountPrice phải lớn hơn hoặc bằng 0.");
 
-            RuleFor(p => p.Description);
+            RuleFor(p => p.Description)
+                .NotNull().WithMessage("Description không được để trống.")
+                .NotEmpty().WithMessage("Description không được rỗng.")
+                .MaximumLength(200).WithMessage("Description không được vượt quá 200 ký tự.");
 
             RuleFor(p => p.Brand)
-                .MaximumLength(100).WithMessage("Thương hiệu không được vượt quá 100 ký tự.");
+                .NotNull().WithMessage("Brand không được để trống.")
+                .NotEmpty().WithMessage("Brand không được rỗng.")
+                .MaximumLength(2000).WithMessage("Brand không được vượt quá 2000 ký tự.");
 
             RuleFor(p => p.Packaging)
-                .MaximumLength(100).WithMessage("Quy cách đóng gói không được vượt quá 100 ký tự.");
+                .NotNull().WithMessage("Packaging không được để trống.")
+                .NotEmpty().WithMessage("Packaging không được rỗng.")
+                .MaximumLength(2000).WithMessage("Packaging không được vượt quá 2000 ký tự.");
 
             RuleFor(p => p.Origin)
-                .MaximumLength(100).WithMessage("Xuất xứ không được vượt quá 100 ký tự.");
+                .NotNull().WithMessage("Origin không được để trống.")
+                .NotEmpty().WithMessage("Origin không được rỗng.")
+                .MaximumLength(2000).WithMessage("Origin không được vượt quá 2000 ký tự.");
 
             RuleFor(p => p.Manufacturer)
-                .MaximumLength(100).WithMessage("Nhà sản xuất không được vượt quá 100 ký tự.");
+                .NotNull().WithMessage("Manufacturer không được để trống.")
+                .NotEmpty().WithMessage("Manufacturer không được rỗng.")
+                .MaximumLength(2000).WithMessage("Manufacturer không được vượt quá 2000 ký tự.");
 
             RuleFor(p => p.Ingredients)
-                .MaximumLength(1000).WithMessage("Thành phần không được vượt quá 1000 ký tự.");
+                .NotNull().WithMessage("Ingredients không được để trống.")
+                .NotEmpty().WithMessage("Ingredients không được rỗng.")
+                .MaximumLength(2000).WithMessage("Ingredients không được vượt quá 2000 ký tự.");
 
             RuleFor(p => p.SeoTitle)
-                .MaximumLength(100).WithMessage("Tiêu đề SEO không được vượt quá 100 ký tự.");
+                .NotNull().WithMessage("SeoTitle không được để trống.")
+                .NotEmpty().WithMessage("SeoTitle không được rỗng.")
+                .MaximumLength(200).WithMessage("SeoTitle không được vượt quá 200 ký tự.");
 
             RuleFor(p => p.SeoAlias)
-                .Matches(@"^[a-z0-9]+(?:-[a-z0-9]+)*$")
-                .When(p => !string.IsNullOrEmpty(p.SeoAlias))
-                .WithMessage("Định dạng đường dẫn SEO không hợp lệ.");
+                .NotNull().WithMessage("SeoAlias không được để trống.")
+                .NotEmpty().WithMessage("SeoAlias không được rỗng.")
+                .MaximumLength(200).WithMessage("SeoAlias không được vượt quá 200 ký tự.");
 
             RuleFor(p => p.IsActived)
-                .NotNull().WithMessage("Trạng thái kích hoạt không được để trống.");
+                .NotEmpty().WithMessage("Description không được rỗng.")
+                .NotNull().WithMessage("IsActive không được để trống.");
 
             RuleFor(x => x.CategoryIds).Must(list => list.All(id => id > 0));
         }

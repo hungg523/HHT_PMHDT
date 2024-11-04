@@ -1,4 +1,4 @@
-﻿namespace NhaThuoc.Domain.Abtractions.Enums
+﻿namespace NhaThuoc.Share.Enums
 {
     public enum PaymentStatus
     {

@@ -1,5 +1,5 @@
 ﻿using NhaThuoc.Domain.Abtractions.Common;
-using NhaThuoc.Domain.Abtractions.Enums;
+using NhaThuoc.Share.Enums;
 
 namespace NhaThuoc.Domain.Entities
 {
