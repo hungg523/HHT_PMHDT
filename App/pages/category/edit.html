@@ -1,25 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Nhà Thuốc - Thêm Danh Mục</title>
-    <!-- plugins:css -->
-    <link rel="stylesheet" href="../../assets/vendors/feather/feather.css">
-    <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="../../assets/vendors/ti-icons/css/themify-icons.css">
-    <link rel="stylesheet" href="../../assets/vendors/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../../assets/vendors/typicons/typicons.css">
-    <link rel="stylesheet" href="../../assets/vendors/simple-line-icons/css/simple-line-icons.css">
+    <title>Nhà Thuốc - Sửa Danh Mục</title>
     <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
-    <link rel="stylesheet" href="../../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
     <link rel="stylesheet" href="../../assets/css/style.css">
-    <link rel="shortcut icon" href="../../assets/images/favicon.png" />
 </head>
 <body>
     <div class="container-scroller">
-        <!-- partial:partials/_navbar.html -->
         <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
                 <div class="me-3">
@@ -35,10 +24,9 @@
                         <img src="/assets/images/logo-mini.svg" alt="logo" />
                     </a>
                 </div>
-            </div>        
+            </div>
         </nav>
 
-        <!-- partial -->
         <div class="container-fluid page-body-wrapper">
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <ul class="nav">
@@ -50,24 +38,23 @@
                     </li>
                     <li class="nav-item nav-category">Danh mục</li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Category/create.html">
+                        <a class="nav-link" href="/pages/category/index.html">
                             <i class="menu-icon mdi mdi-floor-plan"></i>
-                            <span class="menu-title">Tạo danh mục</span>
+                            <span class="menu-title">Quản lý danh mục</span>
                         </a>
                     </li>
                 </ul>
             </nav>
 
-            <!-- Main panel for the form -->
-            <div class="main-panel">        
+            <div class="main-panel">
                 <div class="content-wrapper">
                     <div class="row">
                         <div class="col-lg-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Thêm mới Danh Mục</h4>
-                                    <p class="card-description"> <code>Nhập thông tin danh mục</code> </p>
-                                    <form id="categoryForm">
+                                    <h4 class="card-title">Sửa Danh Mục</h4>
+                                    <p class="card-description"><code>Chỉnh sửa thông tin danh mục</code></p>
+                                    <form id="editCategoryForm">
                                         <div class="form-group">
                                             <label for="parentId">Parent ID</label>
                                             <input type="number" class="form-control" id="parentId" placeholder="Parent ID">
@@ -89,7 +76,7 @@
                                             <input type="checkbox" id="isActive">
                                         </div>
                                         <div id="message" style="display: none; padding: 10px; margin-top: 10px; border-radius: 5px; font-weight: bold;"></div>
-                                        <button type="button" class="btn btn-primary mt-3" onclick="submitForm()">Thêm Danh Mục</button>
+                                        <button type="button" class="btn btn-primary mt-3" onclick="updateCategory()">Lưu</button>
                                     </form>
                                 </div>
                             </div>
@@ -100,19 +87,67 @@
         </div>
     </div>
 
-    <!-- plugins:js -->
-    <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
-    <script src="../../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
-    <script src="../../assets/js/off-canvas.js"></script>
-    <script src="../../assets/js/template.js"></script>
-    <script src="../../assets/js/settings.js"></script>
-    <script src="../../assets/js/hoverable-collapse.js"></script>
-    <script src="../../assets/js/todolist.js"></script>
+    <script>
+        // Lấy id của danh mục từ URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const categoryId = urlParams.get('id');
 
-    <!-- Call Api Via Https Localhost -->
-<script>
+        // Hàm tải dữ liệu danh mục hiện tại
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch(`https://localhost:7099/get-category/${categoryId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Điền dữ liệu vào các trường input
+                document.getElementById('parentId').value = data.parentId;
+                document.getElementById('name').value = data.name;
+                document.getElementById('description').value = data.description;
+                document.getElementById('imagePath').value = data.imagePath;
+                document.getElementById('isActive').checked = data.isActive;
+            })
+            .catch(error => {
+                console.error('Error fetching category:', error);
+                alert('Có lỗi xảy ra khi tải dữ liệu danh mục.');
+            });
+        });
 
-</script>
+        // Hàm cập nhật danh mục
+        function updateCategory() {
+            const messageDiv = document.getElementById('message');
+            const categoryData = {
+                ParentId: parseInt(document.getElementById('parentId').value) || null,
+                Name: document.getElementById('name').value,
+                Description: document.getElementById('description').value,
+                ImagePath: document.getElementById('imagePath').value,
+                IsActive: document.getElementById('isActive').checked
+            };
 
+            fetch(`https://localhost:7099/update-category/${categoryId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(categoryData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                messageDiv.style.display = 'block';
+                messageDiv.style.backgroundColor = '#d4edda';
+                messageDiv.style.color = '#155724';
+                messageDiv.innerHTML = 'Danh mục đã được cập nhật thành công!';
+            })
+            .catch(error => {
+                console.error('Error updating category:', error);
+                messageDiv.style.display = 'block';
+                messageDiv.style.backgroundColor = '#f8d7da';
+                messageDiv.style.color = '#721c24';
+                messageDiv.innerHTML = 'Có lỗi xảy ra khi cập nhật danh mục.';
+            });
+        }
+    </script>
 </body>
 </html>
