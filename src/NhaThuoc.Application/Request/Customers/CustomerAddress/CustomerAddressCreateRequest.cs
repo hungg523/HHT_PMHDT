@@ -1,6 +1,9 @@
-﻿namespace NhaThuoc.Application.Request.Customers.CustomerAddress
+﻿using MediatR;
+using NhaThuoc.Share.Exceptions;
+
+namespace NhaThuoc.Application.Request.Customers.CustomerAddress
 {
-    public class CustomerAddressCreateRequest
+    public class CustomerAddressCreateRequest : IRequest<ApiResponse>
     {
         public int? CustomerId { get; set; }
         public string? Address { get; set; }

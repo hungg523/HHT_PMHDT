@@ -17,6 +17,7 @@ namespace NhaThuoc.Data.DependencyInjection.Extensions
             services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
             services.AddScoped<ICouponRepository, CouponRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<ICustomerAddressRepository, CustomerAddressRepository>(); 
 
             return services;
         }
