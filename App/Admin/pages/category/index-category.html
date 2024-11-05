@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -17,25 +18,27 @@
     <link rel="stylesheet" href="../../assets/css/style.css">
     <link rel="shortcut icon" href="../../assets/images/favicon.png" />
 </head>
+
 <body>
     <div class="container-scroller">
         <!-- partial:partials/_navbar.html -->
         <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
                 <div class="me-3">
-                    <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-bs-toggle="minimize">
+                    <button class="navbar-toggler navbar-toggler align-self-center" type="button"
+                        data-bs-toggle="minimize">
                         <span class="icon-menu"></span>
                     </button>
                 </div>
                 <div>
-                    <a class="navbar-brand brand-logo" href="/index.html">
-                        <img src="/assets/images/logo.svg" alt="logo" />
+                    <a class="navbar-brand brand-logo" href="/Admin/index.html">
+                        <img src="/Admin/assets/images/logo.svg" alt="logo" />
                     </a>
-                    <a class="navbar-brand brand-logo-mini" href="/index.html">
-                        <img src="/assets/images/logo-mini.svg" alt="logo" />
+                    <a class="navbar-brand brand-logo-mini" href="/Admin/index.html">
+                        <img src="/Admin/assets/images/logo-mini.svg" alt="logo" />
                     </a>
-                </div>            
-            </div> 
+                </div>
+            </div>
         </nav>
 
         <!-- partial -->
@@ -43,23 +46,54 @@
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <ul class="nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="/index.html">
+                        <a class="nav-link" href="/Admin/index.html">
                             <i class="mdi mdi-grid-large menu-icon"></i>
                             <span class="menu-title">Trang chủ</span>
                         </a>
                     </li>
-                    <li class="nav-item nav-category">Danh mục</li>
+                    <hr>
+
+                    <!-- Danh mục -->
                     <li class="nav-item">
-                        <a class="nav-link" href="/pages/category/index.html">
-                            <i class="menu-icon mdi mdi-floor-plan"></i>
-                            <span class="menu-title">Quản lý danh mục</span>
+                        <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false"
+                            aria-controls="ui-basic">
+                            <i class="menu-icon mdi mdi-view-list"></i>
+                            <span class="menu-title">Danh mục</span>
+                            <i class="menu-arrow"></i>
                         </a>
+                        <div class="collapse" id="ui-basic">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link"
+                                        href="/Admin/pages/category/index-category.html">Quản lý danh mục</a></li>
+                                <li class="nav-item"> <a class="nav-link"
+                                        href="/Admin/pages/category/create-category.html">Tạo mới danh mục</a></li>
+                            </ul>
+                        </div>
                     </li>
+
+                    <!-- Sản phẩm -->
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#product-basic" aria-expanded="false"
+                            aria-controls="product-basic">
+                            <i class="menu-icon mdi mdi-package-variant"></i>
+                            <span class="menu-title">Sản phẩm</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="product-basic">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link"
+                                        href="/Admin/pages/product/index-product.html">Quản lý sản phẩm</a></li>
+                                <li class="nav-item"> <a class="nav-link"
+                                        href="/Admin/pages/product/create-product.html">Tạo mới sản phẩm</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
                 </ul>
             </nav>
 
             <!-- Main panel for displaying categories -->
-            <div class="main-panel">        
+            <div class="main-panel">
                 <div class="content-wrapper">
                     <div class="row">
                         <div class="col-lg-12 grid-margin stretch-card">
@@ -68,7 +102,8 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <h4 class="card-title">Danh Sách Danh Mục</h4>
                                         <!-- Nút "Thêm Mới" bên phải -->
-                                        <a href="/pages/category/create.html" class="btn btn-primary">Thêm Mới</a>
+                                        <a href="/Admin/pages/category/create-category.html"
+                                            class="btn btn-primary">Thêm Mới</a>
                                     </div>
                                     <p class="card-description"> <code>Danh sách các danh mục hiện tại</code> </p>
                                     <div class="table-responsive">
@@ -88,13 +123,15 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div id="message" style="display: none; padding: 10px; margin-top: 10px; border-radius: 5px; font-weight: bold;"></div>
+                                    <div id="message"
+                                        style="display: none; padding: 10px; margin-top: 10px; border-radius: 5px; font-weight: bold;">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>            
+            </div>
         </div>
     </div>
 
@@ -109,10 +146,10 @@
 
     <!-- Script to Fetch and Display Categories -->
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             const categoryTableBody = document.getElementById("categoryTableBody");
             const messageDiv = document.getElementById("message");
-        
+
             // Fetch categories from the server
             fetch('https://localhost:7099/get-categories', {
                 method: 'GET',
@@ -120,47 +157,48 @@
                     'Content-Type': 'application/json'
                 }
             })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                categoryTableBody.innerHTML = "";
-        
-                data.forEach(category => {
-                    const row = document.createElement("tr");
-        
-                    const statusBadge = category.isActive 
-                    ? `<span style="display: inline-block; width: 60px; height: 30px; line-height: 30px; text-align: center; 
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    categoryTableBody.innerHTML = "";
+
+                    data.forEach(category => {
+                        const row = document.createElement("tr");
+
+                        const statusBadge = category.isActive
+                            ? `<span style="display: inline-block; width: 60px; height: 30px; line-height: 30px; text-align: center; 
                     border-radius: 5px; color: white; background-color: #28a745; font-weight: bold;">Có</span>`
-                    
-                    : `<span style="display: inline-block; width: 60px; height: 30px; line-height: 30px; text-align: center; 
+
+                            : `<span style="display: inline-block; width: 60px; height: 30px; line-height: 30px; text-align: center; 
                     border-radius: 5px; color: white; background-color: #dc3545; font-weight: bold;">Không</span>`;
-        
-                    row.innerHTML = `
+
+                        row.innerHTML = `
                         <td>${category.id}</td>
                         <td>${category.name}</td>
                         <td>${category.description || ""}</td>
                         <td>${category.imagePath || ""}</td>
                         <td>${statusBadge}</td>
                         <td>
-                            <a href="/pages/category/edit.html?id=${category.id}" class="btn btn-sm btn-warning">Sửa</a>
+                            <a href="/Admin/pages/category/edit-category.html?id=${category.id}" class="btn btn-sm btn-warning">Sửa</a>
                         </td>
                     `;
-        
-                    categoryTableBody.appendChild(row);
+
+                        categoryTableBody.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching categories:', error);
+                    messageDiv.style.display = 'block';
+                    messageDiv.style.backgroundColor = '#f8d7da';
+                    messageDiv.style.color = '#721c24';
+                    messageDiv.innerHTML = 'Có lỗi xảy ra khi tải danh sách danh mục.';
                 });
-            })
-            .catch(error => {
-                console.error('Error fetching categories:', error);
-                messageDiv.style.display = 'block';
-                messageDiv.style.backgroundColor = '#f8d7da';
-                messageDiv.style.color = '#721c24'; 
-                messageDiv.innerHTML = 'Có lỗi xảy ra khi tải danh sách danh mục.';
-            });
         });        
     </script>
 </body>
+
 </html>

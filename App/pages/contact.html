@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Nhà thuốc &mdash; Liên hệ</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap&subset=vietnamese">
+    <link rel="icon" href="/assets/images/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="/assets/fonts/icomoon/style.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="/assets/css/jquery-ui.css">
+    <link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/assets/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/assets/css/aos.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <!-- Thêm EmailJS -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function () {
+            emailjs.init("WAJ9vLX-wnbbx4tQF");
+        })();
+    </script>
+</head>
+
+<body>
+
+    <div class="site-wrap">
+        <div class="site-navbar py-2">
+
+            <div class="search-wrap">
+                <div class="container">
+                    <a href="#" class="search-close js-search-close"><span class="icon-close2"></span></a>
+                    <form action="#" method="post">
+                        <input type="text" class="form-control" placeholder="Nhập sản phẩm cần tìm...">
+                    </form>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div class="logo">
+                        <div class="site-logo">
+                            <a href="/index.html" class="js-logo-clone">Nhà Thuốc</a>
+                        </div>
+                    </div>
+                    <div class="main-nav d-none d-lg-block">
+                        <nav class="site-navigation text-right text-md-center" role="navigation">
+                            <ul class="site-menu js-clone-nav d-none d-lg-block">
+                                <li><a href="/index.html"><strong>Trang chủ</strong></a></li>
+                                <li class="has-children">
+                                    <a href="#"><strong>Danh mục</strong></a>
+                                    <ul class="dropdown" id="categoryList">
+                                        <!-- Danh mục hiển thị từ API -->
+                                    </ul>
+                                </li>
+                                <li><a href="shop.html"><strong>Sản phẩm</strong></a></li>
+                                <li><a href="about.html"><strong>About</strong></a></li>
+                                <li class="active"><a href="/pages/contact.html"><strong>Liên hệ</strong></a></li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <div class="icons">
+                        <a href="#" class="icons-btn d-inline-block js-search-open"><span
+                                class="icon-search"></span></a>
+                        <a href="cart.html" class="icons-btn d-inline-block bag">
+                            <span class="icon-shopping-bag"></span>
+                            <span class="number">2</span>
+                        </a>
+                        <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span
+                                class="icon-menu"></span></a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="site-navbar py-2">
+            <!-- Navbar code... -->
+        </div>
+
+        <div class="bg-light py-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 mb-0">
+                        <a href="/index.html">Trang chủ</a> <span class="mx-2 mb-0">/</span>
+                        <strong class="text-black">Liên hệ</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="site-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2 class="h3 mb-5 text-black">Nhập thông tin...</h2>
+                    </div>
+                    <div class="col-md-12">
+                        <!-- Form liên hệ -->
+                        <form id="contact-form">
+                            <div class="p-3 p-lg-5 border">
+                                <div class="form-group row">
+                                    <div class="col-md-6">
+                                        <label for="c_fname" class="text-black">Tên <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="c_fname" name="from_name" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="c_lname" class="text-black">Họ <span
+                                                class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" id="c_lname" name="last_name" required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <label for="c_email" class="text-black">Email <span
+                                                class="text-danger">*</span></label>
+                                        <input type="email" class="form-control" id="c_email" name="from_email"
+                                            required>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <label for="c_subject" class="text-black">Xưng hô</label>
+                                        <input type="text" class="form-control" id="c_subject" name="subject">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-12">
+                                        <label for="c_message" class="text-black">Tin nhắn</label>
+                                        <textarea name="message" id="c_message" cols="30" rows="7"
+                                            class="form-control"></textarea>
+                                    </div>
+                                </div>
+                                <div id="success-message"
+                                    style="display: none; padding: 10px; margin-top: 10px; border-radius: 5px; background-color: #d4edda; color: #155724;">
+                                </div>
+                                <div id="error-message"
+                                    style="display: none; padding: 10px; margin-top: 10px; border-radius: 5px; background-color: #f8d7da; color: #721c24;">
+                                </div>
+                                <br>
+                                <div class="form-group row">
+                                    <div class="col-lg-12">
+                                        <button type="submit" class="btn btn-primary btn-lg btn-block">Gửi tin
+                                            nhắn</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="site-section bg-primary">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <h2 class="text-white mb-4">Trụ sở</h2>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="p-4 bg-white mb-3 rounded">
+                            <span class="d-block text-black h6 text-uppercase">Đại học Trà Vinh</span>
+                            <p class="mb-0">126 Nguyễn Thiện Thành, Phường 5, Trà Vinh</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="p-4 bg-white mb-3 rounded">
+                            <span class="d-block text-black h6 text-uppercase">Đại học Trà Vinh</span>
+                            <p class="mb-0">105 Kiên Thị Nhẫn, Phường 7, Trà Vinh</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="p-4 bg-white mb-3 rounded">
+                            <span class="d-block text-black h6 text-uppercase">Đại học Trà Vinh</span>
+                            <p class="mb-0">W8WR+56X, Phường 1, Trà Vinh</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
+
+                    <div class="block-7">
+                        <h3 class="footer-heading mb-4">Thông tin</h3>
+                        <p>"Pharma cam kết mang đến các sản phẩm chăm sóc sức khỏe chất lượng, uy tín từ các
+                            thương hiệu hàng đầu. Chúng tôi cung cấp đa dạng các loại thuốc, thực phẩm chức năng, và sản
+                            phẩm hỗ trợ
+                            sức khỏe với đội ngũ tư vấn tận tình, chuyên nghiệp. Mục tiêu của chúng tôi là luôn đồng
+                            hành cùng sức
+                            khỏe của bạn và gia đình."
+                        </p>
+                    </div>
+
+                </div>
+                <div class="col-lg-3 mx-auto mb-5 mb-lg-0">
+                    <h3 class="footer-heading mb-4">Danh mục</h3>
+                    <ul class="list-unstyled" id="categoryListFooter">
+                        <!-- Danh mục từ API -->
+                    </ul>
+
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <div class="block-5 mb-5">
+                        <h3 class="footer-heading mb-4">Liên hệ</h3>
+                        <ul class="list-unstyled">
+                            <li class="address">Đại học Trà Vinh</li>
+                            <li class="phone"><a href="tel://379932119">+84379932119</a></li>
+                            <li class="email">Pharma@st.tvu.edu.vn</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row pt-5 mt-5 text-center">
+                <div class="col-md-12">
+                    <p>
+                        Copyright &copy;
+                        <script>document.write(new Date().getFullYear());</script> All rights reserved | This website is
+                        made
+                        with by a group of students <a href="https://www.tvu.edu.vn/" target="_blank"
+                            class="text-primary">TVU</a>
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="/assets/js/jquery-ui.js"></script>
+    <script src="/assets/js/popper.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/owl.carousel.min.js"></script>
+    <script src="/assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/js/aos.js"></script>
+    <script src="/assets/js/main.js"></script>
+    <script src="/assets/js/nav.js"></script>
+    <script src="/assets/js/footer.js"></script>
+
+    <!-- JavaScript xử lý gửi email qua EmailJS -->
+    <script type="text/javascript">
+        document.getElementById('contact-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            // Gửi form qua EmailJS
+            emailjs.sendForm('service_23yjfrv', 'template_87i6sj7', this)
+                .then(function (response) {
+                    console.log("SUCCESS!", response.status, response.text);
+
+                    // Hiển thị thông báo thành công
+                    const successMessage = document.getElementById('success-message');
+                    successMessage.textContent = "Tin nhắn của bạn đã được gửi thành công!";
+                    successMessage.style.display = "block";
+
+                    // Ẩn thông báo sau 3 giây
+                    setTimeout(function () {
+                        successMessage.style.display = "none";
+                    }, 3000);
+
+                    // Reset form sau khi gửi thành công
+                    document.getElementById('contact-form').reset();
+                }, function (error) {
+                    console.log("FAILED...", error);
+
+                    // Hiển thị thông báo lỗi
+                    const errorMessage = document.getElementById('error-message');
+                    errorMessage.textContent = "Có lỗi xảy ra khi gửi tin nhắn. Vui lòng thử lại.";
+                    errorMessage.style.display = "block";
+
+                    // Ẩn thông báo sau 3 giây
+                    setTimeout(function () {
+                        errorMessage.style.display = "none";
+                    }, 3000);
+                });
+        });
+    </script>
+</body>
+
+</html>
