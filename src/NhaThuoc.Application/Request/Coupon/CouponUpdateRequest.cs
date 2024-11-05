@@ -17,6 +17,6 @@ namespace NhaThuoc.Application.Request.Coupon
         public DateTime CouponStartDate { get; set; }
         public DateTime CouponEndDate { get; set; }
         [JsonIgnore]
-        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime UpdatedAt { get; set; } = DateTime.Now;
     }
 }

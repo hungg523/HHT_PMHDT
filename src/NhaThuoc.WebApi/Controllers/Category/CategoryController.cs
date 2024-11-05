@@ -49,6 +49,21 @@ namespace NhaThuoc.WebApi.Controllers.Category
                 throw;
             }
         }
+        [HttpGet("/get-category-name")]
+        public async Task<IActionResult> GetByNameCategory(int id)
+        {
+            try
+            {
+                var command = new GetByNameCategoryRequest();
+                command.Id = id;
+                var result = await mediator.Send(command);
+                return Ok(result);
+            }
+            catch (NhaThuocException)
+            {
+                throw;
+            }
+        }
 
         [HttpGet("/get-categories")]
         public async Task<IActionResult> GetAllCategory()
