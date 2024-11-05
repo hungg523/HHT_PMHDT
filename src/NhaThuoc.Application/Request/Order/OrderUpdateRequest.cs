@@ -1,15 +1,17 @@
-﻿using NhaThuoc.Share.Enums;
+﻿using MediatR;
+using NhaThuoc.Share.Enums;
+using NhaThuoc.Share.Exceptions;
 using System.Text.Json.Serialization;
 
 namespace NhaThuoc.Application.Request.Order
 {
-    public class OrderUpdateRequest
+    public class OrderUpdateRequest : IRequest<ApiResponse>
     {
         [JsonIgnore]
         public int? Id { get; set; }
-        public int? CouponId { get; set; }
         public int? CustomerId { get; set; }
-        public OrderStatus Status { get; set; }
-        public DateTime UpdatedAt { get; set; }
+        public OrderStatus? Status { get; set; }
+        [JsonIgnore]
+        public DateTime UpdatedAt { get; set; } = DateTime.Now;
     }
 }

@@ -28,7 +28,6 @@ namespace NhaThuoc.Application.Handlers.Coupon
                     validationResult.ThrowIfInvalid();
 
                     var coupon = mapper.Map<Domain.Entities.Coupon>(request);
-                    coupon.UpdatedAt = coupon.CreatedAt;
 
                     couponRepository.Create(coupon);
                     await couponRepository.SaveChangesAsync();

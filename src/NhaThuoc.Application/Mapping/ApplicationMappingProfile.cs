@@ -1,8 +1,10 @@
 using AutoMapper;
 using NhaThuoc.Application.Request.Category;
 using NhaThuoc.Application.Request.Coupon;
+using NhaThuoc.Application.Request.Order;
 using NhaThuoc.Application.Request.Product;
 using NhaThuoc.Domain.Entities;
+using NhaThuoc.Domain.ReQuest.Order;
 
 namespace NhaThuoc.Application.Mapping
 {
@@ -11,8 +13,8 @@ namespace NhaThuoc.Application.Mapping
         public ApplicationMappingProfile()
         {
             #region Category
-            CreateMap<Category, CreateCategoryRequest > ().ReverseMap();
-            CreateMap<Category, UpdateCategoryRequest > ().ReverseMap();
+            CreateMap<Category, CreateCategoryRequest>().ReverseMap();
+            CreateMap<Category, UpdateCategoryRequest>().ReverseMap();
             #endregion
 
             #region Product
@@ -20,9 +22,14 @@ namespace NhaThuoc.Application.Mapping
             CreateMap<Product, UpdateProductRequest>().ReverseMap();
             #endregion
 
-            #region
+            #region Coupon
             CreateMap<Coupon, CouponCreateRequest>().ReverseMap();
             CreateMap<Coupon, CouponUpdateRequest>().ReverseMap();
+            #endregion
+
+            #region Order
+            CreateMap<Order, OrderCreateRequest>().ReverseMap();
+            CreateMap<Order, OrderUpdateRequest>().ReverseMap();
             #endregion
         }
     }
