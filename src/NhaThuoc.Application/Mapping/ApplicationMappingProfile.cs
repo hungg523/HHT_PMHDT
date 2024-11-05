@@ -1,6 +1,7 @@
 using AutoMapper;
 using NhaThuoc.Application.Request.Category;
 using NhaThuoc.Application.Request.Coupon;
+using NhaThuoc.Application.Request.Customers.CustomerAddress;
 using NhaThuoc.Application.Request.Order;
 using NhaThuoc.Application.Request.Product;
 using NhaThuoc.Domain.Entities;
@@ -30,6 +31,11 @@ namespace NhaThuoc.Application.Mapping
             #region Order
             CreateMap<Order, OrderCreateRequest>().ReverseMap();
             CreateMap<Order, OrderUpdateRequest>().ReverseMap();
+            #endregion
+
+            #region CustomerAddress
+            CreateMap<CustomerAddress, CustomerAddressCreateRequest>().ReverseMap();
+            CreateMap<CustomerAddress, CustomerAddressUpdateRequest>().ReverseMap();
             #endregion
         }
     }
