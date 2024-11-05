@@ -1,8 +1,10 @@
-﻿using System.Text.Json.Serialization;
+﻿using MediatR;
+using NhaThuoc.Share.Exceptions;
+using System.Text.Json.Serialization;
 
 namespace NhaThuoc.Application.Request.Customers.CustomerAddress
 {
-    public class CustomerAddressUpdateRequest
+    public class CustomerAddressUpdateRequest : IRequest<ApiResponse>
     {
         [JsonIgnore]
         public int? Id { get; set; }
