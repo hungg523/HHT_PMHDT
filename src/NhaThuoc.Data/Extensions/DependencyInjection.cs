@@ -16,6 +16,8 @@ namespace NhaThuoc.Data.Extensions
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
             services.AddScoped<ICouponRepository, CouponRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+
             return services;
         }
     }

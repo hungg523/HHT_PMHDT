@@ -12,9 +12,6 @@ namespace NhaThuoc.Application.Validators.Order
                 .NotEmpty()
                 .GreaterThan(0).WithMessage("Id phải lớn hơn 0.");
 
-            RuleFor(o => o.CouponId)
-                .GreaterThan(0).WithMessage("CouponId phải lớn hơn 0.");
-
             RuleFor(o => o.CustomerId)
                 .GreaterThan(0).WithMessage("CustomerId phải lớn hơn 0.");
         }

@@ -1,29 +1,44 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using NhaThuoc.Application.Request.Coupon;
+using NhaThuoc.Application.Request.Order;
+using NhaThuoc.Domain.ReQuest.Order;
 using NhaThuoc.Share.Exceptions;
 
-namespace NhaThuoc.WebApi.Controllers.Coupon
+namespace NhaThuoc.WebApi.Controllers.Order
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class CouponController : ControllerBase
+    public class OrderController : ControllerBase
     {
         private readonly IMediator mediator;
         private readonly IMapper mapper;
 
-        public CouponController(IMediator mediator, IMapper mapper)
+        public OrderController(IMediator mediator, IMapper mapper)
         {
             this.mediator = mediator;
             this.mapper = mapper;
         }
-        [HttpGet("/get-coupon-name")]
-        public async Task<IActionResult> GetByNameCoupon(int id)
+
+        [HttpPost("/create-order")]
+        public async Task<IActionResult> CreateOrder([FromBody] OrderCreateRequest request)
         {
             try
             {
-                var command = new GetByNameCouponRequest();
+                var command = mapper.Map<OrderCreateRequest>(request);
+                var result = await mediator.Send(command);
+                return Ok(result);
+            }
+            catch (NhaThuocException)
+            {
+                throw;
+            }
+        }
+
+        [HttpPut("/update-order")]
+        public async Task<IActionResult> UpdateOrder(int? id, [FromBody] OrderUpdateRequest request)
+        {
+            try
+            {
+                var command = mapper.Map<OrderUpdateRequest>(request);
                 command.Id = id;
                 var result = await mediator.Send(command);
                 return Ok(result);
@@ -34,12 +49,12 @@ namespace NhaThuoc.WebApi.Controllers.Coupon
             }
         }
 
-        [HttpGet("/get-coupons")]
-        public async Task<IActionResult> GetAllCoupon()
+        [HttpGet("/get-orders")]
+        public async Task<IActionResult> GetAllOrder()
         {
             try
             {
-                var command = new GetAllCouponRequest();
+                var command = new GetAllOrderRequest();
                 var result = await mediator.Send(command);
                 return Ok(result);
             }
@@ -49,27 +64,12 @@ namespace NhaThuoc.WebApi.Controllers.Coupon
             }
         }
 
-        [HttpPost("/create-coupon")]
-        public async Task<IActionResult> CreateCoupon([FromBody] CouponCreateRequest request)
+        [HttpGet("/get-order-name")]
+        public async Task<IActionResult> GetByNameOrder(int id)
         {
             try
             {
-                var command = mapper.Map<CouponCreateRequest>(request);
-                var result = await mediator.Send(command);
-                return Ok(result);
-            }
-            catch (NhaThuocException)
-            {
-                throw;
-            }
-        }
-
-        [HttpPut("/update-coupon")]
-        public async Task<IActionResult> UpdateCoupon(int? id, [FromBody] CouponUpdateRequest request)
-        {
-            try
-            {
-                var command = mapper.Map<CouponUpdateRequest>(request);
+                var command = new GetByNameOrderRequest();
                 command.Id = id;
                 var result = await mediator.Send(command);
                 return Ok(result);
