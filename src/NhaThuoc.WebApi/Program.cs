@@ -1,5 +1,6 @@
-using NhaThuoc.Application.Extensions;
-using NhaThuoc.Data.Extensions;
+using NhaThuoc.Application.DependencyInjection.Extensions;
+using NhaThuoc.Data.DependencyInjection.Extensions;
+using NhaThuoc.Share.DependencyInjection.Extensions;
 using NhaThuoc.WebApi;
 
 var builder = WebApplication.CreateBuilder(args);

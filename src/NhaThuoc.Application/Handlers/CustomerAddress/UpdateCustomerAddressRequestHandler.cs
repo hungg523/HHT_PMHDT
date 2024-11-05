@@ -3,8 +3,8 @@ using MediatR;
 using NhaThuoc.Application.Request.Customers.CustomerAddress;
 using NhaThuoc.Application.Validators.CustomerAddress;
 using NhaThuoc.Domain.Abtractions.IRepositories;
+using NhaThuoc.Share.DependencyInjection.Extensions;
 using NhaThuoc.Share.Exceptions;
-using NhaThuoc.Share.Extensions;
 
 namespace NhaThuoc.Application.Handlers.CustomerAddress
 {

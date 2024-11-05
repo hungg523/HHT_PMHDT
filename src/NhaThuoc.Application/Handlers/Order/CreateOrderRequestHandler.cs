@@ -3,8 +3,8 @@ using MediatR;
 using NhaThuoc.Application.Validators.Order;
 using NhaThuoc.Domain.Abtractions.IRepositories;
 using NhaThuoc.Domain.ReQuest.Order;
+using NhaThuoc.Share.DependencyInjection.Extensions;
 using NhaThuoc.Share.Exceptions;
-using NhaThuoc.Share.Extensions;
 
 namespace NhaThuoc.Application.Handlers.Order
 {

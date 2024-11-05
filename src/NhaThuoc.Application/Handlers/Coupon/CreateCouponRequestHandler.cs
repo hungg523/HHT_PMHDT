@@ -3,8 +3,8 @@ using MediatR;
 using NhaThuoc.Application.Request.Coupon;
 using NhaThuoc.Application.Validators.Coupon;
 using NhaThuoc.Domain.Abtractions.IRepositories;
+using NhaThuoc.Share.DependencyInjection.Extensions;
 using NhaThuoc.Share.Exceptions;
-using NhaThuoc.Share.Extensions;
 
 namespace NhaThuoc.Application.Handlers.Coupon
 {

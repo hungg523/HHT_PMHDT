@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using NhaThuoc.Share.Exceptions;
 
-namespace NhaThuoc.Share.Extensions
+namespace NhaThuoc.Share.DependencyInjection.Extensions
 {
     public static class ValidationExtensions
     {
