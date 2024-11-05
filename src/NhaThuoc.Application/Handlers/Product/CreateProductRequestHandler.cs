@@ -3,8 +3,8 @@ using MediatR;
 using NhaThuoc.Application.Request.Product;
 using NhaThuoc.Application.Validators.Product;
 using NhaThuoc.Domain.Abtractions.IRepositories;
+using NhaThuoc.Share.DependencyInjection.Extensions;
 using NhaThuoc.Share.Exceptions;
-using NhaThuoc.Share.Extensions;
 using Entities = NhaThuoc.Domain.Entities;
 
 namespace NhaThuoc.Application.Handlers.Product

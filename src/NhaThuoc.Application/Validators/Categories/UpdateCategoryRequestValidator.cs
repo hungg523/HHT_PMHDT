@@ -18,9 +18,6 @@ namespace NhaThuoc.Application.Validators.Categories
 
             RuleFor(c => c.Description)
                 .MaximumLength(2000).WithMessage("Description không được vượt quá 2000 ký tự.");
-
-            RuleFor(c => c.ImagePath)
-                .MaximumLength(2000).WithMessage("ImagePath không được vượt quá 2000 ký tự.");
         }
     }
 }

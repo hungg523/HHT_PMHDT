@@ -2,7 +2,7 @@
 using MediatR;
 using NhaThuoc.Application.Request.Product;
 using NhaThuoc.Domain.Abtractions.IRepositories;
-using NhaThuoc.Share.Extensions;
+using NhaThuoc.Share.DependencyInjection.Extensions;
 using Entities = NhaThuoc.Domain.Entities;
 
 namespace NhaThuoc.Application.Handlers.Product

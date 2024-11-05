@@ -4,9 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 using NhaThuoc.Data.Repositories;
 using NhaThuoc.Domain.Abtractions.IRepositories;
 
-namespace NhaThuoc.Data.Extensions
+namespace NhaThuoc.Data.DependencyInjection.Extensions
 {
-    public static class DependencyInjection
+    public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddData(this IServiceCollection services, IConfiguration configuration)
         {

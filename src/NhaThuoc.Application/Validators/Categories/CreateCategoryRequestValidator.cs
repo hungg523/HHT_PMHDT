@@ -22,10 +22,6 @@ namespace NhaThuoc.Application.Validators.Categories
                 .NotEmpty().WithMessage("Description không được rỗng.")
                 .MaximumLength(2000).WithMessage("Description không được vượt quá 2000 ký tự.");
 
-            RuleFor(c => c.ImagePath)
-                .NotEmpty().WithMessage("ImagePath không được rỗng.")
-                .MaximumLength(2000).WithMessage("ImagePath không được vượt quá 2000 ký tự.");
-
             RuleFor(c => c.IsActive)
                 .NotEmpty().WithMessage("IsActive không được rỗng.")
                 .NotNull().WithMessage("IsActive không được để trống.");

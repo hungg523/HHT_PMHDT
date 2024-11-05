@@ -1,10 +1,12 @@
-﻿using AutoMapper;
+﻿using AssetServer.Enumerations;
+using AutoMapper;
 using MediatR;
 using NhaThuoc.Application.Request.Category;
 using NhaThuoc.Application.Validators.Categories;
 using NhaThuoc.Domain.Abtractions.IRepositories;
+using NhaThuoc.Share.DependencyInjection.Extensions;
 using NhaThuoc.Share.Exceptions;
-using NhaThuoc.Share.Extensions;
+using NhaThuoc.Share.Service;
 
 namespace NhaThuoc.Application.Handlers.Category
 {
@@ -12,11 +14,13 @@ namespace NhaThuoc.Application.Handlers.Category
     {
         private readonly ICategoryRepository categoryRepository;
         private readonly IMapper mapper;
+        private readonly IFileService fileService;
 
-        public UpdateCategoryRequestHandler(ICategoryRepository categoryRepository, IMapper mapper)
+        public UpdateCategoryRequestHandler(ICategoryRepository categoryRepository, IMapper mapper, IFileService fileService)
         {
             this.categoryRepository = categoryRepository;
             this.mapper = mapper;
+            this.fileService = fileService;
         }
 
         public async Task<ApiResponse> Handle(UpdateCategoryRequest request, CancellationToken cancellationToken)
@@ -34,9 +38,13 @@ namespace NhaThuoc.Application.Handlers.Category
                     category!.Name = request.Name ?? category.Name;
                     category.Description = request.Description ?? category.Description;
                     category.ParentId = request.ParentId ?? category.ParentId;
-                    category.ImagePath = request.ImagePath ?? category.ImagePath;
                     category.IsActive = request.IsActive ?? category.IsActive;
-                    
+                    if (request.ImageData is not null)
+                    {
+                        string fileName = (Path.GetFileName(category.ImagePath) is { } name &&
+                                Path.GetExtension(name)?.ToLowerInvariant() == Path.GetExtension(request.ImageFileName)?.ToLowerInvariant()) ? name : request.ImageFileName;
+                        category.ImagePath = await fileService.UploadFile(fileName, request.ImageData, AssetType.CAT_IMG);
+                    }
                     categoryRepository.Update(category);
                     await categoryRepository.SaveChangesAsync();
                     await transaction.CommitAsync(cancellationToken);
