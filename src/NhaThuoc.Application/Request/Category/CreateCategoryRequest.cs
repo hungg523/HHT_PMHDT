@@ -9,7 +9,6 @@ namespace NhaThuoc.Application.Request.Category
         public int? ParentId { get; set; }
         public string? Name { get; set; }
         public string? Description { get; set; }
-        public string? ImageFileName { get; set; }
         public string? ImageData { get; set; }
         public bool? IsActive { get; set; } = false;
         [JsonIgnore]

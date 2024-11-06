@@ -1,0 +1,6 @@
+services:
+  nhathuoc.webapi:
+    image: lolmobi495/doan:nhathuoc
+    build:
+      context: .
+      dockerfile: src/NhaThuoc.WebApi/Dockerfile

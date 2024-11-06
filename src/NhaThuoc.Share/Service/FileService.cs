@@ -42,10 +42,11 @@ namespace NhaThuoc.Share.Service
         {
             try
             {
+                string base64Data = GetBase64Data(base64String);
                 var requestContent = new
                 {
                     FileName = fileName,
-                    Content = base64String,
+                    Content = base64Data,
                     AssetType = (int)type
                 };
 
@@ -75,6 +76,35 @@ namespace NhaThuoc.Share.Service
                 Console.WriteLine(e);
                 throw;
             }
+        }
+
+        public string GetBase64Data(string base64String) => base64String.Split(",")[1];
+
+        public string GetFileExtensionFromBase64(string base64String)
+        {
+            var mime = GetMimeTypeFromBase64(base64String);
+            var mimeTypes = new Dictionary<string, string>
+            {
+                { "image/jpeg", ".jpg" },
+                { "image/png", ".png" },
+                { "image/gif", ".gif" },
+                { "image/bmp", ".bmp" },
+                { "image/webp", ".webp" },
+            };
+            if (mimeTypes.ContainsKey(mime)) return mimeTypes[mime];
+            return string.Empty;
+        }
+
+        private string GetMimeTypeFromBase64(string base64String)
+        {
+            if (base64String.Contains(","))
+            {
+                var mimeType = base64String.Split(',')[0];
+                mimeType = mimeType.Split(':')[1].Split(';')[0];
+                return mimeType;
+            }
+
+            return null;
         }
     }
 }
