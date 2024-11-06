@@ -42,7 +42,7 @@ namespace NhaThuoc.Application.Handlers.Category
                     if (request.ImageData is not null)
                     {
                         string fileName = (Path.GetFileName(category.ImagePath) is { } name &&
-                                Path.GetExtension(name)?.ToLowerInvariant() == Path.GetExtension(request.ImageFileName)?.ToLowerInvariant()) ? name : request.ImageFileName;
+                                Path.GetExtension(name)?.ToLowerInvariant() == fileService.GetFileExtensionFromBase64(request.ImageData)?.ToLowerInvariant()) ? name : $"{category.Id}{fileService.GetFileExtensionFromBase64(request.ImageData)}";
                         category.ImagePath = await fileService.UploadFile(fileName, request.ImageData, AssetType.CAT_IMG);
                     }
                     categoryRepository.Update(category);

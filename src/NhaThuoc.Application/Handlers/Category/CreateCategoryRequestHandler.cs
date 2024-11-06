@@ -35,8 +35,12 @@ namespace NhaThuoc.Application.Handlers.Category
                     validationResult.ThrowIfInvalid();
 
                     var category = mapper.Map<Entities.Category>(request);
-                    if (request.ImageData is not null && request.ImageFileName is not null)
-                        category.ImagePath = await fileService.UploadFile(request.ImageFileName, request.ImageData, AssetType.CAT_IMG);
+                    if (request.ImageData is not null)
+                    {
+                        var fileName = $"{category.Id}{fileService.GetFileExtensionFromBase64(request.ImageData)}";
+                        category.ImagePath = await fileService.UploadFile(fileName, request.ImageData, AssetType.CAT_IMG);
+                    }
+                        
                     categoryRepository.Create(category);
                     await categoryRepository.SaveChangesAsync();
                     await transaction.CommitAsync(cancellationToken);
