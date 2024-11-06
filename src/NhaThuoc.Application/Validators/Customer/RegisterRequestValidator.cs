@@ -26,7 +26,7 @@ namespace NhaThuoc.Application.Validators.Customer
             RuleFor(u => u.Password)
                 .NotNull().WithMessage("Password không được để trống.")
                 .NotEmpty().WithMessage("Password không được rỗng.")
-                .MinimumLength(2000).WithMessage("Password phải có ít nhất 2000 ký tự.");
+                .MaximumLength(2000).WithMessage("Password không vượt quá 2000 ký tự.");
 
             RuleFor(u => u.ConfirmPassword)
                 .NotNull().WithMessage("ConfirmPassword không được để trống.")
