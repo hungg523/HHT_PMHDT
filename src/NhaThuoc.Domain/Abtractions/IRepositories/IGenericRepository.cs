@@ -13,6 +13,7 @@ namespace NhaThuoc.Domain.Abtractions.IRepositories
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
         IQueryable<T> FindAll(Expression<Func<T, bool>>? predicate = null, params Expression<Func<T, object>>[] includeProperties);
         Task<T?> FindByIdAsync(object id);
+        Task<T?> FindSingleAsync(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties);
         IDbContextTransaction BeginTransaction();
     }
 }

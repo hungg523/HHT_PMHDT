@@ -31,18 +31,8 @@ namespace NhaThuoc.Application.Handlers.Customers
                     var validationResult = await validator.ValidateAsync(request, cancellationToken);
                     validationResult.ThrowIfInvalid();
 
-                    var customer = await customerRepository
-                         .FindAll(u => u.Email == request.Email)
-                         .FirstOrDefaultAsync(cancellationToken);
-
-                    if (customer == null)
-                    {
-                        return new ApiResponse
-                        {
-                            IsSuccess = false,
-                            StatusCode = StatusCodes.Status404NotFound,
-                        };
-                    }
+                    var customer = await customerRepository.FindAll(u => u.Email == request.Email).FirstOrDefaultAsync(cancellationToken);
+                    if (customer is null) customer.ThrowNotFound();
 
                     if (!customer.IsActive)
                     {
@@ -62,7 +52,6 @@ namespace NhaThuoc.Application.Handlers.Customers
                             StatusCode = StatusCodes.Status401Unauthorized,
                         };
                     }
-
 
                     await transaction.CommitAsync(cancellationToken);
                     return ApiResponse.Success();

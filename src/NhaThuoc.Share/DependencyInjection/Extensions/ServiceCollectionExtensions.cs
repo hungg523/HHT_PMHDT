@@ -10,7 +10,7 @@ namespace NhaThuoc.Share.DependencyInjection.Extensions
         {
             services.AddHttpClient();
             services.AddScoped<IFileService, FileService>();
-            services.AddSingleton<EmailService>();
+            services.AddScoped<IEmailService, EmailService>();
             return services;
         }
     }

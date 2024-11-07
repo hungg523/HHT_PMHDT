@@ -11,10 +11,5 @@ namespace NhaThuoc.Application.Request.Customers.Customer
         public string? Email { get; set; }
         public string? Password { get; set; }
         public string? ConfirmPassword { get; set; }
-        //[JsonIgnore]
-        //public bool? IsActive { get; set; }
-        [JsonIgnore]
-        public int? Role { get; set; } = 0;
-        public string OTP { get; set; }
     }
 }

@@ -75,18 +75,29 @@ namespace NhaThuoc.WebApi.Controllers.Customer
         {
             try
             {
-                var response = await mediator.Send(request);
-
-                if (!response.IsSuccess)
-                {
-                    return StatusCode(response.StatusCode, response);
-                }
-
+                var command = mapper.Map<RegisterRequest>(request);
+                var response = await mediator.Send(command);
                 return Ok(response);
             }
             catch (NhaThuocException)
             {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Đã có lỗi xảy ra khi đăng ký." });
+                throw;
+            }
+        }
+
+        [HttpPut("/authen-customer")]
+        public async Task<IActionResult> AuthenCustomer(int? id,[FromBody] AurhenCustomerRequest request)
+        {
+            try
+            {
+                var command = mapper.Map<AurhenCustomerRequest>(request);
+                command.Id = id;
+                var result = await mediator.Send(command);
+                return Ok(result);
+            }
+            catch (NhaThuocException)
+            {
+                throw;
             }
         }
     }

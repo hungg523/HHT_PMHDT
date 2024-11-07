@@ -43,6 +43,7 @@ namespace NhaThuoc.Application.Mapping
             CreateMap<Customer, LoginRequest>().ReverseMap();
             CreateMap<Customer, RegisterRequest>().ReverseMap();
             CreateMap<Customer, CustomerProfileDto>().ReverseMap();
+            CreateMap<Customer, AurhenCustomerRequest>().ReverseMap();
             #endregion
         }
     }
