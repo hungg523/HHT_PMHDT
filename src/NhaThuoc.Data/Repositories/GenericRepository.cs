@@ -5,6 +5,7 @@ using NhaThuoc.Domain.Abtractions.Common;
 using NhaThuoc.Domain.Abtractions.IRepositories;
 using System.Linq.Expressions;
 using System.Linq;
+using System.Threading;
 
 namespace NhaThuoc.Data.Repositories
 {
@@ -57,6 +58,18 @@ namespace NhaThuoc.Data.Repositories
 
             return mapper.Map<T>(unit);
         }
+
+        public async Task<T?> FindSingleAsync(Expression<Func<T, bool>> predicate, params Expression<Func<T, object>>[] includeProperties)
+        {
+            var query = dbContext.Set<T>().AsQueryable();
+            foreach (var includeProperty in includeProperties)
+            {
+                query = query.Include(includeProperty);
+            }
+            var result = predicate is not null ? await query.FirstOrDefaultAsync(predicate) : await query.FirstOrDefaultAsync();
+            return result;
+        }
+
         public void RemoveMultiple(IEnumerable<T> entities)
         {
             dbContext.Set<T>().RemoveRange(entities);

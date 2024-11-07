@@ -2,8 +2,9 @@
 using MimeKit;
 using Microsoft.Extensions.Options;
 using NhaThuoc.Share.Constant;
+using NhaThuoc.Share.Service;
 
-public class EmailService
+public class EmailService : IEmailService
 {
     private readonly EmailSettings emailSettings;
 
