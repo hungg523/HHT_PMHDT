@@ -1,10 +1,13 @@
-﻿using AutoMapper;
+﻿using AssetServer.Enumerations;
+using AutoMapper;
 using MediatR;
 using NhaThuoc.Application.Request.Product;
 using NhaThuoc.Application.Validators.Product;
 using NhaThuoc.Domain.Abtractions.IRepositories;
+using NhaThuoc.Domain.Entities;
 using NhaThuoc.Share.DependencyInjection.Extensions;
 using NhaThuoc.Share.Exceptions;
+using NhaThuoc.Share.Service;
 using Entities = NhaThuoc.Domain.Entities;
 
 namespace NhaThuoc.Application.Handlers.Product
@@ -15,13 +18,15 @@ namespace NhaThuoc.Application.Handlers.Product
         private readonly IProductCategoryRepository productCategoryRepository;
         private readonly ICategoryRepository categoryRepository;
         private readonly IMapper mapper;
+        private readonly IFileService fileService;
 
-        public UpdateProductRequestHandler(IProductRepository productRepository, ICategoryRepository categoryRepository, IMapper mapper, IProductCategoryRepository productCategoryRepository)
+        public UpdateProductRequestHandler(IProductRepository productRepository, ICategoryRepository categoryRepository, IMapper mapper, IProductCategoryRepository productCategoryRepository, IFileService fileService)
         {
             this.productRepository = productRepository;
             this.categoryRepository = categoryRepository;
             this.mapper = mapper;
             this.productCategoryRepository = productCategoryRepository;
+            this.fileService = fileService;
         }
 
         public async Task<ApiResponse> Handle(UpdateProductRequest request, CancellationToken cancellationToken)
@@ -50,7 +55,12 @@ namespace NhaThuoc.Application.Handlers.Product
                     product.Origin = request.Origin ?? product.Origin;
                     product.Manufacturer = request.Manufacturer ?? product.Manufacturer;
                     product.Ingredients = request.Ingredients ?? product.Ingredients;
-                    product.ImagePath = request.ImagePath ?? product.ImagePath;
+                    if (request.ImageData is not null)
+                    {
+                        string fileName = (Path.GetFileName(product.ImagePath) is { } name &&
+                        Path.GetExtension(name)?.ToLowerInvariant() == fileService.GetFileExtensionFromBase64(request.ImageData)?.ToLowerInvariant()) ? name : $"{product.Id}{fileService.GetFileExtensionFromBase64(request.ImageData)}";
+                        product.ImagePath = await fileService.UploadFile(fileName, request.ImageData, AssetType.PRODUCT_IMG);
+                    }
                     product.SeoAlias = request.SeoAlias ?? product.SeoAlias;
                     product.SeoTitle = request.SeoTitle ?? product.SeoTitle;
                     product.IsActived = request.IsActived ?? product.IsActived;

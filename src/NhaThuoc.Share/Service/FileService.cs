@@ -42,11 +42,10 @@ namespace NhaThuoc.Share.Service
         {
             try
             {
-                string base64Data = GetBase64Data(base64String);
                 var requestContent = new
                 {
                     FileName = fileName,
-                    Content = base64Data,
+                    Content = GetBase64Data(base64String),
                     AssetType = (int)type
                 };
 

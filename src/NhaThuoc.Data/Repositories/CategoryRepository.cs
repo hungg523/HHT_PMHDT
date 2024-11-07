@@ -17,13 +17,13 @@ namespace NhaThuoc.Data.Repositories
             this.context = context;
         }
 
-        public async Task<(List<int?> existingIds, List<int?> missingIds)> CheckIdsExistAsync(List<int?> ids)
+        public async Task<(List<int>? existingIds, List<int>? missingIds)> CheckIdsExistAsync(List<int>? ids)
         {
-            ids = ids.Distinct().ToList();
+            ids = ids.Distinct().ToList() ?? new List<int>();
             var existingIds = await context.Set<Category>()
-                                           .Where(category => ids.Contains(category.Id))
-                                           .Select(product => product.Id)
-                                           .ToListAsync();
+                                   .Where(category => category.Id.HasValue && ids.Contains(category.Id.Value))
+                                   .Select(category => category.Id.Value)
+                                   .ToListAsync();
             var missingIds = ids.Except(existingIds).ToList();
             if (missingIds.Any())
             {

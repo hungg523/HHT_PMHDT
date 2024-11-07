@@ -5,8 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using NhaThuoc.Application.Request.Customers.Customer;
 using NhaThuoc.Application.Validators.Customer;
 using NhaThuoc.Domain.Abtractions.IRepositories;
+using NhaThuoc.Share.DependencyInjection.Extensions;
 using NhaThuoc.Share.Exceptions;
-using NhaThuoc.Share.Extensions;
 
 namespace NhaThuoc.Application.Handlers.Customers
 {
