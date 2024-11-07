@@ -81,13 +81,12 @@ namespace NhaThuoc.WebApi.Controllers.Product
             }
         }
 
-        [HttpGet("/get-products by-category")]
-        public async Task<IActionResult> GetAllProductByCategory(int id)
+        [HttpGet("/get-products-by-category")]
+        public async Task<IActionResult> GetAllProductByCategory()
         {
             try
             {
                 var command = new GetProductByCategoryIdRequest();
-                command.CategoryId = id;
                 var result = await mediator.Send(command);
                 return Ok(result);
             }
