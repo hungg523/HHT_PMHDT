@@ -13,6 +13,7 @@ namespace NhaThuoc.Domain.Entities
         public string Password { get; set; }
         public int Role { get; set; }
         public bool IsActive { get; set; }
+        public string OTP { get; set; }
         public DateTime CreatedAt { get; set; }
     }
 }

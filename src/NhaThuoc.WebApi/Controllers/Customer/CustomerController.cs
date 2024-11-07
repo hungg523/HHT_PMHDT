@@ -19,6 +19,37 @@ namespace NhaThuoc.WebApi.Controllers.Customer
             this.mapper = mapper;
         }
 
+        [HttpGet("/get-customer-roles")]
+        public async Task<IActionResult> GetAllCustomerRoles()
+        {
+            try
+            {
+                var command = new GetAllCustomerRequest();
+                var result = await mediator.Send(command);
+                return Ok(result);
+            }
+            catch (NhaThuocException)
+            {
+                throw;
+            }
+        }
+
+        [HttpPut("/update-customer-profile")]
+        public async Task<IActionResult> UpdateCustomerProfile(int? id, [FromBody] CustomerProfileDto request)
+        {
+            try
+            {
+                var command = mapper.Map<CustomerProfileDto>(request);
+                command.Id = id;
+                var result = await mediator.Send(command);
+                return Ok(result);
+            }
+            catch (NhaThuocException)
+            {
+                throw;
+            }
+        }
+
         [HttpPost("/customer-login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
