@@ -1,6 +1,7 @@
 ﻿using AssetServer.Enumerations;
 using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using NhaThuoc.Application.Request.Category;
 using NhaThuoc.Application.Validators.Categories;
 using NhaThuoc.Domain.Abtractions.IRepositories;
@@ -37,8 +38,9 @@ namespace NhaThuoc.Application.Handlers.Category
                     var category = mapper.Map<Entities.Category>(request);
                     if (request.ImageData is not null)
                     {
-                        var fileName = $"{category.Id}{fileService.GetFileExtensionFromBase64(request.ImageData)}";
-                        category.ImagePath = await fileService.UploadFile(fileName, request.ImageData, AssetType.CAT_IMG);
+                        var fileName = $"a{fileService.GetFileExtensionFromBase64(request.ImageData)}";
+                        var path = await fileService.UploadFile(fileName, request.ImageData, AssetType.CAT_IMG);
+                        category.ImagePath = path;
                     }
                         
                     categoryRepository.Create(category);
@@ -46,10 +48,15 @@ namespace NhaThuoc.Application.Handlers.Category
                     await transaction.CommitAsync(cancellationToken);
                     return ApiResponse.Success();
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
                     await transaction.RollbackAsync(cancellationToken);
-                    throw;
+                    return new ApiResponse
+                    {
+                        IsSuccess = false,
+                        StatusCode = StatusCodes.Status500InternalServerError,
+                        StageTrace = e.StackTrace
+                    };
                 }
             }
         }

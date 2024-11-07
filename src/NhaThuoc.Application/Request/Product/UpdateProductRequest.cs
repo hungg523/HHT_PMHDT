@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using NhaThuoc.Domain.Entities;
 using NhaThuoc.Share.Exceptions;
 using System.Text.Json.Serialization;
 
@@ -18,12 +17,13 @@ namespace NhaThuoc.Application.Request.Product
         public string? Origin { get; set; }
         public string? Manufacturer { get; set; }
         public string? Ingredients { get; set; }
-        public string? ImagePath { get; set; }
+        public string? ImageData { get; set; }
         public string? SeoTitle { get; set; }
         public string? SeoAlias { get; set; }
         public bool? IsActived { get; set; }
+
         [JsonIgnore]
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
-        public ICollection<int?> CategoryIds { get; set; }
+        public ICollection<int>? CategoryIds { get; set; } = new List<int>();
     }
 }

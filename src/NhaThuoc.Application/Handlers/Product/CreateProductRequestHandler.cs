@@ -1,10 +1,12 @@
-﻿using AutoMapper;
+﻿using AssetServer.Enumerations;
+using AutoMapper;
 using MediatR;
 using NhaThuoc.Application.Request.Product;
 using NhaThuoc.Application.Validators.Product;
 using NhaThuoc.Domain.Abtractions.IRepositories;
 using NhaThuoc.Share.DependencyInjection.Extensions;
 using NhaThuoc.Share.Exceptions;
+using NhaThuoc.Share.Service;
 using Entities = NhaThuoc.Domain.Entities;
 
 namespace NhaThuoc.Application.Handlers.Product
@@ -14,12 +16,14 @@ namespace NhaThuoc.Application.Handlers.Product
         private readonly IProductRepository productRepository;
         private readonly ICategoryRepository categoryRepository;
         private readonly IMapper mapper;
+        private readonly IFileService fileService;
 
-        public CreateProductRequestHandler(IProductRepository productRepository, ICategoryRepository categoryRepository, IMapper mapper)
+        public CreateProductRequestHandler(IProductRepository productRepository, ICategoryRepository categoryRepository, IMapper mapper, IFileService fileService)
         {
             this.productRepository = productRepository;
             this.categoryRepository = categoryRepository;
             this.mapper = mapper;
+            this.fileService = fileService;
         }
 
         public async Task<ApiResponse> Handle(CreateProductRequest request, CancellationToken cancellationToken)
@@ -37,6 +41,13 @@ namespace NhaThuoc.Application.Handlers.Product
                     
                     var dubCategoryId = request.CategoryIds.GroupBy(id => id).Where(g => g.Count() > 1).Select(g => g.Key).ToList();
                     if(dubCategoryId.Any()) dubCategoryId.ThrowConflict();
+
+                    if (request.ImageData is not null)
+                    {
+                        var fileName = $"a{fileService.GetFileExtensionFromBase64(request.ImageData)}";
+                        var path = await fileService.UploadFile(fileName, request.ImageData, AssetType.PRODUCT_IMG);
+                        product.ImagePath = path;
+                    }
 
                     product.ProductCategories = request.CategoryIds?.Distinct().Select(categoryId => new Entities.ProductCategory
                     {
