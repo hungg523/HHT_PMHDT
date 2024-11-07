@@ -18,8 +18,9 @@ namespace NhaThuoc.Data.Configurations
             builder.Property(x => x.AvatarImagePath).HasColumnName("AvatarImagePath");
             builder.Property(x => x.Password).HasColumnName("Password");
             builder.Property(x => x.IsActive).HasColumnName("IsActive");
-            builder.Property(x => x.CreatedAt).HasColumnName("CreatedAt");
+            builder.Property(x => x.CreatedAt).HasColumnName("CreatedAt"); 
             builder.Property(x => x.Role).HasColumnName("Role");
+            builder.Property(x => x.OTP).HasColumnName("OTP");
         }
     }
 }

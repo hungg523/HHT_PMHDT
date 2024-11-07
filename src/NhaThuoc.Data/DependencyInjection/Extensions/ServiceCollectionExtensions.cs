@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NhaThuoc.Data.Repositories;
 using NhaThuoc.Domain.Abtractions.IRepositories;
+using NhaThuoc.Share.Constant;
 
 namespace NhaThuoc.Data.DependencyInjection.Extensions
 {
@@ -18,8 +19,9 @@ namespace NhaThuoc.Data.DependencyInjection.Extensions
             services.AddScoped<ICouponRepository, CouponRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<ICustomerAddressRepository, CustomerAddressRepository>();
-            services.AddScoped<ICustomerRepository, CustomerRepository>(); 
-
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.Configure<EmailSettings>(configuration.GetSection("EmailSettings"));
+            services.AddSingleton<EmailService>();
             return services;
         }
     }

@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NhaThuoc.Share.Service;
 
@@ -9,6 +10,7 @@ namespace NhaThuoc.Share.DependencyInjection.Extensions
         {
             services.AddHttpClient();
             services.AddScoped<IFileService, FileService>();
+            services.AddSingleton<EmailService>();
             return services;
         }
     }
