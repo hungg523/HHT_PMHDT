@@ -20,4 +20,8 @@
 		<ProjectReference Include="..\NhaThuoc.Data\NhaThuoc.Data.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="wwwroot\assets\" />
+	</ItemGroup>
+
 </Project>
