@@ -49,7 +49,6 @@
                     </li>
                     <hr>
 
-                    <!-- Danh mục -->
                     <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false"
                             aria-controls="ui-basic">
@@ -67,7 +66,6 @@
                         </div>
                     </li>
 
-                    <!-- Sản phẩm -->
                     <li class="nav-item">
                         <a class="nav-link" data-bs-toggle="collapse" href="#product-basic" aria-expanded="false"
                             aria-controls="product-basic">
@@ -84,7 +82,6 @@
                             </ul>
                         </div>
                     </li>
-
                 </ul>
             </nav>
 
@@ -113,9 +110,12 @@
                                                 placeholder="Mô tả">
                                         </div>
                                         <div class="form-group">
-                                            <label for="imagePath">Đường dẫn ảnh</label>
-                                            <input type="text" class="form-control" id="imagePath"
-                                                placeholder="Đường dẫn ảnh">
+                                            <label>Ảnh hiện tại</label>
+                                            <div id="currentImageContainer">
+                                                <img id="currentImage" src="" alt="Current Image"
+                                                    style="width: 50px; height: auto;">
+                                                <input type="file" id="newImageFile" accept="image/*">
+                                            </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="isActive">Kích hoạt</label>
@@ -136,35 +136,29 @@
         </div>
     </div>
 
-    <!-- plugins:js -->
     <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
     <script src="../../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
     <script src="../../assets/js/off-canvas.js"></script>
     <script src="../../assets/js/template.js"></script>
-    <script src="../../assets/js/settings.js"></script>
-    <script src="../../assets/js/hoverable-collapse.js"></script>
-    <script src="../../assets/js/todolist.js"></script>
+
     <script>
-        // Lấy id của danh mục từ URL
         const urlParams = new URLSearchParams(window.location.search);
         const categoryId = urlParams.get('id');
 
-        // Hàm tải dữ liệu danh mục hiện tại
         document.addEventListener("DOMContentLoaded", function () {
-            fetch(`https://localhost:7099/get-category-name?id=${categoryId}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
+            fetch(`https://localhost:1006/get-category-name?id=${categoryId}`)
                 .then(response => response.json())
                 .then(data => {
-                    // Điền dữ liệu vào các trường input
                     document.getElementById('parentId').value = data.parentId;
                     document.getElementById('name').value = data.name;
                     document.getElementById('description').value = data.description;
-                    document.getElementById('imagePath').value = data.imagePath;
                     document.getElementById('isActive').checked = data.isActive;
+
+                    if (data.imagePath) {
+                        document.getElementById('currentImage').src = data.imagePath.startsWith("data:image")
+                            ? data.imagePath
+                            : `https://localhost:1005/${data.imagePath}`;
+                    }
                 })
                 .catch(error => {
                     console.error('Error fetching category:', error);
@@ -172,38 +166,57 @@
                 });
         });
 
-        // Hàm cập nhật danh mục
+        function convertToBase64(file, callback) {
+            const reader = new FileReader();
+            reader.onload = function () {
+                callback(reader.result);
+            };
+            reader.onerror = function (error) {
+                console.error('Error converting image to base64:', error);
+                callback(null);
+            };
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                callback(null);
+            }
+        }
+
         function updateCategory() {
             const messageDiv = document.getElementById('message');
-            const categoryData = {
-                ParentId: parseInt(document.getElementById('parentId').value) || null,
-                Name: document.getElementById('name').value || null,
-                Description: document.getElementById('description').value || null,
-                ImagePath: document.getElementById('imagePath').value || null,
-                IsActive: document.getElementById('isActive').checked || null
-            };
+            const newImageFile = document.getElementById('newImageFile').files[0];
 
-            fetch(`https://localhost:7099/update-category?id=${categoryId}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(categoryData)
-            })
-                .then(response => response.json())
-                .then(data => {
-                    messageDiv.style.display = 'block';
-                    messageDiv.style.backgroundColor = '#d4edda';
-                    messageDiv.style.color = '#155724';
-                    messageDiv.innerHTML = 'Danh mục đã được cập nhật thành công!';
+            convertToBase64(newImageFile, function (base64Image) {
+                const categoryData = {
+                    ParentId: parseInt(document.getElementById('parentId').value) || null,
+                    Name: document.getElementById('name').value || null,
+                    Description: document.getElementById('description').value || null,
+                    ImageData: base64Image,
+                    IsActive: document.getElementById('isActive').checked
+                };
+
+                fetch(`https://localhost:1006/update-category?id=${categoryId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(categoryData)
                 })
-                .catch(error => {
-                    console.error('Error updating category:', error);
-                    messageDiv.style.display = 'block';
-                    messageDiv.style.backgroundColor = '#f8d7da';
-                    messageDiv.style.color = '#721c24';
-                    messageDiv.innerHTML = 'Có lỗi xảy ra khi cập nhật danh mục.';
-                });
+                    .then(response => response.json())
+                    .then(data => {
+                        messageDiv.style.display = 'block';
+                        messageDiv.style.backgroundColor = '#d4edda';
+                        messageDiv.style.color = '#155724';
+                        messageDiv.innerHTML = 'Danh mục đã được cập nhật thành công!';
+                    })
+                    .catch(error => {
+                        console.error('Error updating category:', error);
+                        messageDiv.style.display = 'block';
+                        messageDiv.style.backgroundColor = '#f8d7da';
+                        messageDiv.style.color = '#721c24';
+                        messageDiv.innerHTML = 'Có lỗi xảy ra khi cập nhật danh mục.';
+                    });
+            });
         }
     </script>
 </body>

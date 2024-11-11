@@ -44,7 +44,8 @@
                 <div class="d-flex align-items-center justify-content-between">
                     <div class="logo">
                         <div class="site-logo">
-                            <a href="/index.html" class="js-logo-clone">Nhà Thuốc</a>
+                            <a href="/index.html" class="js-logo-clone">HHT <span
+                                    style="color: #5eba24;">Pharmacy</span></a>
                         </div>
                     </div>
                     <div class="main-nav d-none d-lg-block">
@@ -79,9 +80,6 @@
             </div>
         </div>
 
-        <div class="site-navbar py-2">
-            <!-- Navbar code... -->
-        </div>
 
         <div class="bg-light py-3">
             <div class="container">
@@ -260,27 +258,27 @@
                 .then(function (response) {
                     console.log("SUCCESS!", response.status, response.text);
 
-                    // Hiển thị thông báo thành công
+                    // Hiển thị thành công
                     const successMessage = document.getElementById('success-message');
                     successMessage.textContent = "Tin nhắn của bạn đã được gửi thành công!";
                     successMessage.style.display = "block";
 
-                    // Ẩn thông báo sau 3 giây
+                    // Ẩn thông báo 
                     setTimeout(function () {
                         successMessage.style.display = "none";
                     }, 3000);
 
-                    // Reset form sau khi gửi thành công
+                    // Reset form 
                     document.getElementById('contact-form').reset();
                 }, function (error) {
                     console.log("FAILED...", error);
 
-                    // Hiển thị thông báo lỗi
+                    // Hiển th lỗi
                     const errorMessage = document.getElementById('error-message');
                     errorMessage.textContent = "Có lỗi xảy ra khi gửi tin nhắn. Vui lòng thử lại.";
                     errorMessage.style.display = "block";
 
-                    // Ẩn thông báo sau 3 giây
+                    // Ẩn thông báo
                     setTimeout(function () {
                         errorMessage.style.display = "none";
                     }, 3000);

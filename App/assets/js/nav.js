@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // Tham chiếu đến phần tử HTML nơi danh mục sẽ được hiển thị
       const categoryList = document.getElementById("categoryList");
 
-      fetch('https://localhost:7099/get-categories')
+      fetch('https://localhost:1006/get-categories')
         .then(response => response.json())
         .then(data => {
           // Xóa nội dung hiện tại của categoryList

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Đăng ký - Nhà thuốc</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap&subset=vietnamese" rel="stylesheet">
+    <link rel="icon" href="/assets/images/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card mt-5">
+                    <div class="card-body">
+                        <h3 class="card-title text-center">Đăng ký</h3>
+                        <form action="/path-to-your-register-api" method="POST" class="mt-4">
+                            <div class="form-group">
+                                <label for="name">Họ và tên</label>
+                                <input type="text" id="name" name="name" class="form-control" placeholder="Nhập họ và tên" required>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" class="form-control" placeholder="Nhập email" required>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="password">Mật khẩu</label>
+                                <input type="password" id="password" name="password" class="form-control" placeholder="Nhập mật khẩu" required>
+                            </div>
+                            <div class="form-group mt-3">
+                                <label for="confirmPassword">Xác nhận mật khẩu</label>
+                                <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" placeholder="Xác nhận mật khẩu" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block mt-4">Đăng ký</button>
+                        </form>
+                        <div class="text-center mt-3">
+                            <p>Đã có tài khoản? <a href="login.html">Đăng nhập</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Nhà Thuốc - Danh Sách Danh Mục</title>
+  <title>Nhà Thuốc - Danh Sách Sản Phẩm</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="../../assets/vendors/feather/feather.css">
   <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
@@ -33,7 +33,7 @@
           <a class="navbar-brand brand-logo" href="/Admin/index.html">
             <img src="/Admin/assets/images/logo.svg" alt="logo" />
           </a>
-          <a class="navbar-brand brand-logo-mini" href="/index.html">
+          <a class="navbar-brand brand-logo-mini" href="/Admin/index.html">
             <img src="/Admin/assets/images/logo-mini.svg" alt="logo" />
           </a>
         </div>
@@ -88,7 +88,50 @@
             </div>
           </li>
 
+        </ul>
+      </nav>
 
+      <!-- Main panel for displaying products -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="row">
+            <div class="col-lg-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <h4 class="card-title">Danh Sách Sản Phẩm</h4>
+                    <!-- Nút "Thêm Mới" bên phải -->
+                    <a href="/Admin/pages/product/create-product.html" class="btn btn-primary">Thêm Mới</a>
+                  </div>
+                  <p class="card-description"> <code>Danh sách các sản phẩm hiện tại</code> </p>
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th> Sản phẩm </th>
+                          <th> Tên sản phẩm </th>
+                          <th> Giá gốc </th>
+                          <th> Giá khuyến mãi </th>
+                          <th> Mô tả </th>
+                          <th> Thương hiệu </th>
+                          <th> Kích hoạt </th>
+                          <th> Thao tác </th>
+                        </tr>
+                      </thead>
+                      <tbody id="productTableBody">
+                        <!-- Dữ liệu sản phẩm sẽ được hiển thị ở đây -->
+                      </tbody>
+                    </table>
+                  </div>
+                  <div id="message"
+                    style="display: none; padding: 10px; margin-top: 10px; border-radius: 5px; font-weight: bold;">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -101,6 +144,62 @@
   <script src="../../assets/js/hoverable-collapse.js"></script>
   <script src="../../assets/js/todolist.js"></script>
 
+  <!-- JS Xử lý -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const productTableBody = document.getElementById("productTableBody");
+      const messageDiv = document.getElementById("message");
+
+      // Fetch products from the API
+      fetch('https://localhost:1006/get-products', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Mạng không ổn định');
+          }
+          return response.json();
+        })
+        .then(data => {
+          productTableBody.innerHTML = "";
+
+          data.forEach(product => {
+            const row = document.createElement("tr");
+
+            const statusBadge = product.isActived
+              ? `<span style="display: inline-block; width: 60px; height: 30px; line-height: 30px; text-align: center; 
+                                border-radius: 5px; color: white; background-color: #28a745; font-weight: bold;">Có</span>`
+              : `<span style="display: inline-block; width: 60px; height: 30px; line-height: 30px; text-align: center; 
+                                border-radius: 5px; color: white; background-color: #dc3545; font-weight: bold;">Không</span>`;
+
+            row.innerHTML = `
+                            <td><img src="https://localhost:1005/${product.imagePath}" alt="${product.name}" style="width: 32px; height: 32px; object-fit: cover;  border-radius: 4px;"></td>
+                            <td>${product.productName}</td>
+                            <td>${product.regularPrice.toLocaleString()} VND</td>
+                            <td>${product.discountPrice ? product.discountPrice.toLocaleString() + ' VND' : 'N/A'}</td>
+                            <td>${product.description || ""}</td>
+                            <td>${product.brand || ""}</td>
+                            <td>${statusBadge}</td>
+                            <td>
+                                <a href="/Admin/pages/product/edit-product.html?id=${product.id}" class="btn btn-sm btn-warning">Sửa</a>
+                            </td>
+                        `;
+
+            productTableBody.appendChild(row);
+          });
+        })
+        .catch(error => {
+          console.error('Error fetching products:', error);
+          messageDiv.style.display = 'block';
+          messageDiv.style.backgroundColor = '#f8d7da';
+          messageDiv.style.color = '#721c24';
+          messageDiv.innerHTML = 'Có lỗi xảy ra khi tải danh sách sản phẩm.';
+        });
+    });
+  </script>
 </body>
 
 </html>

@@ -110,10 +110,9 @@
                                         <table class="table table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th> ID </th>
+                                                    <th> Danh mục </th>
                                                     <th> Tên danh mục </th>
                                                     <th> Mô tả </th>
-                                                    <th> Đường dẫn ảnh </th>
                                                     <th> Kích hoạt </th>
                                                     <th> Thao tác </th>
                                                 </tr>
@@ -144,14 +143,14 @@
     <script src="../../assets/js/hoverable-collapse.js"></script>
     <script src="../../assets/js/todolist.js"></script>
 
-    <!-- Script to Fetch and Display Categories -->
+    <!-- JS Xử lý -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const categoryTableBody = document.getElementById("categoryTableBody");
             const messageDiv = document.getElementById("message");
 
-            // Fetch categories from the server
-            fetch('https://localhost:7099/get-categories', {
+            // Fetch categories from the API
+            fetch('https://localhost:1006/get-categories', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -159,7 +158,7 @@
             })
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error('Network response was not ok');
+                        throw new Error('Mạng không ổn định');
                     }
                     return response.json();
                 })
@@ -177,10 +176,9 @@
                     border-radius: 5px; color: white; background-color: #dc3545; font-weight: bold;">Không</span>`;
 
                         row.innerHTML = `
-                        <td>${category.id}</td>
+                        <td><img src="https://localhost:1005/${category.imagePath}" alt="${category.name}" style="width: 32px; height: 32px; object-fit: cover;  border-radius: 4px;"></td>
                         <td>${category.name}</td>
                         <td>${category.description || ""}</td>
-                        <td>${category.imagePath || ""}</td>
                         <td>${statusBadge}</td>
                         <td>
                             <a href="/Admin/pages/category/edit-category.html?id=${category.id}" class="btn btn-sm btn-warning">Sửa</a>

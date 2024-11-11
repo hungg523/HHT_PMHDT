@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Nhà thuốc &mdash; Sản phẩm</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap&subset=vietnamese">
+    <link rel="icon" href="/assets/images/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="/assets/fonts/icomoon/style.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="/assets/css/jquery-ui.css">
+    <link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/assets/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/assets/css/aos.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+</head>
+
+<body>
+
+    <div class="site-wrap">
+        <!-- Navbar -->
+        <div class="site-navbar py-2">
+            <div class="container">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div class="logo">
+                        <div class="site-logo">
+                            <a href="/index.html" class="js-logo-clone">HHT <span
+                                    style="color: #5eba24;">Pharmacy</span></a>
+                        </div>
+                    </div>
+                    <div class="main-nav d-none d-lg-block">
+                        <nav class="site-navigation text-right text-md-center" role="navigation">
+                            <ul class="site-menu js-clone-nav d-none d-lg-block">
+                                <li><a href="/index.html"><strong>Trang chủ</strong></a></li>
+                                <li class="has-children">
+                                    <a href="#"><strong>Danh mục</strong></a>
+                                    <ul class="dropdown" id="categoryList">
+                                        <!-- Danh mục hiển thị từ API -->
+                                    </ul>
+                                </li>
+                                <li class="active"><a href="shop.html"><strong>Sản phẩm</strong></a></li>
+                                <li><a href="about.html"><strong>About</strong></a></li>
+                                <li><a href="/pages/contact.html"><strong>Liên hệ</strong></a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="icons">
+                        <a href="#" class="icons-btn d-inline-block js-search-open"><span
+                                class="icon-search"></span></a>
+                        <a href="cart.html" class="icons-btn d-inline-block bag">
+                            <span class="icon-shopping-bag"></span>
+                            <span class="number">2</span>
+                        </a>
+                        <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none"><span
+                                class="icon-menu"></span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Breadcrumb -->
+        <div class="bg-light py-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 mb-0">
+                        <a href="/index.html">Trang chủ</a> <span class="mx-2 mb-0">/</span>
+                        <strong class="text-black">Sản phẩm</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="site-section">
+            <div class="container">
+                <div class="row">
+                    <!-- Sort Filter -->
+                    <div class="col-lg-6">
+                        <h3 class="mb-3 h6 text-uppercase text-black d-block">Lọc sản phẩm</h3>
+                        <button type="button" class="btn btn-secondary btn-md dropdown-toggle px-4"
+                            id="dropdownMenuReference" data-toggle="dropdown">Sắp xếp</button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+                            <a class="dropdown-item" href="#" data-sort="relevance">Liên quan</a>
+                            <a class="dropdown-item" href="#" data-sort="name_asc">Tên, A đến Z</a>
+                            <a class="dropdown-item" href="#" data-sort="name_desc">Tên, Z đến A</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#" data-sort="price_low_high">Giá, từ thấp đến cao</a>
+                            <a class="dropdown-item" href="#" data-sort="price_high_low">Giá, từ cao đến thấp</a>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row product-list">
+                    <!-- Products will be inserted here -->
+                </div>
+            </div>
+        </div>
+
+        <div class="site-section bg-secondary bg-image" style="background-image: url('/assets/images/bg_2.jpg');">
+            <div class="container">
+                <div class="row align-items-stretch">
+                    <div class="col-lg-6 mb-5 mb-lg-0">
+                        <a href="#" class="banner-1 h-100 d-flex"
+                            style="background-image: url('/assets/images/bg_1.jpg');">
+                            <div class="banner-1-inner align-self-center">
+                                <h2>Pharma Products</h2>
+                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae ex ad minus rem
+                                    odio voluptatem.
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-6 mb-5 mb-lg-0">
+                        <a href="#" class="banner-1 h-100 d-flex"
+                            style="background-image: url('/assets/images/bg_2.jpg');">
+                            <div class="banner-1-inner ml-auto  align-self-center">
+                                <h2>Rated by Experts</h2>
+                                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Molestiae ex ad minus rem
+                                    odio voluptatem.
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="site-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-lg-3 mb-4 mb-lg-0">
+
+                        <div class="block-7">
+                            <h3 class="footer-heading mb-4">Thông tin</h3>
+                            <p>"Pharma cam kết mang đến các sản phẩm chăm sóc sức khỏe chất lượng, uy tín từ các
+                                thương hiệu hàng đầu. Chúng tôi cung cấp đa dạng các loại thuốc, thực phẩm chức năng, và
+                                sản
+                                phẩm hỗ trợ
+                                sức khỏe với đội ngũ tư vấn tận tình, chuyên nghiệp. Mục tiêu của chúng tôi là luôn đồng
+                                hành cùng sức
+                                khỏe của bạn và gia đình."
+                            </p>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-3 mx-auto mb-5 mb-lg-0">
+                        <h3 class="footer-heading mb-4">Danh mục</h3>
+                        <ul class="list-unstyled" id="categoryListFooter">
+                            <!-- Danh mục từ API -->
+                        </ul>
+
+                    </div>
+
+                    <div class="col-md-6 col-lg-3">
+                        <div class="block-5 mb-5">
+                            <h3 class="footer-heading mb-4">Liên hệ</h3>
+                            <ul class="list-unstyled">
+                                <li class="address">Đại học Trà Vinh</li>
+                                <li class="phone"><a href="tel://379932119">+84379932119</a></li>
+                                <li class="email">Pharma@st.tvu.edu.vn</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Scripts -->
+                    <script src="/assets/js/jquery-3.3.1.min.js"></script>
+                    <script src="/assets/js/jquery-ui.js"></script>
+                    <script src="/assets/js/popper.min.js"></script>
+                    <script src="/assets/js/bootstrap.min.js"></script>
+                    <script src="/assets/js/owl.carousel.min.js"></script>
+                    <script src="/assets/js/jquery.magnific-popup.min.js"></script>
+                    <script src="/assets/js/aos.js"></script>
+                    <script src="/assets/js/main.js"></script>
+                    <script src="/assets/js/nav.js"></script>
+
+                    <script>
+                        $(function () {
+                            // Initialize jQuery UI Slider
+                            $("#slider-range").slider({
+                                range: true,
+                                min: 0,
+                                max: 1000000,
+                                values: [0, 1000000],
+                                slide: function (event, ui) {
+                                    $("#amount").val("₫" + formatCurrency(ui.values[0]) + " - ₫" + formatCurrency(ui.values[1]));
+                                },
+                                stop: function (event, ui) {
+                                    fetchProducts({ minPrice: ui.values[0], maxPrice: ui.values[1] });
+                                }
+                            });
+                            $("#amount").val("₫" + formatCurrency($("#slider-range").slider("values", 0)) + " - ₫" + formatCurrency($("#slider-range").slider("values", 1)));
+
+                            // Sort Products on dropdown item click
+                            $(".dropdown-item").on("click", function (e) {
+                                e.preventDefault();
+                                const sortBy = $(this).data("sort");
+                                fetchProducts({}, sortBy);
+                            });
+                        });
+
+                        // Format currency to add thousand separators
+                        function formatCurrency(value) {
+                            return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+                        }
+
+                        // Sort products based on selected criteria
+                        function sortProducts(products, sortBy) {
+                            switch (sortBy) {
+                                case "name_asc":
+                                    return products.sort((a, b) => a.productName.localeCompare(b.productName));
+                                case "name_desc":
+                                    return products.sort((a, b) => b.productName.localeCompare(a.productName));
+                                case "price_low_high":
+                                    return products.sort((a, b) => a.regularPrice - b.regularPrice);
+                                case "price_high_low":
+                                    return products.sort((a, b) => b.regularPrice - a.regularPrice);
+                                default:
+                                    return products; // Default: no sorting
+                            }
+                        }
+
+                        // Fetch and display products with optional filtering and sorting
+                        async function fetchProducts(filter = {}, sortBy = "") {
+                            try {
+                                let url = `https://localhost:1006/get-products?minPrice=${filter.minPrice || 0}&maxPrice=${filter.maxPrice || 1000000}`;
+                                console.log("Fetching products from:", url);
+
+                                const response = await fetch(url);
+                                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+                                let products = await response.json();
+                                console.log("Fetched Products: ", products);
+
+                                // Sort products if sortBy is provided
+                                products = sortProducts(products, sortBy);
+
+                                const productContainer = document.querySelector('.product-list');
+                                productContainer.innerHTML = '';
+
+                                products.forEach(product => {
+                                    const regularPrice = formatCurrency(product.regularPrice) + " VNĐ";
+                                    const discountPrice = product.discountPrice ? formatCurrency(product.discountPrice) + " VNĐ" : null;
+
+                                    const productHtml = `
+                            <div class="col-sm-6 col-lg-4 text-center item mb-4">
+                                <a href="shop-single.html">
+                                    <img src="https://localhost:1005/${product.imagePath}" alt="Product Image" style="width: 270px; height: 370px; height: auto;">
+                                </a>
+                                <h3 class="text-dark"><a href="shop-single.html">${product.productName}</a></h3>
+                                <p class="price">
+                                    ${discountPrice ? `<del>${regularPrice}</del> &mdash; ${discountPrice}` : `${regularPrice}`}
+                                </p>
+                            </div>
+                        `;
+                                    productContainer.insertAdjacentHTML('beforeend', productHtml);
+                                });
+                            } catch (error) {
+                                console.error('Error fetching products:', error);
+                            }
+                        }
+
+                        // Initial fetch of products on page load
+                        document.addEventListener('DOMContentLoaded', () => {
+                            fetchProducts();
+                        });
+                    </script>
+
+</body>
+
+</html>

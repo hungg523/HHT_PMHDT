@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     const categoryListFooter = document.getElementById("categoryListFooter");
   
-    fetch('https://localhost:7099/get-categories')
+    fetch('https://localhost:1006/get-categories')
       .then(response => response.json())
       .then(data => {
         // Lấy ngẫu nhiên 4 mục từ dữ liệu trả về

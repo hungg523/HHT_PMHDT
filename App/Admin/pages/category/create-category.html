@@ -118,9 +118,10 @@
                                                 placeholder="Mô tả">
                                         </div>
                                         <div class="form-group">
-                                            <label for="imagePath">Đường dẫn ảnh</label>
-                                            <input type="text" class="form-control" id="imagePath"
-                                                placeholder="Đường dẫn ảnh">
+                                            <label for="imageFile">Chọn ảnh</label>
+                                            <input type="file" class="form-control" id="imageFile" onchange="convertToBase64('imageFile', function(base64Image) { 
+                                                console.log(base64Image); 
+                                            })">
                                         </div>
                                         <div class="form-group">
                                             <label for="isActive">Kích hoạt</label>
@@ -149,8 +150,9 @@
     <script src="../../assets/js/settings.js"></script>
     <script src="../../assets/js/hoverable-collapse.js"></script>
     <script src="../../assets/js/todolist.js"></script>
+    <script src="/Admin/assets/js/imgToBase64.js"></script>
 
-    <!-- Call Api Via Https Localhost -->
+    <!-- JS Xử lý -->
     <script>
         function submitForm() {
             const messageDiv = document.getElementById('message');
@@ -158,82 +160,83 @@
 
             // Lấy dữ liệu từ form
             const parentIdValue = document.getElementById('parentId').value;
-            const categoryData = {
-                ParentId: parentIdValue ? parseInt(parentIdValue) : null,
-                Name: document.getElementById('name').value,
-                Description: document.getElementById('description').value,
-                ImagePath: document.getElementById('imagePath').value,
-                IsActive: document.getElementById('isActive').checked
-            };
+            const nameValue = document.getElementById('name').value;
+            const descriptionValue = document.getElementById('description').value;
+            const isActiveValue = document.getElementById('isActive').checked;
 
             // Kiểm tra các điều kiện dựa trên validator ở backend
-
+            
             // Kiểm tra ParentId
-            if (categoryData.ParentId === null) {
+            if (!parentIdValue) {
                 errors.push("Parent Id không được để trống.");
-            } else if (categoryData.ParentId <= 0) {
+            } else if (parseInt(parentIdValue) <= 0) {
                 errors.push("Parent Id phải lớn hơn 0.");
             }
 
             // Kiểm tra Name
-            if (!categoryData.Name) {
+            if (!nameValue) {
                 errors.push("Name không được để trống.");
-            } else if (categoryData.Name.length > 100) {
+            } else if (nameValue.length > 100) {
                 errors.push("Tên không được vượt quá 100 ký tự.");
             }
 
             // Kiểm tra Description
-            if (categoryData.Description && categoryData.Description.length > 500) {
+            if (descriptionValue && descriptionValue.length > 500) {
                 errors.push("Description không được vượt quá 500 ký tự.");
             }
 
-            // Kiểm tra ImagePath
-            if (!categoryData.ImagePath) {
-                errors.push("ImagePath không được để trống.");
-            }
-
             // Kiểm tra IsActive
-            if (categoryData.IsActive === null) {
+            if (isActiveValue === null) {
                 errors.push("Trạng thái hoạt động không được để trống.");
             }
 
             // Nếu có lỗi, hiển thị và dừng không gửi form
             if (errors.length > 0) {
                 messageDiv.style.display = 'block';
-                messageDiv.style.backgroundColor = '#f8d7da';
+                messageDiv.style.backgroundColor = '#fff';
                 messageDiv.style.color = '#721c24';
                 messageDiv.innerHTML = errors.join("<br>");
                 return; // Dừng không gửi request
             }
 
-            // Gửi request nếu không có lỗi
-            fetch('https://localhost:7099/create-category', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(categoryData)
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Success:', data);
-                    // Hiển thị thông báo thành công
-                    messageDiv.style.display = 'block';
-                    messageDiv.style.backgroundColor = '#d4edda';
-                    messageDiv.style.color = '#155724';
-                    messageDiv.innerHTML = 'Danh mục đã được thêm thành công!';
+            // Chuyển đổi ảnh thành base64 nếu không có lỗi
+            convertToBase64('imageFile', function (base64Image) {
+                const categoryData = {
+                    ParentId: parseInt(parentIdValue),
+                    Name: nameValue,
+                    Description: descriptionValue,
+                    ImageData: base64Image,
+                    IsActive: isActiveValue
+                };
+
+                // Gửi request nếu không có lỗi
+                fetch('https://localhost:1006/create-category', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(categoryData)
                 })
-                .catch(error => {
-                    console.error('Error:', error);
-                    // Hiển thị thông báo lỗi
-                    messageDiv.style.display = 'block';
-                    messageDiv.style.backgroundColor = '#f8d7da';
-                    messageDiv.style.color = '#721c24';
-                    messageDiv.innerHTML = 'Có lỗi xảy ra khi thêm danh mục.';
-                });
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Success:', data);
+                        // Hiển thị thông báo thành công
+                        messageDiv.style.display = 'block';
+                        messageDiv.style.backgroundColor = '#d4edda';
+                        messageDiv.style.color = '#155724';
+                        messageDiv.innerHTML = 'Danh mục đã được thêm thành công!';
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        // Hiển thị thông báo lỗi
+                        messageDiv.style.display = 'block';
+                        messageDiv.style.backgroundColor = '#f8d7da';
+                        messageDiv.style.color = '#721c24';
+                        messageDiv.innerHTML = 'Có lỗi xảy ra khi thêm danh mục.';
+                    });
+            });
         }
     </script>
-
 </body>
 
 </html>
