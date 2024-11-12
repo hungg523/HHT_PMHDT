@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Duyệt qua 4 danh mục ngẫu nhiên và thêm vào danh sách
         randomCategories.forEach(category => {
           const listItem = document.createElement("li");
-          listItem.innerHTML = `<a href="/pages/category/index-category.html?id=${category.id}">${category.name}</a>`;
+          listItem.innerHTML = `<a href="/pages/index-category.html?id=${category.id}">${category.name}</a>`;
           categoryListFooter.appendChild(listItem);
         });
       })

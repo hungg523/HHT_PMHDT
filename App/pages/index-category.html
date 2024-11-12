@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Nhà thuốc - Sản phẩm</title>
+    <title>Nhà thuốc - Danh mục sản phẩm</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap&subset=vietnamese">
@@ -21,7 +21,6 @@
 </head>
 
 <body>
-
     <!-- Navbar -->
     <div class="site-wrap">
         <div class="site-navbar py-2">
@@ -54,7 +53,7 @@
                                         <!-- Danh mục hiển thị từ API -->
                                     </ul>
                                 </li>
-                                <li class="active"><a href="/pages/shop.html"><strong>Sản phẩm</strong></a></li>
+                                <li><a href="/pages/shop.html"><strong>Sản phẩm</strong></a></li>
                                 <li><a href="/pages/about.html"><strong>Về chúng tôi</strong></a></li>
                                 <li><a href="/pages/contact.html"><strong>Liên hệ</strong></a></li>
                             </ul>
@@ -85,14 +84,13 @@
         </div>
     </div>
 
-
     <!-- Breadcrumb -->
     <div class="bg-light py-3">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 mb-0">
                     <a href="/index.html">Trang chủ</a> <span class="mx-2 mb-0">/</span>
-                    <strong class="text-black">Sản phẩm</strong>
+                    <strong class="text-black" id="categoryName">Sản phẩm</strong>
                 </div>
             </div>
         </div>
@@ -101,26 +99,22 @@
     <!-- Main Content -->
     <div class="site-section">
         <div class="container">
-            <div class="row">
-                <!-- Sort Filter -->
-                <div class="col-lg-6">
-                    <h3 class="mb-3 h6 text-uppercase text-black d-block">Lọc sản phẩm</h3>
-                    <button type="button" class="btn btn-secondary btn-md dropdown-toggle px-4"
-                        id="dropdownMenuReference" data-toggle="dropdown">Sắp xếp</button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-                        <a class="dropdown-item" href="#" data-sort="relevance">Liên quan</a>
-                        <a class="dropdown-item" href="#" data-sort="name_asc">Tên, A đến Z</a>
-                        <a class="dropdown-item" href="#" data-sort="name_desc">Tên, Z đến A</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#" data-sort="price_low_high">Giá, từ thấp đến cao</a>
-                        <a class="dropdown-item" href="#" data-sort="price_high_low">Giá, từ cao đến thấp</a>
-                    </div>
+            <!-- Sort Filter -->
+            <div class="col-lg-6">
+                <h3 class="mb-3 h6 text-uppercase text-black d-block">Lọc sản phẩm</h3>
+                <button type="button" class="btn btn-secondary btn-md dropdown-toggle px-4" id="dropdownMenuReference"
+                    data-toggle="dropdown">Sắp xếp</button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
+                    <a class="dropdown-item" href="#" data-sort="relevance">Liên quan</a>
+                    <a class="dropdown-item" href="#" data-sort="name_asc">Tên, A đến Z</a>
+                    <a class="dropdown-item" href="#" data-sort="name_desc">Tên, Z đến A</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#" data-sort="price_low_high">Giá, từ thấp đến cao</a>
+                    <a class="dropdown-item" href="#" data-sort="price_high_low">Giá, từ cao đến thấp</a>
                 </div>
-
             </div>
-
-            <div class="row product-list">
-                <!-- Products will be inserted here -->
+            <div class="row product-list" id="productList">
+                <!-- Sản phẩm sẽ hiển thị ở đây thông qua API -->
             </div>
         </div>
     </div>
@@ -172,6 +166,7 @@
                     </div>
 
                 </div>
+
                 <div class="col-lg-3 mx-auto mb-5 mb-lg-0">
                     <h3 class="footer-heading mb-4">Danh mục</h3>
                     <ul class="list-unstyled" id="categoryListFooter">
@@ -271,65 +266,38 @@
                 <script src="/assets/js/login.js"></script>
                 <script src="/assets/js/popup.js"></script>
                 <script src="/assets/js/register.js"></script>
-
                 <script>
-                    $(function () {
-                        $("#slider-range").slider({
-                            range: true,
-                            min: 0,
-                            max: 1000000,
-                            values: [0, 1000000],
-                            slide: function (event, ui) {
-                                $("#amount").val("₫" + formatCurrency(ui.values[0]) + " - ₫" + formatCurrency(ui.values[1]));
-                            },
-                            stop: function (event, ui) {
-                                fetchProducts({ minPrice: ui.values[0], maxPrice: ui.values[1] });
-                            }
-                        });
-                        $("#amount").val("₫" + formatCurrency($("#slider-range").slider("values", 0)) + " - ₫" + formatCurrency($("#slider-range").slider("values", 1)));
+                    // Lấy ID danh mục từ URL
+                    function getCategoryId() {
+                        const urlParams = new URLSearchParams(window.location.search);
+                        return urlParams.get('id');
+                    }
 
-                        $(".dropdown-item").on("click", function (e) {
-                            e.preventDefault();
-                            const sortBy = $(this).data("sort");
-                            fetchProducts({}, sortBy);
-                        });
-                    });
-
+                    // Định dạng giá tiền
                     function formatCurrency(value) {
                         return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
                     }
 
-                    function sortProducts(products, sortBy) {
-                        switch (sortBy) {
-                            case "name_asc":
-                                return products.sort((a, b) => a.productName.localeCompare(b.productName));
-                            case "name_desc":
-                                return products.sort((a, b) => b.productName.localeCompare(a.productName));
-                            case "price_low_high":
-                                return products.sort((a, b) => a.regularPrice - b.regularPrice);
-                            case "price_high_low":
-                                return products.sort((a, b) => b.regularPrice - a.regularPrice);
-                            default:
-                                return products;
-                        }
-                    }
-
-                    async function fetchProducts(filter = {}, sortBy = "") {
+                    // Hàm lấy và hiển thị sản phẩm theo danh mục
+                    async function fetchCategoryProducts(categoryId) {
                         try {
-                            let url = `https://localhost:1006/get-products?minPrice=${filter.minPrice || 0}&maxPrice=${filter.maxPrice || 1000000}`;
-                            console.log("Fetching products from:", url);
+                            const response = await fetch(`https://localhost:1006/get-products-by-category?id=${categoryId}`);
 
-                            const response = await fetch(url);
-                            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                            }
 
-                            let products = await response.json();
-                            console.log("Fetched Products: ", products);
+                            const products = await response.json();
+                            const productList = document.getElementById('productList');
+                            productList.innerHTML = '';
 
-                            products = sortProducts(products, sortBy);
+                            // Kiểm tra nếu không có sản phẩm
+                            if (products.length === 0) {
+                                productList.innerHTML = '<p>Hiện tại không có sản phẩm!</p>';
+                                return;
+                            }
 
-                            const productContainer = document.querySelector('.product-list');
-                            productContainer.innerHTML = '';
-
+                            // Hiển thị sản phẩm nếu có
                             products.forEach(product => {
                                 const regularPrice = formatCurrency(product.regularPrice) + " VNĐ";
                                 const discountPrice = product.discountPrice ? formatCurrency(product.discountPrice) + " VNĐ" : null;
@@ -337,24 +305,30 @@
                                 const productHtml = `
                             <div class="col-sm-6 col-lg-4 text-center item mb-4">
                                 <a href="shop-single.html">
-                                    <img src="https://localhost:1005/${product.imagePath}" alt="Product Image" style="width: 270px; height: 370px; height: auto;">
+                                    <img src="https://localhost:1005/${product.imagePath}" alt="${product.productName}" style="width: 270px; height: 370px;">
                                 </a>
                                 <h3 class="text-dark"><a href="shop-single.html">${product.productName}</a></h3>
-                                <p class="price">
-                                    ${discountPrice ? `<del>${regularPrice}</del> &mdash; ${discountPrice}` : `${regularPrice}`}
-                                </p>
+                                <p class="price">${discountPrice ? `<del>${regularPrice}</del> &mdash; ${discountPrice}` : regularPrice}</p>
                             </div>
-                        `;
-                                productContainer.insertAdjacentHTML('beforeend', productHtml);
+                            `;
+                                productList.insertAdjacentHTML('beforeend', productHtml);
                             });
                         } catch (error) {
-                            console.error('Error fetching products:', error);
+                            console.error('Error fetching category products:', error);
+                            document.getElementById('productList').innerHTML = '<p>Không thể tải sản phẩm trong danh mục này.</p>';
                         }
                     }
 
+                    // Tải sản phẩm khi trang được tải
                     document.addEventListener('DOMContentLoaded', () => {
-                        fetchProducts();
+                        const categoryId = getCategoryId();
+                        if (categoryId) {
+                            fetchCategoryProducts(categoryId);
+                        } else {
+                            document.getElementById('productList').innerHTML = '<p>Không tìm thấy danh mục sản phẩm.</p>';
+                        }
                     });
+
                 </script>
 
 </body>

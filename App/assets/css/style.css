@@ -1146,3 +1146,23 @@ a {
     position: relative;
     z-index: 2;
 }
+.form-group .position-relative {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #6c757d;
+}
+
+.password-toggle i {
+  font-size: 18px;
+}
+
+.password-toggle:hover {
+  color: #000;
+}

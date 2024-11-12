@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Nhà thuốc - Sản phẩm</title>
+    <title>Nhà thuốc - Danh mục sản phẩm</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap&subset=vietnamese">
@@ -21,7 +21,6 @@
 </head>
 
 <body>
-
     <!-- Navbar -->
     <div class="site-wrap">
         <div class="site-navbar py-2">
@@ -47,15 +46,15 @@
                     <div class="main-nav d-none d-lg-block">
                         <nav class="site-navigation text-right text-md-center" role="navigation">
                             <ul class="site-menu js-clone-nav d-none d-lg-block">
-                                <li><a href="/index.html"><strong>Trang chủ</strong></a></li>
+                                <li class="active"><a href="index.html"><strong>Trang chủ</strong></a></li>
                                 <li class="has-children">
                                     <a href="#"><strong>Danh mục</strong></a>
                                     <ul class="dropdown" id="categoryList">
                                         <!-- Danh mục hiển thị từ API -->
                                     </ul>
                                 </li>
-                                <li class="active"><a href="/pages/shop.html"><strong>Sản phẩm</strong></a></li>
-                                <li><a href="/pages/about.html"><strong>Về chúng tôi</strong></a></li>
+                                <li><a href="/pages/shop.html"><strong>Sản phẩm</strong></a></li>
+                                <li><a href="about.html"><strong>About</strong></a></li>
                                 <li><a href="/pages/contact.html"><strong>Liên hệ</strong></a></li>
                             </ul>
                         </nav>
@@ -85,45 +84,138 @@
         </div>
     </div>
 
-
     <!-- Breadcrumb -->
     <div class="bg-light py-3">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 mb-0">
                     <a href="/index.html">Trang chủ</a> <span class="mx-2 mb-0">/</span>
-                    <strong class="text-black">Sản phẩm</strong>
+                    <strong class="text-black" id="categoryName">Sản phẩm</strong>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Main Content -->
-    <div class="site-section">
-        <div class="container">
-            <div class="row">
-                <!-- Sort Filter -->
-                <div class="col-lg-6">
-                    <h3 class="mb-3 h6 text-uppercase text-black d-block">Lọc sản phẩm</h3>
-                    <button type="button" class="btn btn-secondary btn-md dropdown-toggle px-4"
-                        id="dropdownMenuReference" data-toggle="dropdown">Sắp xếp</button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuReference">
-                        <a class="dropdown-item" href="#" data-sort="relevance">Liên quan</a>
-                        <a class="dropdown-item" href="#" data-sort="name_asc">Tên, A đến Z</a>
-                        <a class="dropdown-item" href="#" data-sort="name_desc">Tên, Z đến A</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#" data-sort="price_low_high">Giá, từ thấp đến cao</a>
-                        <a class="dropdown-item" href="#" data-sort="price_high_low">Giá, từ cao đến thấp</a>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 mr-auto">
+                <div class="border text-center">
+                    <img src="/assets/images/product_07_large.png" alt="Image" class="img-fluid p-5">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h2 class="text-black">Ibuprofen Tablets, 200mg</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur, vitae, explicabo? Incidunt
+                    facere, natus
+                    soluta dolores iusto! Molestiae expedita veritatis nesciunt doloremque sint asperiores fuga
+                    voluptas,
+                    distinctio, aperiam, ratione dolore.</p>
+
+
+                <p><del>$95.00</del> <strong class="text-primary h4">$55.00</strong></p>
+
+
+
+                <div class="mb-5">
+                    <div class="input-group mb-3" style="max-width: 220px;">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-outline-primary js-btn-minus" type="button">&minus;</button>
+                        </div>
+                        <input type="text" class="form-control text-center" value="1" placeholder=""
+                            aria-label="Example text with button addon" aria-describedby="button-addon1">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
+                        </div>
+                    </div>
+
+                </div>
+                <p><a href="cart.html" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Add To Cart</a></p>
+
+                <div class="mt-5">
+                    <ul class="nav nav-pills mb-3 custom-pill" id="pills-tab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home"
+                                role="tab" aria-controls="pills-home" aria-selected="true">Ordering Information</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile"
+                                role="tab" aria-controls="pills-profile" aria-selected="false">Specifications</a>
+                        </li>
+
+                    </ul>
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
+                            aria-labelledby="pills-home-tab">
+                            <table class="table custom-table">
+                                <thead>
+                                    <th>Material</th>
+                                    <th>Description</th>
+                                    <th>Packaging</th>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">OTC022401</th>
+                                        <td>Pain Management: Acetaminophen PM Extra-Strength Caplets, 500 mg, 100/Bottle
+                                        </td>
+                                        <td>1 BT</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">OTC022401</th>
+                                        <td>Pain Management: Acetaminophen PM Extra-Strength Caplets, 500 mg, 100/Bottle
+                                        </td>
+                                        <td>144/CS</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">OTC022401</th>
+                                        <td>Pain Management: Acetaminophen PM Extra-Strength Caplets, 500 mg, 100/Bottle
+                                        </td>
+                                        <td>1 EA</td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane fade" id="pills-profile" role="tabpanel"
+                            aria-labelledby="pills-profile-tab">
+
+                            <table class="table custom-table">
+
+                                <tbody>
+                                    <tr>
+                                        <td>HPIS CODE</td>
+                                        <td class="bg-light">999_200_40_0</td>
+                                    </tr>
+                                    <tr>
+                                        <td>HEALTHCARE PROVIDERS ONLY</td>
+                                        <td class="bg-light">No</td>
+                                    </tr>
+                                    <tr>
+                                        <td>LATEX FREE</td>
+                                        <td class="bg-light">Yes, No</td>
+                                    </tr>
+                                    <tr>
+                                        <td>MEDICATION ROUTE</td>
+                                        <td class="bg-light">Topical</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
                     </div>
                 </div>
 
-            </div>
 
-            <div class="row product-list">
-                <!-- Products will be inserted here -->
             </div>
         </div>
     </div>
+
+
+
+
+
+
 
     <div class="site-section bg-secondary bg-image" style="background-image: url('/assets/images/bg_2.jpg');">
         <div class="container">
@@ -172,6 +264,7 @@
                     </div>
 
                 </div>
+
                 <div class="col-lg-3 mx-auto mb-5 mb-lg-0">
                     <h3 class="footer-heading mb-4">Danh mục</h3>
                     <ul class="list-unstyled" id="categoryListFooter">
@@ -248,7 +341,8 @@
                                 <input type="text" id="otp" name="otp" class="form-control" placeholder="Nhập mã OTP"
                                     required>
                             </div>
-                            <button type="button" class="btn btn-primary btn-block mt-4" onclick="verifyOtp()">Xác thực
+                            <button type="button" class="btn btn-primary btn-block mt-4" onclick="verifyOtp()">Xác
+                                thực
                                 OTP</button>
                         </form>
 
@@ -271,91 +365,6 @@
                 <script src="/assets/js/login.js"></script>
                 <script src="/assets/js/popup.js"></script>
                 <script src="/assets/js/register.js"></script>
-
-                <script>
-                    $(function () {
-                        $("#slider-range").slider({
-                            range: true,
-                            min: 0,
-                            max: 1000000,
-                            values: [0, 1000000],
-                            slide: function (event, ui) {
-                                $("#amount").val("₫" + formatCurrency(ui.values[0]) + " - ₫" + formatCurrency(ui.values[1]));
-                            },
-                            stop: function (event, ui) {
-                                fetchProducts({ minPrice: ui.values[0], maxPrice: ui.values[1] });
-                            }
-                        });
-                        $("#amount").val("₫" + formatCurrency($("#slider-range").slider("values", 0)) + " - ₫" + formatCurrency($("#slider-range").slider("values", 1)));
-
-                        $(".dropdown-item").on("click", function (e) {
-                            e.preventDefault();
-                            const sortBy = $(this).data("sort");
-                            fetchProducts({}, sortBy);
-                        });
-                    });
-
-                    function formatCurrency(value) {
-                        return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-                    }
-
-                    function sortProducts(products, sortBy) {
-                        switch (sortBy) {
-                            case "name_asc":
-                                return products.sort((a, b) => a.productName.localeCompare(b.productName));
-                            case "name_desc":
-                                return products.sort((a, b) => b.productName.localeCompare(a.productName));
-                            case "price_low_high":
-                                return products.sort((a, b) => a.regularPrice - b.regularPrice);
-                            case "price_high_low":
-                                return products.sort((a, b) => b.regularPrice - a.regularPrice);
-                            default:
-                                return products;
-                        }
-                    }
-
-                    async function fetchProducts(filter = {}, sortBy = "") {
-                        try {
-                            let url = `https://localhost:1006/get-products?minPrice=${filter.minPrice || 0}&maxPrice=${filter.maxPrice || 1000000}`;
-                            console.log("Fetching products from:", url);
-
-                            const response = await fetch(url);
-                            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-
-                            let products = await response.json();
-                            console.log("Fetched Products: ", products);
-
-                            products = sortProducts(products, sortBy);
-
-                            const productContainer = document.querySelector('.product-list');
-                            productContainer.innerHTML = '';
-
-                            products.forEach(product => {
-                                const regularPrice = formatCurrency(product.regularPrice) + " VNĐ";
-                                const discountPrice = product.discountPrice ? formatCurrency(product.discountPrice) + " VNĐ" : null;
-
-                                const productHtml = `
-                            <div class="col-sm-6 col-lg-4 text-center item mb-4">
-                                <a href="shop-single.html">
-                                    <img src="https://localhost:1005/${product.imagePath}" alt="Product Image" style="width: 270px; height: 370px; height: auto;">
-                                </a>
-                                <h3 class="text-dark"><a href="shop-single.html">${product.productName}</a></h3>
-                                <p class="price">
-                                    ${discountPrice ? `<del>${regularPrice}</del> &mdash; ${discountPrice}` : `${regularPrice}`}
-                                </p>
-                            </div>
-                        `;
-                                productContainer.insertAdjacentHTML('beforeend', productHtml);
-                            });
-                        } catch (error) {
-                            console.error('Error fetching products:', error);
-                        }
-                    }
-
-                    document.addEventListener('DOMContentLoaded', () => {
-                        fetchProducts();
-                    });
-                </script>
 
 </body>
 
