@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using MediatR;
-using NhaThuoc.Application.Request.Customers.Customer;
 using NhaThuoc.Application.Request.Product;
 using NhaThuoc.Domain.Abtractions.IRepositories;
 using Entities = NhaThuoc.Domain.Entities;

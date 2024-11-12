@@ -50,13 +50,13 @@ namespace NhaThuoc.WebApi.Controllers.Product
             }
         }
 
-        [HttpGet("/get-product-name")]
-        public async Task<IActionResult> GetByNameProduct(int id)
+        [HttpGet("/get-name-product")]
+        public async Task<IActionResult> GetByNameProduct(string productname)
         {
             try
             {
                 var command = new GetByNameProductRequest();
-                command.Id = id;
+                command.ProductName = productname;
                 var result = await mediator.Send(command);
                 return Ok(result);
             }

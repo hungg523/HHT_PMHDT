@@ -22,6 +22,7 @@ namespace NhaThuoc.Application.Mapping
             #region Product
             CreateMap<Product, CreateProductRequest>().ReverseMap();
             CreateMap<Product, UpdateProductRequest>().ReverseMap();
+            CreateMap<Product, GetByNameProductRequest>().ReverseMap();
             #endregion
 
             #region Coupon
