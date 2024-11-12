@@ -2,6 +2,7 @@
 using MediatR;
 using NhaThuoc.Application.Request.Product;
 using NhaThuoc.Domain.Abtractions.IRepositories;
+using NhaThuoc.Share.DependencyInjection.Extensions;
 using Entities = NhaThuoc.Domain.Entities;
 
 namespace NhaThuoc.Application.Handlers.Product
@@ -18,7 +19,8 @@ namespace NhaThuoc.Application.Handlers.Product
         }
         public async Task<List<Entities.Product>> Handle(GetByNameProductRequest request, CancellationToken cancellationToken)
         {
-            var product = productRepository.FindAll(x => x.ProductName == request.ProductName).ToList();
+            var product = productRepository.FindAll(x => x.ProductName.ToLower().Contains(request.ProductName.ToLower())).ToList();
+            if (product is null) product.ThrowNotFound();
             return mapper.Map<List<Entities.Product>>(product);
         }
     }

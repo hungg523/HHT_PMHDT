@@ -62,7 +62,7 @@ namespace NhaThuoc.Application.Validators.Product
                 .NotEmpty().WithMessage("Description không được rỗng.")
                 .NotNull().WithMessage("IsActive không được để trống.");
 
-            RuleFor(x => x.CategoryIds).Must(list => list.All(id => id > 0));
+            RuleFor(x => x.CategoryIds).Must(list => list.All(id => id > 0)).WithMessage("Category Id phải lớn hơn 0.");
         }
     }
 }
