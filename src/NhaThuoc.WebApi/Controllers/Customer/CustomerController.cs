@@ -86,12 +86,43 @@ namespace NhaThuoc.WebApi.Controllers.Customer
         }
 
         [HttpPut("/authen-customer")]
-        public async Task<IActionResult> AuthenCustomer(int? id,[FromBody] AurhenCustomerRequest request)
+        public async Task<IActionResult> AuthenCustomer(string? email,[FromBody] AuthenCustomerRequest request)
         {
             try
             {
-                var command = mapper.Map<AurhenCustomerRequest>(request);
-                command.Id = id;
+                var command = mapper.Map<AuthenCustomerRequest>(request);
+                command.Email = email;
+                var result = await mediator.Send(command);
+                return Ok(result);
+            }
+            catch (NhaThuocException)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost("/resend-otp")]
+        public async Task<IActionResult> ResendOTP(string? email, [FromBody]ResendOTPRequest request)
+        {
+            try
+            {
+                var command = mapper.Map<ResendOTPRequest>(request);
+                command.Email = email;
+                var result = await mediator.Send(command);
+                return Ok(result);
+            }
+            catch (NhaThuocException)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost("/customer-logout")]
+        public async Task<IActionResult> Logout(LogoutCustomerRequest request)
+        {
+            try
+            {
+                var command = mapper.Map<LogoutCustomerRequest>(request);
                 var result = await mediator.Send(command);
                 return Ok(result);
             }

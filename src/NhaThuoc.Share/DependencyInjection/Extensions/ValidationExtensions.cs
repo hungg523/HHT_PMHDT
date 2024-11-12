@@ -15,22 +15,22 @@ namespace NhaThuoc.Share.DependencyInjection.Extensions
             }
         }
 
-        public static void ThrowNotFound<T>(this T entity)
+        public static void ThrowNotFound<T>(this T entity, string? errorMessage = null)
         {
             if (entity is null)
             {
                 var entityTypeName = typeof(T).Name;
-                var errorMessage = $"{entityTypeName} Id is not found!";
+                errorMessage = $"{entityTypeName} is not found!";
                 throw new NhaThuocException(StatusCodes.Status404NotFound, new List<string> { errorMessage });
             }
         }
 
-        public static void ThrowConflict<T>(this T entity)
+        public static void ThrowConflict<T>(this T entity, string? errorMessage = null)
         {
             if (entity is null)
             {
                 var entityTypeName = typeof(T).Name;
-                var errorMessage = $"{entityTypeName} Id is duplicate!";
+                errorMessage = $"{entityTypeName} is conflict";
                 throw new NhaThuocException(StatusCodes.Status409Conflict, new List<string> { errorMessage });
             }
         }

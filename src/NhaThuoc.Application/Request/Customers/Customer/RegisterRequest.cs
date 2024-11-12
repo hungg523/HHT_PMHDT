@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using NhaThuoc.Share.Exceptions;
-using System.Text.Json.Serialization;
 
 namespace NhaThuoc.Application.Request.Customers.Customer
 {
