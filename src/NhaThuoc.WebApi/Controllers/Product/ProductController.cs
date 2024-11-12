@@ -96,5 +96,21 @@ namespace NhaThuoc.WebApi.Controllers.Product
                 throw;
             }
         }
+
+        [HttpGet("/get-product-detail")]
+        public async Task<IActionResult> GetProductDetail(int? id)
+        {
+            try
+            {
+                var command = new GetProductDeatilRequest();
+                command.Id = id;
+                var result = await mediator.Send(command);
+                return Ok(result);
+            }
+            catch (NhaThuocException)
+            {
+                throw;
+            }
+        }
     }
 }

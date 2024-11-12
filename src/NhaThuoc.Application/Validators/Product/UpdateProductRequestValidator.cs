@@ -43,7 +43,7 @@ namespace NhaThuoc.Application.Validators.Product
             RuleFor(p => p.SeoAlias)
                 .MaximumLength(200).WithMessage("SeoAlias không được vượt quá 200 ký tự.");
 
-            RuleFor(x => x.CategoryIds).Must(list => list.All(id => id > 0));
+            RuleFor(x => x.CategoryIds).Must(list => list.All(id => id > 0)).WithMessage("Category Id phải lớn hơn 0.");
         }
     }
 }

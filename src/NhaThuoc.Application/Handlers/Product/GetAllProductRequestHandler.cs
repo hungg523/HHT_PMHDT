@@ -19,7 +19,6 @@ namespace NhaThuoc.Application.Handlers.Product
         public async Task<List<Entities.Product>> Handle(GetAllProductRequest request, CancellationToken cancellationToken)
         {
             var product = productRepository.FindAll();
-
             return mapper.Map<List<Entities.Product>>(product);
         }
     }
