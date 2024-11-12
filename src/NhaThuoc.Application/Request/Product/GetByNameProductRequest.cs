@@ -3,8 +3,8 @@ using Entities = NhaThuoc.Domain.Entities;
 
 namespace NhaThuoc.Application.Request.Product
 {
-    public class GetByNameProductRequest : IRequest<Entities.Product>
+    public class GetByNameProductRequest : IRequest<List<Entities.Product>>
     {
-        public int? Id { get; set; }
+        public string? ProductName { get; set; }
     }
 }

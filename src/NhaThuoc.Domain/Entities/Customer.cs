@@ -15,5 +15,6 @@ namespace NhaThuoc.Domain.Entities
         public bool IsActive { get; set; }
         public string? OTP { get; set; }
         public DateTime CreatedAt { get; set; }
+        public DateTime OTPExpiration { get; set; }
     }
 }

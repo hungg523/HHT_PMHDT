@@ -8,18 +8,17 @@ using NhaThuoc.Share.Exceptions;
 
 namespace NhaThuoc.Application.Handlers.Customers
 {
-    public class AurhenCustomerRequestHandler : IRequestHandler<AurhenCustomerRequest, ApiResponse>
+    public class AuthenCustomerRequestHandler : IRequestHandler<AuthenCustomerRequest, ApiResponse>
     {
         private readonly ICustomerRepository customerRepository;
 
-        public AurhenCustomerRequestHandler(ICustomerRepository customerRepository)
+        public AuthenCustomerRequestHandler(ICustomerRepository customerRepository)
         {
             this.customerRepository = customerRepository;
         }
 
-        public async Task<ApiResponse> Handle(AurhenCustomerRequest request, CancellationToken cancellationToken)
+        public async Task<ApiResponse> Handle(AuthenCustomerRequest request, CancellationToken cancellationToken)
         {
-            
             await using (var transaction = customerRepository.BeginTransaction())
             {
                 try
@@ -28,8 +27,10 @@ namespace NhaThuoc.Application.Handlers.Customers
                     var validationResult = await validator.ValidateAsync(request, cancellationToken);
                     validationResult.ThrowIfInvalid();
 
-                    var customer = await customerRepository.FindSingleAsync(x => x.Id == request.Id && x.OTP == request.OTP);
+                    var customer = await customerRepository.FindSingleAsync(x => x.Email == request.Email && x.OTP == request.OTP);
                     if (customer is null) customer.ThrowNotFound();
+
+                    if (customer.OTPExpiration < DateTime.UtcNow) customer.ThrowConflict("OTP is expire!");
 
                     customer.IsActive = true;
                     customerRepository.Update(customer);

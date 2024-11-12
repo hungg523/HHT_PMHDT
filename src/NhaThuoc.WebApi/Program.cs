@@ -4,14 +4,18 @@ using NhaThuoc.WebApi;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-
 // Add services to the container.
 builder.Services.AddData(builder.Configuration);
 builder.Services.AddApplication();
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 builder.Services.AddControllers();
 
-// C?u hình CORS ?? cho phép truy c?p t? http://127.0.0.1:5500
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin",
@@ -38,6 +42,7 @@ app.UseCors("AllowSpecificOrigin");
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseHttpsRedirection();
+app.UseSession();
 app.UseAuthorization();
 app.MapControllers();
 app.UseStaticFiles();
