@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using NhaThuoc.Data.Repositories.Base;
 using NhaThuoc.Domain.Abtractions.IRepositories;
 using NhaThuoc.Domain.Entities;
 using NhaThuoc.Share.Exceptions;
-using static Microsoft.AspNetCore.Hosting.Internal.HostingApplication;
 
 namespace NhaThuoc.Data.Repositories
 {

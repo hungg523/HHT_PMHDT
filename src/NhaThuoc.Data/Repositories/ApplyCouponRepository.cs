@@ -5,9 +5,9 @@ using NhaThuoc.Domain.Entities;
 
 namespace NhaThuoc.Data.Repositories
 {
-    public class OrderRepository : GenericRepository<Order>, IOrderRepository
+    public class ApplyCouponRepository : GenericRepository<ApplyCoupon>, IApplyCouponRepository
     {
-        public OrderRepository(ApplicationDbContext context, IMapper mapper) : base(context, mapper)
+        public ApplyCouponRepository(ApplicationDbContext context, IMapper mapper) : base(context, mapper)
         {
         }
     }

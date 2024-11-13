@@ -8,31 +8,31 @@ using NhaThuoc.Share.Exceptions;
 
 namespace NhaThuoc.Application.Handlers.Order
 {
-    public class UpdateOrderRequestHandler : IRequestHandler<OrderUpdateRequest, ApiResponse>
+    public class ChangeStatusOrderRequestHandler : IRequestHandler<ChangeStatusOrderRequest, ApiResponse>
     {
         private readonly IOrderRepository orderRepository;
         private readonly IMapper mapper;
 
-        public UpdateOrderRequestHandler(IOrderRepository orderRepository, IMapper mapper)
+        public ChangeStatusOrderRequestHandler(IOrderRepository orderRepository, IMapper mapper)
         {
             this.orderRepository = orderRepository;
             this.mapper = mapper;
         }
 
-        public async Task<ApiResponse> Handle(OrderUpdateRequest request, CancellationToken cancellationToken)
+        public async Task<ApiResponse> Handle(ChangeStatusOrderRequest request, CancellationToken cancellationToken)
         {
             await using (var transaction = orderRepository.BeginTransaction())
             {
                 try
                 {
-                    var validator = new UpdateOrderRequestValidator();
+                    var validator = new ChangeStatusOrderRequestValidator();
                     var validationResult = await validator.ValidateAsync(request, cancellationToken);
                     validationResult.ThrowIfInvalid();
 
                     var order = await orderRepository.FindByIdAsync(request.Id!);
                     if (order is null) order.ThrowNotFound();
-                    order.CustomerId = request.CustomerId ?? order.CustomerId;
-                    order.Status = request.Status ?? order.Status;
+
+                    order!.Status = request.Status ?? order.Status;
 
                     orderRepository.Update(order);
                     await orderRepository.SaveChangesAsync();

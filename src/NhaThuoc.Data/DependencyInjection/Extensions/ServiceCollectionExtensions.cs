@@ -2,7 +2,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NhaThuoc.Data.Repositories;
+using NhaThuoc.Data.Repositories.Base;
 using NhaThuoc.Domain.Abtractions.IRepositories;
+using NhaThuoc.Domain.Abtractions.IRepositories.Base;
 using NhaThuoc.Share.Constant;
 
 namespace NhaThuoc.Data.DependencyInjection.Extensions
@@ -20,6 +22,8 @@ namespace NhaThuoc.Data.DependencyInjection.Extensions
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<ICustomerAddressRepository, CustomerAddressRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<IOrderItemRepository, OrderItemRepository>();
+            services.AddScoped<IApplyCouponRepository, ApplyCouponRepository>();
             services.Configure<EmailSettings>(configuration.GetSection("EmailSettings"));
             services.AddSingleton<EmailService>();
             return services;

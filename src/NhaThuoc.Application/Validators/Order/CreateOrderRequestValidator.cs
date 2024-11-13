@@ -3,7 +3,7 @@ using NhaThuoc.Domain.ReQuest.Order;
 
 namespace NhaThuoc.Application.Validators.Order
 {
-    public class CreateOrderRequestValidator : AbstractValidator<OrderCreateRequest>
+    public class CreateOrderRequestValidator : AbstractValidator<CreateOrderRequest>
     {
         public CreateOrderRequestValidator() 
         {
