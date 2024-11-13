@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using NhaThuoc.Domain.Abtractions.Common;
 using System.Linq.Expressions;
 
-namespace NhaThuoc.Domain.Abtractions.IRepositories
+namespace NhaThuoc.Domain.Abtractions.IRepositories.Base
 {
     public interface IGenericRepository<T> where T : BaseEntity
     {

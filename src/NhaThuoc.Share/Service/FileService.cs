@@ -25,10 +25,7 @@ namespace NhaThuoc.Share.Service
             var handler = new HttpClientHandler();
             handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
 
-            httpClient = new HttpClient(handler)
-            {
-                BaseAddress = new Uri(assetServerUrl)
-            };
+            httpClient = new HttpClient(handler) { BaseAddress = new Uri(assetServerUrl) };
         }
 
         /// <summary>

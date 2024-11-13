@@ -19,6 +19,23 @@ namespace NhaThuoc.WebApi.Controllers.Customer
             this.mapper = mapper;
         }
 
+
+        [HttpGet("/get-customer-by-email")]
+        public async Task<IActionResult> GetCustomerByEmail(string email)
+        {
+            try
+            {
+                var command = new GetCustomerByEmailRequest();
+                command.Email = email;
+                var result = await mediator.Send(command);
+                return Ok(result);
+            }
+            catch (NhaThuocException)
+            {
+                throw;
+            }
+        }
+
         [HttpGet("/get-customer-by-id")]
         public async Task<IActionResult> GetCustomerById(int id)
         {

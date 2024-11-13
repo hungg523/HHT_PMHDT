@@ -19,11 +19,11 @@ namespace NhaThuoc.WebApi.Controllers.Order
         }
 
         [HttpPost("/create-order")]
-        public async Task<IActionResult> CreateOrder([FromBody] OrderCreateRequest request)
+        public async Task<IActionResult> CreateOrder([FromBody] CreateOrderRequest request)
         {
             try
             {
-                var command = mapper.Map<OrderCreateRequest>(request);
+                var command = mapper.Map<CreateOrderRequest>(request);
                 var result = await mediator.Send(command);
                 return Ok(result);
             }
@@ -33,12 +33,12 @@ namespace NhaThuoc.WebApi.Controllers.Order
             }
         }
 
-        [HttpPut("/update-order")]
-        public async Task<IActionResult> UpdateOrder(int? id, [FromBody] OrderUpdateRequest request)
+        [HttpPut("/change-status-order")]
+        public async Task<IActionResult> UpdateOrder(int? id, [FromBody] ChangeStatusOrderRequest request)
         {
             try
             {
-                var command = mapper.Map<OrderUpdateRequest>(request);
+                var command = mapper.Map<ChangeStatusOrderRequest>(request);
                 command.Id = id;
                 var result = await mediator.Send(command);
                 return Ok(result);

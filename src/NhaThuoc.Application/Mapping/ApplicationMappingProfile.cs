@@ -31,8 +31,7 @@ namespace NhaThuoc.Application.Mapping
             #endregion
 
             #region Order
-            CreateMap<Order, OrderCreateRequest>().ReverseMap();
-            CreateMap<Order, OrderUpdateRequest>().ReverseMap();
+            CreateMap<Order, CreateOrderRequest>().ReverseMap();
             #endregion
 
             #region CustomerAddress

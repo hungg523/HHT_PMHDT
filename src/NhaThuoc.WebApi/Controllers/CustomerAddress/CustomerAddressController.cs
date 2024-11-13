@@ -18,12 +18,12 @@ namespace NhaThuoc.WebApi.Controllers.CustomerAddress
             this.mediator = mediator;
             this.mapper = mapper;
         }
-        [HttpGet("/get-customeraddress-name")]
-        public async Task<IActionResult> GetByNameCustomerAddress(int id)
+        [HttpGet("/get-customeraddress-by-id")]
+        public async Task<IActionResult> GetByIdCustomerAddress(int id)
         {
             try
             {
-                var command = new GetByNameCustomerAddressRequest();
+                var command = new GetByIdCustomerAddressRequest();
                 command.Id = id;
                 var result = await mediator.Send(command);
                 return Ok(result);

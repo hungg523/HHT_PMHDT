@@ -2,12 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using NhaThuoc.Domain.Abtractions.Common;
-using NhaThuoc.Domain.Abtractions.IRepositories;
+using NhaThuoc.Domain.Abtractions.IRepositories.Base;
 using System.Linq.Expressions;
-using System.Linq;
-using System.Threading;
 
-namespace NhaThuoc.Data.Repositories
+namespace NhaThuoc.Data.Repositories.Base
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
