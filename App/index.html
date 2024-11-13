@@ -93,8 +93,8 @@
       <div class="row">
         <div class="col-lg-7 mx-auto order-lg-2 align-self-center">
           <div class="site-block-cover-content text-center" style="color: #fff;">
-            <h2 class="sub-title" style="font-size: 1.5rem;">Thuốc hiệu quả, Uống thuốc mỗi ngày</h2>
-            <h1 style="font-size: 2.5rem;">Welcome HHT <span style="color: #5eba24;">Pharmacy</span></h1>
+            <h2 class="sub-title" style="font-size: 1.5rem;">Thuốc hiệu quả, thuốc mỗi ngày</h2>
+            <h1 style="font-size: 2.5rem;">Welcome To HHT <span style="color: #5eba24;">Pharmacy</span></h1>
             <p>
               <a href="/pages/shop.html" class="btn btn-primary" style="padding: 10px 20px;">Mua ngay</a>
             </p>
@@ -117,8 +117,9 @@
             <a href="#" class="h-100">
               <h5>Miễn phí <br> vận chuyển</h5>
               <p>
-                Amet sit amet dolor
-                <strong>Lorem, ipsum dolor sit amet consectetur adipisicing.</strong>
+                Chương trình miễn phí vận chuyển vẫn đang diễn ra sôi nổi!
+                <strong>HHT <span style="color: #5eba24;">Pharmacy</span> không thu phí vận chuyển cho đơn hàng đầu
+                  tiên.</strong>
               </p>
             </a>
           </div>
@@ -128,7 +129,7 @@
             <a href="#" class="h-100">
               <h5>Mùa <br> Giảm giá <span style="color: rgb(255, 196, 0);">50%</span></h5>
               <p>
-                Amet sit amet dolor
+                Giảm đến
                 <strong>Lorem, ipsum dolor sit amet consectetur adipisicing.</strong>
               </p>
             </a>
@@ -147,6 +148,47 @@
         </div>
 
       </div>
+    </div>
+  </div>
+
+  <!-- Popular Products -->
+  <div class="site-section">
+    <div class="container">
+      <div class="row">
+        <div class="title-section text-center col-12">
+          <h2 class="text-uppercase">Sản phẩm phổ biến</h2>
+        </div>
+      </div>
+
+      <div class="row" id="popularProducts">
+        <!-- Sản phẩm sẽ được chèn thông qua API -->
+      </div>
+
+      <div class="row mt-5">
+        <div class="col-12 text-center">
+          <a href="/pages/shop.html" class="btn btn-primary px-4 py-3">Xem tất cả</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- New Products -->
+  <div class="site-section bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="title-section text-center col-12">
+          <h2 class="text-uppercase">Sản phẩm mới</h2>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 block-3 products-wrap">
+          <div class="nonloop-block-3 owl-carousel" id="newProducts">
+            <!-- Sản phẩm sẽ được chèn thông qua API -->
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -364,6 +406,82 @@
   <script src="/assets/js/popup.js"></script>
   <script src="/assets/js/register.js"></script>
 
+  <script>
+    //Popular Products
+    async function fetchRandomProducts() {
+      try {
+        const response = await fetch('https://localhost:1006/get-products');
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+        const products = await response.json();
+        const randomProducts = products.sort(() => 0.5 - Math.random()).slice(0, 6);
+
+        const productContainer = document.getElementById('popularProducts');
+
+        randomProducts.forEach(product => {
+          const regularPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.regularPrice);
+          const discountPrice = product.discountPrice ? new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.discountPrice) : null;
+
+          const productHtml = `
+            <div class="col-sm-6 col-lg-4 text-center item mb-4">
+              ${product.discountPrice ? '<span class="tag">Sale</span>' : ''}
+              <a href="/pages/shop-single.html?id=${product.id}"> 
+                <img src="https://localhost:1005/${product.imagePath}" alt="${product.productName}" style="width: 270px; height: 370px;">
+              </a>
+              <h3 class="text-dark"><a href="shop-single.html?id=${product.id}">${product.productName}</a></h3>
+              <p class="price">
+                ${discountPrice ? `<del>${regularPrice}</del> &mdash; ${discountPrice}` : regularPrice}
+              </p>
+            </div>
+          `;
+          productContainer.insertAdjacentHTML('beforeend', productHtml);
+        });
+      } catch (error) {
+        console.error('Error fetching random products:', error);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', fetchRandomProducts);
+
+    //New Products
+    async function fetchNewProducts() {
+      try {
+        const response = await fetch('https://localhost:1006/get-products');
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+        const products = await response.json();
+
+        const recentProducts = products
+          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+          .slice(0, 4);
+
+        const productContainer = document.getElementById('newProducts');
+        productContainer.innerHTML = ''; // Xóa nội dung cũ nếu cần
+
+        recentProducts.forEach(product => {
+          const regularPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.regularPrice);
+          const discountPrice = product.discountPrice ? new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.discountPrice) : null;
+
+          const productHtml = `
+            <div class="text-center item mb-4">
+              <a href="/pages/shop-single.html?id=${product.id}"> 
+                <img src="https://localhost:1005/${product.imagePath}" alt="${product.productName}" style="width: 270px; height: 370px;">
+              </a>
+              <h3 class="text-dark"><a href="/pages/shop-single.html?id=${product.id}">${product.productName}</a></h3>
+              <p class="price">
+                ${discountPrice ? `<del>${regularPrice}</del> &mdash; ${discountPrice}` : regularPrice}
+              </p>
+            </div>
+          `;
+          productContainer.insertAdjacentHTML('beforeend', productHtml);
+        });
+      } catch (error) {
+        console.error('Error fetching new products:', error);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', fetchNewProducts);
+  </script>
 </body>
 
 </html>

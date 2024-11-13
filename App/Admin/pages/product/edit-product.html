@@ -202,7 +202,7 @@
                         categorySelect.appendChild(option);
                     });
 
-                    fetch(`https://localhost:1006/get-product-name?id=${productId}`, {
+                    fetch(`https://localhost:1006/get-product-detail?id=${productId}`, {
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application/json'
@@ -243,17 +243,14 @@
                 });
         });
 
-        // Function to format numbers as currency
         function formatCurrency(value) {
             return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " VNĐ";
         }
 
-        // Function to unformat currency (convert formatted value back to number)
         function unformatCurrency(value) {
             return parseInt(value.replace(/[^0-9]/g, ""), 10) || 0;
         }
 
-        // Add event listeners to format input as currency
         document.getElementById("regularPrice").addEventListener("input", function (e) {
             const originalValue = unformatCurrency(e.target.value);
             e.target.value = formatCurrency(originalValue);

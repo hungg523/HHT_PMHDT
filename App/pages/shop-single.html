@@ -101,21 +101,15 @@
         <div class="row">
             <div class="col-md-5 mr-auto">
                 <div class="border text-center">
-                    <img src="/assets/images/product_07_large.png" alt="Image" class="img-fluid p-5">
+                    <img id="productImage" src="" alt="Product Image" class="img-fluid p-5">
                 </div>
             </div>
             <div class="col-md-6">
-                <h2 class="text-black">Ibuprofen Tablets, 200mg</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur, vitae, explicabo? Incidunt
-                    facere, natus
-                    soluta dolores iusto! Molestiae expedita veritatis nesciunt doloremque sint asperiores fuga
-                    voluptas,
-                    distinctio, aperiam, ratione dolore.</p>
-
-
-                <p><del>$95.00</del> <strong class="text-primary h4">$55.00</strong></p>
-
-
+                <h2 id="productName" class="text-black"></h2>
+                <p id="productDescription"></p>
+                <p>
+                    <del id="regularPrice"></del> <strong class="text-primary h4" id="discountPrice"></strong>
+                </p>
 
                 <div class="mb-5">
                     <div class="input-group mb-3" style="max-width: 220px;">
@@ -128,7 +122,6 @@
                             <button class="btn btn-outline-primary js-btn-plus" type="button">&plus;</button>
                         </div>
                     </div>
-
                 </div>
                 <p><a href="cart.html" class="buy-now btn btn-sm height-auto px-4 py-3 btn-primary">Add To Cart</a></p>
 
@@ -136,77 +129,33 @@
                     <ul class="nav nav-pills mb-3 custom-pill" id="pills-tab" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home"
-                                role="tab" aria-controls="pills-home" aria-selected="true">Ordering Information</a>
+                                role="tab" aria-controls="pills-home" aria-selected="true">Thông tin đặt hàng</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile"
-                                role="tab" aria-controls="pills-profile" aria-selected="false">Specifications</a>
+                                role="tab" aria-controls="pills-profile" aria-selected="false">Thông số kỹ thuật</a>
                         </li>
-
                     </ul>
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
                             aria-labelledby="pills-home-tab">
                             <table class="table custom-table">
                                 <thead>
-                                    <th>Material</th>
-                                    <th>Description</th>
+                                    <th>Brand</th>
+                                    <th>Origin</th>
                                     <th>Packaging</th>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <th scope="row">OTC022401</th>
-                                        <td>Pain Management: Acetaminophen PM Extra-Strength Caplets, 500 mg, 100/Bottle
-                                        </td>
-                                        <td>1 BT</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">OTC022401</th>
-                                        <td>Pain Management: Acetaminophen PM Extra-Strength Caplets, 500 mg, 100/Bottle
-                                        </td>
-                                        <td>144/CS</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">OTC022401</th>
-                                        <td>Pain Management: Acetaminophen PM Extra-Strength Caplets, 500 mg, 100/Bottle
-                                        </td>
-                                        <td>1 EA</td>
-                                    </tr>
-
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="tab-pane fade" id="pills-profile" role="tabpanel"
-                            aria-labelledby="pills-profile-tab">
-
-                            <table class="table custom-table">
-
-                                <tbody>
-                                    <tr>
-                                        <td>HPIS CODE</td>
-                                        <td class="bg-light">999_200_40_0</td>
-                                    </tr>
-                                    <tr>
-                                        <td>HEALTHCARE PROVIDERS ONLY</td>
-                                        <td class="bg-light">No</td>
-                                    </tr>
-                                    <tr>
-                                        <td>LATEX FREE</td>
-                                        <td class="bg-light">Yes, No</td>
-                                    </tr>
-                                    <tr>
-                                        <td>MEDICATION ROUTE</td>
-                                        <td class="bg-light">Topical</td>
+                                        <td id="productBrand"></td>
+                                        <td id="productOrigin"></td>
+                                        <td id="productPackaging"></td>
                                     </tr>
                                 </tbody>
                             </table>
-
                         </div>
-
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>
@@ -365,6 +314,46 @@
                 <script src="/assets/js/login.js"></script>
                 <script src="/assets/js/popup.js"></script>
                 <script src="/assets/js/register.js"></script>
+                <script>
+                    function getProductId() {
+                        const urlParams = new URLSearchParams(window.location.search);
+                        return urlParams.get('id');
+                    }
+
+                    function formatCurrency(value) {
+                        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
+                    }
+
+                    async function fetchProductDetail(productId) {
+                        try {
+                            const response = await fetch(`https://localhost:1006/get-product-detail?id=${productId}`);
+                            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+                            const product = await response.json();
+
+                            document.getElementById('productImage').src = `https://localhost:1005/${product.imagePath}`;
+                            document.getElementById('productName').innerText = product.productName;
+                            document.getElementById('productDescription').innerText = product.description;
+                            document.getElementById('regularPrice').innerText = product.discountPrice ? formatCurrency(product.regularPrice) : '';
+                            document.getElementById('discountPrice').innerText = product.discountPrice ? formatCurrency(product.discountPrice) : formatCurrency(product.regularPrice);
+                            document.getElementById('productBrand').innerText = product.brand;
+                            document.getElementById('productOrigin').innerText = product.origin;
+                            document.getElementById('productPackaging').innerText = product.packaging;
+                        } catch (error) {
+                            console.error('Error fetching product details:', error);
+                            document.querySelector('.container').innerHTML = '<p>Không thể tải chi tiết sản phẩm.</p>';
+                        }
+                    }
+
+                    document.addEventListener('DOMContentLoaded', () => {
+                        const productId = getProductId();
+                        if (productId) {
+                            fetchProductDetail(productId);
+                        } else {
+                            document.querySelector('.container').innerHTML = '<p>Không tìm thấy sản phẩm.</p>';
+                        }
+                    });
+                </script>
 
 </body>
 
