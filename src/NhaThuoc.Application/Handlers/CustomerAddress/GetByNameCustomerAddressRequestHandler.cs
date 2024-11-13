@@ -6,7 +6,7 @@ using Entities = NhaThuoc.Domain.Entities;
 
 namespace NhaThuoc.Application.Handlers.CustomerAddress
 {
-    public class GetByNameCustomerAddressRequestHandler : IRequestHandler<GetByNameCustomerAddressRequest, Entities.CustomerAddress>
+    public class GetByNameCustomerAddressRequestHandler : IRequestHandler<GetByIdCustomerAddressRequest, Entities.CustomerAddress>
     {
         private readonly ICustomerAddressRepository customerAddressRepository;
         private readonly IMapper mapper;
@@ -16,7 +16,7 @@ namespace NhaThuoc.Application.Handlers.CustomerAddress
             this.customerAddressRepository = customerAddressRepository;
             this.mapper = mapper;
         }
-        public async Task<Domain.Entities.CustomerAddress> Handle(GetByNameCustomerAddressRequest request, CancellationToken cancellationToken)
+        public async Task<Domain.Entities.CustomerAddress> Handle(GetByIdCustomerAddressRequest request, CancellationToken cancellationToken)
         {
             var customeraddress = await customerAddressRepository.FindByIdAsync(request.Id);
             return mapper.Map<Domain.Entities.CustomerAddress>(customeraddress);

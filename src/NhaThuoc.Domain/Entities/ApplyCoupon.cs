@@ -7,6 +7,6 @@ namespace NhaThuoc.Domain.Entities
         public int Id { get; set; }
         public int CouponId { get; set; }
         public int OrderId { get; set; }
-        public Decimal DiscoundAmount { get; set; }
+        public int ProductId { get; set; }
     }
 }
