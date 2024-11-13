@@ -62,19 +62,17 @@
           </div>
 
           <div class="icons">
-            <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
-            <a href="cart.html" class="icons-btn d-inline-block bag">
-              <span class="icon-shopping-bag"></span>
-              <span class="number">2</span>
-            </a>
             <!-- Link mở popup Đăng nhập và Đăng ký -->
-            <a href="#" class="icons-btn d-inline-block ml-3" onclick="switchPopup('registerPopup', 'loginPopup')">Đăng
-              nhập</a>
-            <a href="#" class="icons-btn d-inline-block ml-3" onclick="switchPopup('loginPopup', 'registerPopup')">Đăng
-              ký</a>
-            <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none">
-              <span class="icon-menu"></span>
-            </a>
+            <div class="icons" id="accountSection">
+              <!-- Nội dung sẽ được JavaScript cập nhật -->
+              <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
+              <a href="cart.html" class="icons-btn d-inline-block bag">
+                <span class="icon-shopping-bag"></span>
+                <span class="number">2</span>
+              </a>
+            </div>
+
+
           </div>
 
         </div>
@@ -129,8 +127,8 @@
             <a href="#" class="h-100">
               <h5>Mùa <br> Giảm giá <span style="color: rgb(255, 196, 0);">50%</span></h5>
               <p>
-                Giảm đến
-                <strong>Lorem, ipsum dolor sit amet consectetur adipisicing.</strong>
+                Giảm giá cực sốc, ưu đãi cực hời!
+                <strong>Chương trình giảm giá diễn ra liên tục dành cho khách hàng thân thiết.</strong>
               </p>
             </a>
           </div>
@@ -140,8 +138,7 @@
             <a href="#" class="h-100">
               <h5>Thanh toán <br> tiện lợi</h5>
               <p>
-                Amet sit amet dolor
-                <strong>Lorem, ipsum dolor sit amet consectetur adipisicing.</strong>
+                Dễ dàng thanh toán với mọi hình thức.
               </p>
             </a>
           </div>
@@ -183,8 +180,8 @@
 
       <div class="row">
         <div class="col-md-12 block-3 products-wrap">
-          <div class="nonloop-block-3 owl-carousel" id="newProducts">
-            <!-- Sản phẩm sẽ được chèn thông qua API -->
+          <div class="row" id="newProducts">
+            <!-- Sản phẩm mới sẽ được thêm ở đây -->
           </div>
         </div>
       </div>
@@ -456,7 +453,7 @@
           .slice(0, 4);
 
         const productContainer = document.getElementById('newProducts');
-        productContainer.innerHTML = ''; // Xóa nội dung cũ nếu cần
+        productContainer.innerHTML = '';
 
         recentProducts.forEach(product => {
           const regularPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.regularPrice);

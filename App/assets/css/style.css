@@ -1166,3 +1166,14 @@ a {
 .password-toggle:hover {
   color: #000;
 }
+#newProducts {
+  display: flex;
+  flex-wrap: nowrap; 
+  overflow-x: auto; 
+  gap: 20px; 
+}
+
+#newProducts .item {
+  flex: 0 0 auto; 
+  width: 270px;
+}
