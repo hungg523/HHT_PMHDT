@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using NhaThuoc.Application.Handlers.Coupon;
 using NhaThuoc.Application.Request.Coupon;
 using NhaThuoc.Share.Exceptions;
+using Entities = NhaThuoc.Domain.Entities;
 
 namespace NhaThuoc.WebApi.Controllers.Coupon
 {
@@ -12,12 +14,15 @@ namespace NhaThuoc.WebApi.Controllers.Coupon
     {
         private readonly IMediator mediator;
         private readonly IMapper mapper;
+        private readonly DiscountService discountService;
 
-        public CouponController(IMediator mediator, IMapper mapper)
+        public CouponController(IMediator mediator, IMapper mapper, DiscountService discountService)
         {
             this.mediator = mediator;
             this.mapper = mapper;
+            this.discountService = discountService;
         }
+
         [HttpGet("/get-coupon-name")]
         public async Task<IActionResult> GetByNameCoupon(int id)
         {
