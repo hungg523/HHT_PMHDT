@@ -13,11 +13,5 @@ namespace NhaThuoc.Domain.ReQuest.Order
         public string? CouponCode { get; set; }
         public int? CustomerAddressId { get; set; }
         public string? PaymentMethod { get; set; }
-
-        [JsonIgnore]
-        public OrderStatus? Status { get; set; } = OrderStatus.Pending;
-
-        [JsonIgnore]
-        public DateTime CreatedAt { get; set; } = DateTime.Now;
     }
 }
