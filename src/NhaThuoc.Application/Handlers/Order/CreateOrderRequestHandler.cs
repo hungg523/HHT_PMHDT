@@ -46,6 +46,7 @@ namespace NhaThuoc.Application.Handlers.Order
                     }
 
                     var order = mapper.Map<Entities.Order>(request);
+                    order.CouponId = coupon!.Id;
                     orderRepository.Create(order);
                     await orderRepository.SaveChangesAsync(cancellationToken);
 

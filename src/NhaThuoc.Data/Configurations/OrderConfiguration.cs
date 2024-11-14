@@ -16,6 +16,10 @@ namespace NhaThuoc.Data.Configurations
             builder.Property(x => x.Status).HasColumnName("Status");
             builder.Property(x => x.CreatedAt).HasColumnName("CreatedAt");
             builder.Property(x => x.UpdatedAt).HasColumnName("UpdatedAt");
+
+            builder.HasMany(x => x.OrderItems).WithOne().HasForeignKey(x => x.OrderId);
+            builder.HasOne(x => x.CustomerAddress).WithMany().HasForeignKey(x => x.CustomerAddressId);
+            builder.HasOne(x => x.Customer).WithMany().HasForeignKey(x => x.CustomerId);
         }
     }
 }

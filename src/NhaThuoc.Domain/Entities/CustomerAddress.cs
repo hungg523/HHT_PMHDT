@@ -1,4 +1,5 @@
 ﻿using NhaThuoc.Domain.Abtractions.Common;
+using System.Text.Json.Serialization;
 
 namespace NhaThuoc.Domain.Entities
 {

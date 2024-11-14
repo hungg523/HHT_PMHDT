@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using NhaThuoc.Application.DTOs;
 using NhaThuoc.Application.Request.Customers.Customer;
 using NhaThuoc.Share.Exceptions;
 
@@ -68,11 +69,11 @@ namespace NhaThuoc.WebApi.Controllers.Customer
         }
 
         [HttpPut("/update-profile-customer")]
-        public async Task<IActionResult> UpdateCustomerProfile(int? id, [FromBody] CustomerProfileDto request)
+        public async Task<IActionResult> UpdateCustomerProfile(int? id, [FromBody] UpdateProifleCustomerRequest request)
         {
             try
             {
-                var command = mapper.Map<CustomerProfileDto>(request);
+                var command = mapper.Map<UpdateProifleCustomerRequest>(request);
                 command.Id = id;
                 var result = await mediator.Send(command);
                 return Ok(result);

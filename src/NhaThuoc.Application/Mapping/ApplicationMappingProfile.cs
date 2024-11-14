@@ -31,7 +31,11 @@ namespace NhaThuoc.Application.Mapping
             #endregion
 
             #region Order
-            CreateMap<Order, CreateOrderRequest>().ReverseMap();
+            CreateMap<Order, OrderDTO>()
+            .ForMember(dest => dest.Address, opt => opt.Ignore())
+            .ForMember(dest => dest.OrderItems, opt => opt.Ignore()).ReverseMap();
+            CreateMap<CustomerAddress, CustomerAddressDTO>().ReverseMap();
+            CreateMap<OrderItem, OrderItemDTO>().ReverseMap();
             #endregion
 
             #region CustomerAddress
@@ -43,7 +47,6 @@ namespace NhaThuoc.Application.Mapping
             #region Customer
             CreateMap<Customer, LoginRequest>().ReverseMap();
             CreateMap<Customer, RegisterRequest>().ReverseMap();
-            CreateMap<Customer, CustomerProfileDto>().ReverseMap();
             CreateMap<Customer, AuthenCustomerRequest>().ReverseMap();
             #endregion
         }

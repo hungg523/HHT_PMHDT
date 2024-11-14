@@ -1,34 +1,32 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
 using NhaThuoc.Application.DTOs;
 using NhaThuoc.Application.Request.Order;
 using NhaThuoc.Domain.Abtractions.IRepositories;
-using NhaThuoc.Domain.Entities;
 using NhaThuoc.Share.DependencyInjection.Extensions;
 
 namespace NhaThuoc.Application.Handlers.Order
 {
-    public class GetByIdOrderRequestHandler : IRequestHandler<GetByIdOrderRequest, OrderDTO>
+    public class GetOrderByCustomerIdRequestHandler : IRequestHandler<GetOrderByCustomerIdRequest, List<OrderDTO>>
     {
         private readonly IOrderRepository orderRepository;
-        private readonly IMapper mapper;
 
-        public GetByIdOrderRequestHandler(IOrderRepository orderRepository, IMapper mapper)
+        public GetOrderByCustomerIdRequestHandler(IOrderRepository orderRepository)
         {
             this.orderRepository = orderRepository;
-            this.mapper = mapper;
         }
-        public async Task<OrderDTO> Handle(GetByIdOrderRequest request, CancellationToken cancellationToken)
-        {
-            var order = await orderRepository.FindSingleAsync(o => o.Id == request.Id, o => o.OrderItems, o => o.CustomerAddress, o => o.Customer);
-            if (order is null) order.ThrowNotFound();
 
-            var orderDto = new OrderDTO
+        public async Task<List<OrderDTO>> Handle(GetOrderByCustomerIdRequest request, CancellationToken cancellationToken)
+        {
+            var orders = orderRepository.FindAll(o => o.CustomerId == request.Id, o => o.OrderItems, o => o.CustomerAddress, o => o.Customer).ToList();
+            if (orders is null) orders.ThrowNotFound();
+
+            var orderDtos = orders.Select(order => new OrderDTO
             {
                 Id = order.Id,
                 Email = order.Customer?.Email,
                 Address = order.CustomerAddress != null ? new CustomerAddressDTO
                 {
+                    Id = order.CustomerAddress.Id,
                     Address = order.CustomerAddress.Address,
                     FullName = order.CustomerAddress.FullName,
                     Phone = order.CustomerAddress.Phone,
@@ -41,9 +39,9 @@ namespace NhaThuoc.Application.Handlers.Order
                     ProductId = oi.ProductId ?? 0,
                     Quantity = oi.Quantity ?? 0
                 }).ToList()
-            };
+            }).ToList();
 
-            return orderDto;
+            return orderDtos;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using NhaThuoc.Domain.Abtractions.Common;
+using System.Text.Json.Serialization;
 
 namespace NhaThuoc.Domain.Entities
 {
@@ -9,5 +10,8 @@ namespace NhaThuoc.Domain.Entities
         public int? ProductId { get; set; }
         public int? Quantity { get; set; }
         public decimal? TotalPrice { get; set; }
+
+        [JsonIgnore]
+        public Order Order { get; set; }
     }
 }
