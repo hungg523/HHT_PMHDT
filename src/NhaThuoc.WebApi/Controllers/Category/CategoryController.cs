@@ -49,12 +49,12 @@ namespace NhaThuoc.WebApi.Controllers.Category
                 throw;
             }
         }
-        [HttpGet("/get-category-name")]
-        public async Task<IActionResult> GetByNameCategory(int id)
+        [HttpGet("/get-category-by-id")]
+        public async Task<IActionResult> GetByIdCategory(int id)
         {
             try
             {
-                var command = new GetByNameCategoryRequest();
+                var command = new GetByIdCategoryRequest();
                 command.Id = id;
                 var result = await mediator.Send(command);
                 return Ok(result);

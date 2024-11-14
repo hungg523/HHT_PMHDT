@@ -23,12 +23,12 @@ namespace NhaThuoc.WebApi.Controllers.Coupon
             this.discountService = discountService;
         }
 
-        [HttpGet("/get-coupon-name")]
-        public async Task<IActionResult> GetByNameCoupon(int id)
+        [HttpGet("/get-coupon-by-id")]
+        public async Task<IActionResult> GetByIdCoupon(int id)
         {
             try
             {
-                var command = new GetByNameCouponRequest();
+                var command = new GetByIdCouponRequest();
                 command.Id = id;
                 var result = await mediator.Send(command);
                 return Ok(result);
