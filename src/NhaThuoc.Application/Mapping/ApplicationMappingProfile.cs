@@ -1,9 +1,9 @@
 using AutoMapper;
+using NhaThuoc.Application.DTOs;
 using NhaThuoc.Application.Request.Category;
 using NhaThuoc.Application.Request.Coupon;
 using NhaThuoc.Application.Request.Customers.Customer;
 using NhaThuoc.Application.Request.Customers.CustomerAddress;
-using NhaThuoc.Application.Request.Order;
 using NhaThuoc.Application.Request.Product;
 using NhaThuoc.Domain.Entities;
 using NhaThuoc.Domain.ReQuest.Order;
@@ -31,18 +31,22 @@ namespace NhaThuoc.Application.Mapping
             #endregion
 
             #region Order
-            CreateMap<Order, CreateOrderRequest>().ReverseMap();
+            CreateMap<Order, OrderDTO>()
+            .ForMember(dest => dest.Address, opt => opt.Ignore())
+            .ForMember(dest => dest.OrderItems, opt => opt.Ignore()).ReverseMap();
+            CreateMap<CustomerAddress, CustomerAddressDTO>().ReverseMap();
+            CreateMap<OrderItem, OrderItemDTO>().ReverseMap();
             #endregion
 
             #region CustomerAddress
             CreateMap<CustomerAddress, CustomerAddressCreateRequest>().ReverseMap();
             CreateMap<CustomerAddress, CustomerAddressUpdateRequest>().ReverseMap();
+            CreateMap<CustomerAddress, CustomerAddressDTO>().ReverseMap();
             #endregion
 
             #region Customer
             CreateMap<Customer, LoginRequest>().ReverseMap();
             CreateMap<Customer, RegisterRequest>().ReverseMap();
-            CreateMap<Customer, CustomerProfileDto>().ReverseMap();
             CreateMap<Customer, AuthenCustomerRequest>().ReverseMap();
             #endregion
         }

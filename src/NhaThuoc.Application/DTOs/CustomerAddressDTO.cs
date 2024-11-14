@@ -1,17 +1,25 @@
-﻿using NhaThuoc.Domain.Abtractions.Common;
-using System.Text.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
-namespace NhaThuoc.Domain.Entities
+namespace NhaThuoc.Application.DTOs
 {
-    public class CustomerAddress : BaseEntity
+    public class CustomerAddressDTO
     {
+        [JsonIgnore]
         public int Id { get; set; }
-        public int CustomerId { get; set; }
+
+        [JsonIgnore]
         public string Address { get; set; }
         public string FullName { get; set; }
         public string Phone { get; set; }
+
+        [JsonIgnore]
         public string Province { get; set; }
+
+        [JsonIgnore]
         public string District { get; set; }
+
+        [JsonIgnore]
         public string Ward { get; set; }
+        public string FinalAddress => $"{Address}, {Ward}, {District}, {Province}";
     }
 }

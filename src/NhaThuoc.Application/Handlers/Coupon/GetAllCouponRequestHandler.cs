@@ -2,6 +2,7 @@
 using MediatR;
 using NhaThuoc.Application.Request.Coupon;
 using NhaThuoc.Domain.Abtractions.IRepositories;
+using NhaThuoc.Share.DependencyInjection.Extensions;
 using Entities = NhaThuoc.Domain.Entities;
 
 namespace NhaThuoc.Application.Handlers.Coupon
@@ -19,8 +20,8 @@ namespace NhaThuoc.Application.Handlers.Coupon
 
         public async Task<List<Entities.Coupon>> Handle(GetAllCouponRequest request, CancellationToken cancellationToken)
         {
-            var category = couponRepository.FindAll();
-
+            var category = couponRepository.FindAll(x => x.TimesUsed < x.MaxUsage && x.CouponEndDate > DateTime.Now);
+            if(category is null) category.ThrowNotFound();
             return mapper.Map<List<Entities.Coupon>>(category);
         }
     }

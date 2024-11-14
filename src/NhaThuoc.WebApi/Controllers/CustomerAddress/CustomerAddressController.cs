@@ -79,5 +79,21 @@ namespace NhaThuoc.WebApi.Controllers.CustomerAddress
                 throw;
             }
         }
+
+        [HttpGet("/get-address-by-customer-id")]
+        public async Task<IActionResult> GetCustomerAddressByCustomerId(int? id)
+        {
+            try
+            {
+                var command = new GetCustomerAddressByCustomerIdRequest();
+                command.CustomerId = id;
+                var result = await mediator.Send(command);
+                return Ok(result);
+            }
+            catch (NhaThuocException)
+            {
+                throw;
+            }
+        }
     }
 }
