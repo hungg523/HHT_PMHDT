@@ -64,12 +64,12 @@ namespace NhaThuoc.WebApi.Controllers.Order
             }
         }
 
-        [HttpGet("/get-order-name")]
-        public async Task<IActionResult> GetByNameOrder(int id)
+        [HttpGet("/get-order-by-id")]
+        public async Task<IActionResult> GetByIdOrder(int id)
         {
             try
             {
-                var command = new GetByNameOrderRequest();
+                var command = new GetByIdOrderRequest();
                 command.Id = id;
                 var result = await mediator.Send(command);
                 return Ok(result);

@@ -1,9 +1,9 @@
 ﻿using MediatR;
 using Entities = NhaThuoc.Domain.Entities;
 
-namespace NhaThuoc.Application.Request.Order
+namespace NhaThuoc.Application.Request.Coupon
 {
-    public class GetByNameOrderRequest : IRequest<Entities.Order>
+    public class GetByIdCouponRequest : IRequest<Entities.Coupon>
     {
         public int? Id { get; set; }
     }
