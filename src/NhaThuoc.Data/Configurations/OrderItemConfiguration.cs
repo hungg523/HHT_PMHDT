@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using NhaThuoc.Domain.Entities;
+using System.Reflection.Emit;
 
 namespace NhaThuoc.Data.Configurations
 {
@@ -15,6 +16,8 @@ namespace NhaThuoc.Data.Configurations
             builder.Property(x => x.ProductId).HasColumnName("ProductId");
             builder.Property(x => x.Quantity).HasColumnName("Quantity");
             builder.Property(x => x.TotalPrice).HasColumnName("TotalPrice");
+
+            builder.HasOne(x => x.Order).WithMany(x => x.OrderItems).HasForeignKey(x => x.OrderId);
         }
     }
 }

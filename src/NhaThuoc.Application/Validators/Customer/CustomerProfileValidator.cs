@@ -1,9 +1,10 @@
 ﻿using FluentValidation;
+using NhaThuoc.Application.DTOs;
 using NhaThuoc.Application.Request.Customers.Customer;
 
 namespace NhaThuoc.Application.Validators.Customer
 {
-    public class CustomerProfileValidator : AbstractValidator<CustomerProfileDto>
+    public class CustomerProfileValidator : AbstractValidator<UpdateProifleCustomerRequest>
     {
         public CustomerProfileValidator() 
         {
@@ -20,10 +21,6 @@ namespace NhaThuoc.Application.Validators.Customer
 
             RuleFor(c => c.PhoneNumber)
                 .MaximumLength(20).WithMessage("PhoneNumber không được vượt quá 20 ký tự.");
-
-            RuleFor(u => u.Email)
-                .EmailAddress().WithMessage("Email không đúng định dạng.")
-                .MaximumLength(450).WithMessage("Email không được vượt quá 450 ký tự.");
         }
     }
 }

@@ -65,11 +65,27 @@ namespace NhaThuoc.WebApi.Controllers.Order
         }
 
         [HttpGet("/get-order-by-id")]
-        public async Task<IActionResult> GetByIdOrder(int id)
+        public async Task<IActionResult> GetOrderById(int id)
         {
             try
             {
                 var command = new GetByIdOrderRequest();
+                command.Id = id;
+                var result = await mediator.Send(command);
+                return Ok(result);
+            }
+            catch (NhaThuocException)
+            {
+                throw;
+            }
+        }
+
+        [HttpGet("/get-order-by-customer-id")]
+        public async Task<IActionResult> GetOrderByCustomerId(int id)
+        {
+            try
+            {
+                var command = new GetOrderByCustomerIdRequest();
                 command.Id = id;
                 var result = await mediator.Send(command);
                 return Ok(result);

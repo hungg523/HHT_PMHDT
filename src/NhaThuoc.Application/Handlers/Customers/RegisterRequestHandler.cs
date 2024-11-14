@@ -33,7 +33,7 @@ namespace NhaThuoc.Application.Handlers.Customers
                     var validationResult = await validator.ValidateAsync(request, cancellationToken);
                     validationResult.ThrowIfInvalid();
 
-                    var existCustomer = await customerRepository.FindSingleAsync(x => x.Email == request.Email && x.IsActive);
+                    var existCustomer = await customerRepository.FindSingleAsync(x => x.Email == request.Email && x.IsActive == true);
                     if (existCustomer is not null) existCustomer.ThrowConflict();
 
                     var otp = Guid.NewGuid().ToString().Substring(0, 6).ToUpper();
