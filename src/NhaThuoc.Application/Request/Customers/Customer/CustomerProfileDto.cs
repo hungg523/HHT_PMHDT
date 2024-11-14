@@ -12,6 +12,7 @@ namespace NhaThuoc.Application.Request.Customers.Customer
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? PhoneNumber { get; set; }
+        public string? AvatarImagePath { get; set; }
         public string? Email { get; set; }
         [JsonIgnore]
         public List<Entities.CustomerAddress>? Addresses { get; set; }

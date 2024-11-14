@@ -34,6 +34,7 @@ namespace NhaThuoc.Application.Handlers.Customers
                     customer.FirstName = request.FirstName ?? customer.FirstName;
                     customer.LastName = request.LastName ?? customer.LastName;
                     customer.PhoneNumber = request.PhoneNumber ?? customer.PhoneNumber;
+                    customer.AvatarImagePath = request.AvatarImagePath ?? customer.AvatarImagePath;
                     customer.Email = request.Email ?? customer.Email;
 
                     customerRepository.Update(customer);
