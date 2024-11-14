@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Nhà thuốc &mdash; Trang chủ</title>
+  <title>Nhà thuốc - Trang chủ</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -27,14 +27,17 @@
   <div class="site-wrap">
     <div class="site-navbar py-2">
 
-      <div class="search-wrap">
+      <div class="search-wrap" id="searchSection" style="display: none;">
         <div class="container">
-          <a href="#" class="search-close js-search-close"><span class="icon-close2"></span></a>
-          <form action="#" method="post">
-            <input type="text" class="form-control" placeholder="Nhập sản phẩm cần tìm...">
+          <a href="#" class="search-close js-search-close" onclick="toggleSearch(false)">
+            <span class="icon-close2"></span>
+          </a>
+          <form onsubmit="searchProduct(event)">
+            <input type="text" class="form-control" id="searchInput" placeholder="Nhập tên sản phẩm...">
           </form>
         </div>
       </div>
+
 
       <div class="container">
         <div class="d-flex align-items-center justify-content-between">
@@ -60,19 +63,17 @@
               </ul>
             </nav>
           </div>
-
+          <a href="#" class="icons-btn d-inline-block js-search-open" onclick="toggleSearch(true)"><span
+              class="icon-search"></span></a>
           <div class="icons">
             <!-- Link mở popup Đăng nhập và Đăng ký -->
             <div class="icons" id="accountSection">
               <!-- Nội dung sẽ được JavaScript cập nhật -->
-              <a href="#" class="icons-btn d-inline-block js-search-open"><span class="icon-search"></span></a>
               <a href="cart.html" class="icons-btn d-inline-block bag">
                 <span class="icon-shopping-bag"></span>
                 <span class="number">2</span>
               </a>
             </div>
-
-
           </div>
 
         </div>
@@ -404,6 +405,7 @@
   <script src="/assets/js/register.js"></script>
 
   <script>
+
     //Popular Products
     async function fetchRandomProducts() {
       try {

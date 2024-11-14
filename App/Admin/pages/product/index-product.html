@@ -88,6 +88,22 @@
             </div>
           </li>
 
+          <!-- Đơn hàng -->
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#order-basic" aria-expanded="false"
+              aria-controls="order-basic">
+              <i class="menu-icon mdi mdi-cart-outline"></i>
+              <span class="menu-title">Đơn hàng</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="order-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="/Admin/pages/order/index-order.html">Quản lý đơn
+                    hàng</a></li>
+              </ul>
+            </div>
+          </li>
+
         </ul>
       </nav>
 
@@ -104,6 +120,9 @@
                     <a href="/Admin/pages/product/create-product.html" class="btn btn-primary">Thêm Mới</a>
                   </div>
                   <p class="card-description"> <code>Danh sách các sản phẩm hiện tại</code> </p>
+                  <div id="message"
+                    style="display: none; padding: 10px; margin-top: 10px; border-radius: 5px; font-weight: bold;">
+                  </div>
                   <div class="table-responsive">
                     <table class="table table-striped">
                       <thead>
@@ -143,7 +162,7 @@
   <script src="../../assets/js/settings.js"></script>
   <script src="../../assets/js/hoverable-collapse.js"></script>
   <script src="../../assets/js/todolist.js"></script>
-
+  <script src="/Admin/assets/js/role.js"></script>
   <!-- JS Xử lý -->
   <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -199,6 +218,20 @@
           messageDiv.innerHTML = 'Có lỗi xảy ra khi tải danh sách sản phẩm.';
         });
     });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const messageDiv = document.getElementById('message');
+
+      const updateMessage = localStorage.getItem('updateMessage');
+      if (updateMessage) {
+        messageDiv.style.display = 'block';
+        messageDiv.style.backgroundColor = '#d4edda';
+        messageDiv.style.color = '#155724';
+        messageDiv.innerHTML = updateMessage;
+        localStorage.removeItem('updateMessage');
+      }
+    });
+
   </script>
 </body>
 

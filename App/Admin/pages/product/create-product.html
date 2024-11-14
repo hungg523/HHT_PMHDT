@@ -83,10 +83,28 @@
                             </ul>
                         </div>
                     </li>
+
+
+                    <!-- Đơn hàng -->
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#order-basic" aria-expanded="false"
+                            aria-controls="order-basic">
+                            <i class="menu-icon mdi mdi-cart-outline"></i>
+                            <span class="menu-title">Đơn hàng</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="order-basic">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link"
+                                        href="/Admin/pages/order/index-order.html">Quản lý đơn hàng</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
                 </ul>
             </nav>
 
-            <!-- Main panel for the form -->
+            <!-- Main Content -->
             <div class="main-panel">
                 <div class="content-wrapper">
                     <div class="row">
@@ -181,7 +199,6 @@
         </div>
     </div>
 
-    <!-- plugins:js -->
     <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
     <script src="../../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
     <script src="../../assets/js/off-canvas.js"></script>
@@ -190,8 +207,8 @@
     <script src="../../assets/js/hoverable-collapse.js"></script>
     <script src="../../assets/js/todolist.js"></script>
     <script src="/Admin/assets/js/imgToBase64.js"></script>
+    <script src="/Admin/assets/js/role.js"></script>
 
-    <!-- JS Xử lý -->
     <div id="message" style="display: none; padding: 10px; margin-top: 10px; border-radius: 5px; font-weight: bold;">
     </div>
 
@@ -199,7 +216,6 @@
         document.addEventListener("DOMContentLoaded", function () {
             const categorySelect = document.getElementById("categoryIds");
 
-            // Load categories from API
             fetch('https://localhost:1006/get-categories')
                 .then(response => response.json())
                 .then(data => {
@@ -239,10 +255,9 @@
 
         function submitProductForm() {
             const messageDiv = document.getElementById('message');
-            messageDiv.style.display = 'none'; // Reset message
+            messageDiv.style.display = 'none';
             let errors = [];
 
-            // Lấy dữ liệu từ form
             const productName = document.getElementById('productName').value;
             const regularPrice = document.getElementById("regularPrice").dataset.originalValue;
             const discountPrice = document.getElementById("discountPrice").dataset.originalValue;
@@ -257,7 +272,6 @@
             const selectedCategories = Array.from(document.getElementById("categoryIds").selectedOptions).map(option => parseInt(option.value));
             const isActived = document.getElementById('isActived').checked;
 
-            // Kiểm tra từng trường với thông báo lỗi chi tiết
             if (!productName) {
                 errors.push("Tên sản phẩm không được để trống.");
             } else if (productName.length > 100) {

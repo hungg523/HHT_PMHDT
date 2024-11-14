@@ -97,6 +97,22 @@
             </div>
           </li>
 
+          <!-- Đơn hàng -->
+          <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="collapse" href="#order-basic" aria-expanded="false"
+              aria-controls="order-basic">
+              <i class="menu-icon mdi mdi-cart-outline"></i>
+              <span class="menu-title">Đơn hàng</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="order-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="/Admin/pages/order/order-product.html">Quản lý đơn
+                    hàng</a></li>
+              </ul>
+            </div>
+          </li>
+
         </ul>
       </nav>
     </div>
@@ -113,8 +129,10 @@
   <script src="assets/js/todolist.js"></script>
   <script src="assets/js/jquery.cookie.js" type="text/javascript"></script>
   <script src="assets/js/dashboard.js"></script>
-
+  <script src="/Admin/assets/js/role.js"></script>
   <script>
+
+
     document.addEventListener("DOMContentLoaded", function () {
       const greetingElement = document.getElementById("greeting");
       const currentHour = new Date().getHours();

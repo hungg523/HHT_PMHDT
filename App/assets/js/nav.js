@@ -19,3 +19,36 @@ document.addEventListener("DOMContentLoaded", function () {
           categoryList.innerHTML = '<li><a href="#">Không thể tải danh mục</a></li>';
       });
 });
+
+function toggleSearch(show) {
+    document.getElementById("searchSection").style.display = show ? "block" : "none";
+    if (show) document.getElementById("searchInput").focus();
+}
+
+function searchProduct(event) {
+    event.preventDefault();
+
+    const productName = document.getElementById("searchInput").value.trim();
+    if (!productName) return;
+
+    // Chuyển hướng tới trang kết quả tìm kiếm với từ khóa tìm kiếm trong URL
+    window.location.href = `/pages/search-results.html?productname=${encodeURIComponent(productName)}`;
+}
+
+
+
+  function displaySearchResults(products) {
+    let resultsContainer = document.createElement("div");
+    resultsContainer.innerHTML = products.map(product => `
+    <div>
+      <a href="/pages/shop-single.html?id=${product.id}">
+        <h5>${product.name}</h5>
+      </a>
+    </div>
+  `).join("");
+
+    document.getElementById("searchSection").appendChild(resultsContainer);
+  }
+
+
+

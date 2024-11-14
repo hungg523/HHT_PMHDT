@@ -82,6 +82,24 @@
                             </ul>
                         </div>
                     </li>
+
+
+                    <!-- Đơn hàng -->
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#order-basic" aria-expanded="false"
+                            aria-controls="order-basic">
+                            <i class="menu-icon mdi mdi-cart-outline"></i>
+                            <span class="menu-title">Đơn hàng</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="order-basic">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link"
+                                        href="/Admin/pages/order/index-order.html">Quản lý đơn hàng</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
                 </ul>
             </nav>
 
@@ -121,9 +139,7 @@
                                             <label for="isActive">Kích hoạt</label>
                                             <input type="checkbox" id="isActive">
                                         </div>
-                                        <div id="message"
-                                            style="display: none; padding: 10px; margin-top: 10px; border-radius: 5px; font-weight: bold;">
-                                        </div>
+
                                         <button type="button" class="btn btn-primary mt-3"
                                             onclick="updateCategory()">Lưu</button>
                                     </form>
@@ -140,13 +156,14 @@
     <script src="../../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
     <script src="../../assets/js/off-canvas.js"></script>
     <script src="../../assets/js/template.js"></script>
+    <script src="/Admin/assets/js/role.js"></script>
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const categoryId = urlParams.get('id');
 
         document.addEventListener("DOMContentLoaded", function () {
-            fetch(`https://localhost:1006/get-category-name?id=${categoryId}`)
+            fetch(`https://localhost:1006/get-category-by-id?id=${categoryId}`)
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById('parentId').value = data.parentId;
@@ -204,10 +221,10 @@
                 })
                     .then(response => response.json())
                     .then(data => {
-                        messageDiv.style.display = 'block';
-                        messageDiv.style.backgroundColor = '#d4edda';
-                        messageDiv.style.color = '#155724';
-                        messageDiv.innerHTML = 'Danh mục đã được cập nhật thành công!';
+                        // Lưu thông báo vào localStorage
+                        localStorage.setItem('updateMessage', 'Danh mục đã được cập nhật thành công!');
+                        // Chuyển về trang index-category.html
+                        window.location.href = '/Admin/pages/category/index-category.html';
                     })
                     .catch(error => {
                         console.error('Error updating category:', error);
@@ -218,6 +235,7 @@
                     });
             });
         }
+
     </script>
 </body>
 

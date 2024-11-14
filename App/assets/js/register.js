@@ -16,8 +16,8 @@ function showStep(step) {
     const confirmPassword = document.getElementById("confirmPassword").value;
 
     const userData = {
-      firstName: "usernew",
-      lastName: "usernew",
+      firstName: "Chưa cập nhật...",
+      lastName: null,
       email: email,
       password: password,
       confirmPassword: confirmPassword

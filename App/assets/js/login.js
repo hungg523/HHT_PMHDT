@@ -41,14 +41,28 @@ function logout() {
   alert("Đăng xuất thành công.");
 }
 
+
+function getCartItemCount() {
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  return cart.reduce((total, item) => total + item.quantity, 0);
+}
+
 function updateNavbar() {
+  const cartItemCount = getCartItemCount();
   const userEmail = localStorage.getItem("userEmail");
   const accountSection = document.getElementById("accountSection");
 
   if (userEmail) {
     accountSection.innerHTML = `
+    
+      <a href="/pages/cart.html" class="icons-btn d-inline-block bag">
+        <span class="icon-shopping-bag"></span>
+        <span class="number">${cartItemCount}</span>
+      </a>
+      
+      <!-- Dropdown tài khoản -->
       <a href="#" class="icons-btn d-inline-block ml-3 dropdown-toggle" data-toggle="dropdown">
-        Hi, ${userEmail}
+        ${userEmail}
       </a>
       <div class="dropdown-menu dropdown-menu-right">
         <a class="dropdown-item" href="/pages/profile.html">Cập nhật hồ sơ</a>

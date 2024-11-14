@@ -17,11 +17,11 @@
     <link rel="stylesheet" href="../../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
     <link rel="stylesheet" href="../../assets/css/style.css">
     <link rel="shortcut icon" href="../../assets/images/favicon.png" />
+
 </head>
 
 <body>
     <div class="container-scroller">
-        <!-- partial:partials/_navbar.html -->
         <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
                 <div class="me-3">
@@ -89,10 +89,26 @@
                         </div>
                     </li>
 
+                    <!-- Đơn hàng -->
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#order-basic" aria-expanded="false"
+                            aria-controls="order-basic">
+                            <i class="menu-icon mdi mdi-cart-outline"></i>
+                            <span class="menu-title">Đơn hàng</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="order-basic">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link"
+                                        href="/Admin/pages/order/index-order.html">Quản lý đơn hàng</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
                 </ul>
             </nav>
 
-            <!-- Main panel for displaying categories -->
+            <!-- Main Content -->
             <div class="main-panel">
                 <div class="content-wrapper">
                     <div class="row">
@@ -106,6 +122,9 @@
                                             class="btn btn-primary">Thêm Mới</a>
                                     </div>
                                     <p class="card-description"> <code>Danh sách các danh mục hiện tại</code> </p>
+                                    <div id="message"
+                                        style="display: none; padding: 10px; margin-top: 10px; border-radius: 5px; font-weight: bold;">
+                                    </div>
                                     <div class="table-responsive">
                                         <table class="table table-striped">
                                             <thead>
@@ -142,7 +161,7 @@
     <script src="../../assets/js/settings.js"></script>
     <script src="../../assets/js/hoverable-collapse.js"></script>
     <script src="../../assets/js/todolist.js"></script>
-
+    <script src="/Admin/assets/js/role.js"></script>
     <!-- JS Xử lý -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -195,7 +214,20 @@
                     messageDiv.style.color = '#721c24';
                     messageDiv.innerHTML = 'Có lỗi xảy ra khi tải danh sách danh mục.';
                 });
-        });        
+        });
+        document.addEventListener('DOMContentLoaded', function () {
+            const messageDiv = document.getElementById('message');
+
+            const updateMessage = localStorage.getItem('updateMessage');
+            if (updateMessage) {
+                messageDiv.style.display = 'block';
+                messageDiv.style.backgroundColor = '#d4edda';
+                messageDiv.style.color = '#155724';
+                messageDiv.innerHTML = updateMessage;
+                localStorage.removeItem('updateMessage');
+            }
+        });
+
     </script>
 </body>
 

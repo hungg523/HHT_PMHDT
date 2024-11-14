@@ -33,14 +33,17 @@
     <div class="site-wrap">
         <div class="site-navbar py-2">
 
-            <div class="search-wrap">
+            <div class="search-wrap" id="searchSection" style="display: none;">
                 <div class="container">
-                    <a href="#" class="search-close js-search-close"><span class="icon-close2"></span></a>
-                    <form action="#" method="post">
-                        <input type="text" class="form-control" placeholder="Nhập sản phẩm cần tìm...">
+                    <a href="#" class="search-close js-search-close" onclick="toggleSearch(false)">
+                        <span class="icon-close2"></span>
+                    </a>
+                    <form onsubmit="searchProduct(event)">
+                        <input type="text" class="form-control" id="searchInput" placeholder="Nhập tên sản phẩm...">
                     </form>
                 </div>
             </div>
+
 
             <div class="container">
                 <div class="d-flex align-items-center justify-content-between">
@@ -54,7 +57,7 @@
                     <div class="main-nav d-none d-lg-block">
                         <nav class="site-navigation text-right text-md-center" role="navigation">
                             <ul class="site-menu js-clone-nav d-none d-lg-block">
-                                <li><a href="/index.html"><strong>Trang chủ</strong></a></li>
+                                <li class="active"><a href="/index.html"><strong>Trang chủ</strong></a></li>
                                 <li class="has-children">
                                     <a href="#"><strong>Danh mục</strong></a>
                                     <ul class="dropdown" id="categoryList">
@@ -63,34 +66,28 @@
                                 </li>
                                 <li><a href="/pages/shop.html"><strong>Sản phẩm</strong></a></li>
                                 <li><a href="/pages/about.html"><strong>Về chúng tôi</strong></a></li>
-                                <li class="active"><a href="/pages/contact.html"><strong>Liên hệ</strong></a></li>
+                                <li><a href="/pages/contact.html"><strong>Liên hệ</strong></a></li>
                             </ul>
                         </nav>
                     </div>
-
+                    <a href="#" class="icons-btn d-inline-block js-search-open" onclick="toggleSearch(true)"><span
+                            class="icon-search"></span></a>
                     <div class="icons">
-                        <a href="#" class="icons-btn d-inline-block js-search-open"><span
-                                class="icon-search"></span></a>
-                        <a href="cart.html" class="icons-btn d-inline-block bag">
-                            <span class="icon-shopping-bag"></span>
-                            <span class="number">2</span>
-                        </a>
                         <!-- Link mở popup Đăng nhập và Đăng ký -->
-                        <a href="#" class="icons-btn d-inline-block ml-3"
-                            onclick="switchPopup('registerPopup', 'loginPopup')">Đăng
-                            nhập</a>
-                        <a href="#" class="icons-btn d-inline-block ml-3"
-                            onclick="switchPopup('loginPopup', 'registerPopup')">Đăng
-                            ký</a>
-                        <a href="#" class="site-menu-toggle js-menu-toggle ml-3 d-inline-block d-lg-none">
-                            <span class="icon-menu"></span>
-                        </a>
+                        <div class="icons" id="accountSection">
+                            <!-- Nội dung sẽ được JavaScript cập nhật -->
+                            <a href="cart.html" class="icons-btn d-inline-block bag">
+                                <span class="icon-shopping-bag"></span>
+                                <span class="number">2</span>
+                            </a>
+                        </div>
                     </div>
 
                 </div>
             </div>
         </div>
     </div>
+
     <!-- Main content -->
     <div class="site-wrap">
         <div class="bg-light py-3">

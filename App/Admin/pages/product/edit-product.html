@@ -84,6 +84,24 @@
                             </ul>
                         </div>
                     </li>
+
+
+                    <!-- Đơn hàng -->
+                    <li class="nav-item">
+                        <a class="nav-link" data-bs-toggle="collapse" href="#order-basic" aria-expanded="false"
+                            aria-controls="order-basic">
+                            <i class="menu-icon mdi mdi-cart-outline"></i>
+                            <span class="menu-title">Đơn hàng</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="order-basic">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link"
+                                        href="/Admin/pages/order/index-order.html">Quản lý đơn hàng</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
                 </ul>
             </nav>
 
@@ -174,7 +192,6 @@
         </div>
     </div>
 
-    <!-- plugins:js -->
     <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
     <script src="../../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
     <script src="../../assets/js/off-canvas.js"></script>
@@ -182,6 +199,7 @@
     <script src="../../assets/js/settings.js"></script>
     <script src="../../assets/js/hoverable-collapse.js"></script>
     <script src="../../assets/js/todolist.js"></script>
+    <script src="/Admin/assets/js/role.js"></script>
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
@@ -190,7 +208,6 @@
         document.addEventListener("DOMContentLoaded", function () {
             const categorySelect = document.getElementById("categoryIds");
 
-            // Load categories from API
             fetch('https://localhost:1006/get-categories')
                 .then(response => response.json())
                 .then(categories => {
@@ -314,10 +331,8 @@
                 })
                     .then(response => response.json())
                     .then(data => {
-                        messageDiv.style.display = 'block';
-                        messageDiv.style.backgroundColor = '#d4edda';
-                        messageDiv.style.color = '#155724';
-                        messageDiv.innerHTML = 'Sản phẩm đã được cập nhật thành công!';
+                        localStorage.setItem('updateMessage', 'Sản phẩm đã được cập nhật thành công!');
+                        window.location.href = '/Admin/pages/product/index-product.html';
                     })
                     .catch(error => {
                         console.error('Error updating product:', error);
