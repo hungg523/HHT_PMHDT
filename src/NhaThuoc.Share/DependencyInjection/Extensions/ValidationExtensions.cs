@@ -27,7 +27,7 @@ namespace NhaThuoc.Share.DependencyInjection.Extensions
 
         public static void ThrowConflict<T>(this T entity, string? errorMessage = null)
         {
-            if (entity is null)
+            if (entity is not null)
             {
                 var entityTypeName = typeof(T).Name;
                 errorMessage = $"{entityTypeName} is conflict";

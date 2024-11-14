@@ -4,7 +4,6 @@ namespace NhaThuoc.Application.DTOs
 {
     public class CustomerAddressDTO
     {
-        [JsonIgnore]
         public int Id { get; set; }
 
         [JsonIgnore]

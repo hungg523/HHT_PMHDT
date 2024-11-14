@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using MediatR;
+using NhaThuoc.Application.DTOs;
 using NhaThuoc.Application.Validators.Order;
 using NhaThuoc.Domain.Abtractions.IRepositories;
 using NhaThuoc.Domain.ReQuest.Order;
 using NhaThuoc.Share.DependencyInjection.Extensions;
+using NhaThuoc.Share.Enums;
 using NhaThuoc.Share.Exceptions;
 using Entities = NhaThuoc.Domain.Entities;
 
@@ -39,14 +41,23 @@ namespace NhaThuoc.Application.Handlers.Order
                     validationResult.ThrowIfInvalid();
 
                     Entities.Coupon coupon = null;
+
+                    var order = new Entities.Order
+                    {
+                        CustomerId = request.CustomerId,
+                        CustomerAddressId = request.CustomerAddressId,
+                        Payment = request.PaymentMethod,
+                        Status = OrderStatus.Pending,
+                        CreatedAt = DateTime.Now,
+                    }; 
+
                     if (request.CouponCode is not null)
                     {
                         coupon = await couponRepository.FindSingleAsync(x => x.Code == request.CouponCode || !x.IsActive || x.TimesUsed == x.MaxUsage || x.CouponEndDate < DateTime.Now);
                         if (coupon is null) coupon.ThrowNotFound("Mã giảm giá không hợp lệ.");
+                        order.CouponId = coupon!.Id;
                     }
-
-                    var order = mapper.Map<Entities.Order>(request);
-                    order.CouponId = coupon!.Id;
+                    
                     orderRepository.Create(order);
                     await orderRepository.SaveChangesAsync(cancellationToken);
 

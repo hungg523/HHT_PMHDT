@@ -17,6 +17,7 @@ namespace NhaThuoc.Data.Configurations
             builder.Property(x => x.Quantity).HasColumnName("Quantity");
             builder.Property(x => x.TotalPrice).HasColumnName("TotalPrice");
 
+            builder.Ignore(x => x.Order);
             builder.HasOne(x => x.Order).WithMany(x => x.OrderItems).HasForeignKey(x => x.OrderId);
         }
     }
