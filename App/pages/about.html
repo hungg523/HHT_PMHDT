@@ -51,7 +51,7 @@
                     <div class="main-nav d-none d-lg-block">
                         <nav class="site-navigation text-right text-md-center" role="navigation">
                             <ul class="site-menu js-clone-nav d-none d-lg-block">
-                                <li class="active"><a href="/index.html"><strong>Trang chủ</strong></a></li>
+                                <li class="active"><a href="index.html"><strong>Trang chủ</strong></a></li>
                                 <li class="has-children">
                                     <a href="#"><strong>Danh mục</strong></a>
                                     <ul class="dropdown" id="categoryList">
@@ -209,52 +209,60 @@
         <div class="container">
             <div class="row justify-content-center mb-5">
                 <div class="col-md-7 site-section-heading text-center pt-4">
-                    <h2>Nhóm chúng tôi</h2>
+                    <h2>NHÓM CHÚNG TÔI</h2>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-6 col-lg-6 mb-5">
-
+            <div class="row justify-content-center team-members">
+                <div class="col-md-4 col-lg-3 mb-4">
                     <div class="block-38 text-center">
                         <div class="block-38-img">
                             <div class="block-38-header">
-                                <img src="/assets/images/person_1.jpg" alt="Image placeholder" class="mb-4">
+                                <img src="/assets/images/team1.png" alt="Image placeholder"
+                                    class="mb-4 img-fluid team-img">
                                 <h3 class="block-38-heading h4">Trương Hoàng Hưng</h3>
                                 <p class="block-38-subheading">Đại học Trà Vinh <strong><span
                                             style="color: rgb(46, 46, 247);">(TVU)</span></strong></p>
                             </div>
-                            <div class="block-38-body">
-                                <p>Thông tin cá nhân ...</p>
+                            <div class="block-38-body ">
+                                <p>Công nghệ thông tin</p>
+                                <p>Mssv: 110121027</p>
+                                <p>Lớp: DA21TTA</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-6 mb-5">
+                <div class="col-md-4 col-lg-3 mb-4">
                     <div class="block-38 text-center">
                         <div class="block-38-img">
                             <div class="block-38-header">
-                                <img src="/assets/images/person_2.jpg" alt="Image placeholder" class="mb-4">
+                                <img src="/assets/images/team2.png" alt="Image placeholder"
+                                    class="mb-4 img-fluid team-img">
                                 <h3 class="block-38-heading h4">Trần Bá Hiếu</h3>
                                 <p class="block-38-subheading">Đại học Trà Vinh <strong><span
                                             style="color: rgb(46, 46, 247);">(TVU)</span></strong></p>
                             </div>
                             <div class="block-38-body">
-                                <p>Thông tin cá nhân ...</p>
+                                <p>Công nghệ thông tin</p>
+                                <p>Mssv: 110121024</p>
+                                <p>Lớp: DA21TTA</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-6 mb-5">
+                <div class="col-md-4 col-lg-3 mb-4">
                     <div class="block-38 text-center">
                         <div class="block-38-img">
                             <div class="block-38-header">
-                                <img src="/assets/images/person_3.jpg" alt="Image placeholder" class="mb-4">
-                                <h3 class="block-38-heading h4">Tô Dăn Tới</h3>
+                                <img src="/assets/images/team3.png" alt="Image placeholder"
+                                    class="mb-4 img-fluid team-img">
+                                <h3 class="block-38-heading h4">Tô Văn Tới</h3>
                                 <p class="block-38-subheading">Đại học Trà Vinh <strong><span
                                             style="color: rgb(46, 46, 247);">(TVU)</span></strong></p>
                             </div>
                             <div class="block-38-body">
-                                <p>Thông tin cá nhân ...</p>
+                                <p> Công nghệ thông tin</p>
+                                <p>Mssv: 110121252</p>
+                                <p>Lớp: DA21TTA</p>
                             </div>
                         </div>
                     </div>
@@ -350,8 +358,8 @@
             <!-- Bước 1: Nhập thông tin đăng ký -->
             <form id="registerForm" class="form-step-1">
                 <div class="form-group mt-3">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" class="form-control" required>
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" name="registerEmail" class="form-control" required>
                 </div>
                 <div class="form-group mt-3">
                     <label for="regPassword">Mật khẩu</label>
@@ -361,8 +369,7 @@
                     <label for="confirmPassword">Xác nhận mật khẩu</label>
                     <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required>
                 </div>
-                <button type="button" class="btn btn-primary btn-block mt-4" onclick="registerUser()">Đăng
-                    ký</button>
+                <button type="button" class="btn btn-primary btn-block mt-4" onclick="registerUser()">Đăng ký</button>
             </form>
 
             <!-- Bước 2: Nhập OTP để xác thực -->
@@ -371,13 +378,39 @@
                     <label for="otp">Mã OTP</label>
                     <input type="text" id="otp" name="otp" class="form-control" placeholder="Nhập mã OTP" required>
                 </div>
-                <button type="button" class="btn btn-primary btn-block mt-4" onclick="verifyOtp()">Xác thực
-                    OTP</button>
+                <div class="mt-3">
+                    <button type="button" id="resendOtpButton" class="btn btn-primary btn-block mt-4"
+                        onclick="resendOtp()" disabled>
+                        <span id="countdown">75</span>
+                    </button>
+                </div>
+                <button type="button" class="btn btn-primary btn-block mt-4" onclick="verifyOtp()">Xác thực OTP</button>
             </form>
 
             <p class="mt-3">Đã có tài khoản? <a href="#" onclick="switchPopup('registerPopup', 'loginPopup')">Đăng
                     nhập</a>
             </p>
+        </div>
+    </div>
+
+    <!-- Popup Notification -->
+    <div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="notificationTitle">Thông báo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="notificationMessage">
+                    <!-- Thông báo sẽ được đặt ở đây -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
         </div>
     </div>
 

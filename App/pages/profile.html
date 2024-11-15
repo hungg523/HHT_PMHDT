@@ -95,9 +95,9 @@
                     <div class="tab-content" id="profileTabContent">
                         <!-- Orders Tab -->
                         <div class="tab-pane fade show active" id="orders" role="tabpanel" aria-labelledby="orders-tab">
+                            
                             <h4 class="mt-4">Danh Sách Đơn Hàng</h4>
-                            <p>Chưa có đơn hàng nào.</p>
-                            <!-- Load danh sách đơn hàng từ API -->
+                            <!-- Đơn hàng sẽ được tải vào đây từ API -->
                         </div>
 
                         <!-- Edit Profile Tab -->
@@ -138,9 +138,9 @@
                                         placeholder="Nhập số điện thoại tối đa 11 chữ số">
                                 </div>
                                 <div class="form-group">
-                                    <label for="newAddress">Địa chỉ</label>
+                                    <label for="newAddress">Tên đường/Tòa nhà/Số nhà</label>
                                     <input type="text" id="newAddress" class="form-control" required
-                                        placeholder="Nhập họ và tên">
+                                        placeholder="Nhập Tên đường/Tòa nhà/Số nhà">
                                 </div>
                                 <div class="form-group">
                                     <label for="province">Tỉnh/Thành phố</label>
@@ -225,6 +225,26 @@
         </div>
     </footer>
 
+    <!-- Popup Notification -->
+    <div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="notificationTitle">Thông báo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="notificationMessage">
+                    <!-- Thông báo sẽ được đặt ở đây -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="/assets/js/jquery-3.3.1.min.js"></script>
     <script src="/assets/js/jquery-ui.js"></script>
     <script src="/assets/js/popper.min.js"></script>
@@ -247,7 +267,7 @@
                 if (base64Image && customerId) {
                     const payload = {
                         id: customerId,
-                        avatarBase64: base64Image
+                        imageData: base64Image
                     };
 
                     try {
@@ -259,13 +279,13 @@
 
                         if (response.ok) {
                             document.getElementById("userAvatar").src = base64Image;
-                            alert("Cập nhật ảnh đại diện thành công!");
+                            showPopup("Cập nhật ảnh đại diện thành công!");
                         } else {
-                            alert("Cập nhật ảnh đại diện thất bại. Vui lòng thử lại.");
+                            showPopup("Cập nhật ảnh đại diện thất bại. Vui lòng thử lại.");
                         }
                     } catch (error) {
                         console.error("Error updating avatar:", error);
-                        alert("Không thể kết nối tới máy chủ.");
+                        showPopup("Không thể kết nối tới máy chủ.");
                     }
                 }
             });

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Nhà thuốc - Cập nhật hồ sơ</title>
+    <title>Nhà thuốc - Liên hệ</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -10,7 +10,22 @@
     <link rel="icon" href="/assets/images/logo.png" type="image/x-icon">
     <link rel="stylesheet" href="/assets/fonts/icomoon/style.css">
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/magnific-popup.css">
+    <link rel="stylesheet" href="/assets/css/jquery-ui.css">
+    <link rel="stylesheet" href="/assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/assets/css/owl.theme.default.min.css">
+
+    <link rel="stylesheet" href="/assets/css/aos.css">
+    <link rel="stylesheet" href="/assets/css/popup.css">
     <link rel="stylesheet" href="/assets/css/style.css">
+
+    <!-- Thêm EmailJS -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function () {
+            emailjs.init("WAJ9vLX-wnbbx4tQF");
+        })();
+    </script>
 </head>
 
 <body>
@@ -18,14 +33,17 @@
     <div class="site-wrap">
         <div class="site-navbar py-2">
 
-            <div class="search-wrap">
+            <div class="search-wrap" id="searchSection" style="display: none;">
                 <div class="container">
-                    <a href="#" class="search-close js-search-close"><span class="icon-close2"></span></a>
-                    <form action="#" method="post">
-                        <input type="text" class="form-control" placeholder="Nhập sản phẩm cần tìm...">
+                    <a href="#" class="search-close js-search-close" onclick="toggleSearch(false)">
+                        <span class="icon-close2"></span>
+                    </a>
+                    <form onsubmit="searchProduct(event)">
+                        <input type="text" class="form-control" id="searchInput" placeholder="Nhập tên sản phẩm...">
                     </form>
                 </div>
             </div>
+
 
             <div class="container">
                 <div class="d-flex align-items-center justify-content-between">
@@ -39,7 +57,7 @@
                     <div class="main-nav d-none d-lg-block">
                         <nav class="site-navigation text-right text-md-center" role="navigation">
                             <ul class="site-menu js-clone-nav d-none d-lg-block">
-                                <li class="active"><a href="index.html"><strong>Trang chủ</strong></a></li>
+                                <li class="active"><a href="/index.html"><strong>Trang chủ</strong></a></li>
                                 <li class="has-children">
                                     <a href="#"><strong>Danh mục</strong></a>
                                     <ul class="dropdown" id="categoryList">
@@ -52,20 +70,17 @@
                             </ul>
                         </nav>
                     </div>
-
+                    <a href="#" class="icons-btn d-inline-block js-search-open" onclick="toggleSearch(true)"><span
+                            class="icon-search"></span></a>
                     <div class="icons">
                         <!-- Link mở popup Đăng nhập và Đăng ký -->
                         <div class="icons" id="accountSection">
                             <!-- Nội dung sẽ được JavaScript cập nhật -->
-                            <a href="#" class="icons-btn d-inline-block js-search-open"><span
-                                    class="icon-search"></span></a>
                             <a href="cart.html" class="icons-btn d-inline-block bag">
                                 <span class="icon-shopping-bag"></span>
                                 <span class="number">2</span>
                             </a>
                         </div>
-
-
                     </div>
 
                 </div>
@@ -73,72 +88,24 @@
         </div>
     </div>
 
-    <!-- Profile Update Form -->
+    <div class="bg-light py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 mb-0"><a href="index.html">Home</a> <span class="mx-2 mb-0">/</span> <strong
+                        class="text-black">Thank You</strong></div>
+            </div>
+        </div>
+    </div>
+    <!-- Main content -->
     <div class="site-section">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12 text-center mb-5">
-                    <h2 class="text-uppercase">Cập nhật hồ sơ cá nhân</h2>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-md-6">
-                    <form id="profileForm" onsubmit="updateProfile(event)">
-                        <div class="form-group">
-                            <label for="newFullName">Họ và Tên</label>
-                            <input type="text" id="newFullName" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" class="form-control" required readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="newPhone">Số điện thoại</label>
-                            <input type="text" id="newPhone" class="form-control" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block mt-4">Lưu thay đổi</button>
-                        <button type="button" class="btn btn-secondary btn-block mt-2" onclick="cancelUpdate()">Hủy
-                            bỏ</button>
-                    </form>
-
-                    <!-- Form thêm địa chỉ -->
-                    <form id="addressForm" onsubmit="addAddress(event)" class="mt-4">
-                        <h4 class="text-uppercase">Thêm địa chỉ mới</h4>
-                        <div class="form-group">
-                            <label for="newFullName">Họ và Tên</label>
-                            <input type="text" id="newFullName" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="newPhone">Số điện thoại</label>
-                            <input type="text" id="newPhone" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="newAddress">Địa chỉ</label>
-                            <input type="text" id="newAddress" class="form-control" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="province">Tỉnh/Thành phố</label>
-                            <select id="province" class="form-control" required onchange="fetchDistricts()">
-                                <option value="">Chọn Tỉnh/Thành phố</option>
-                                <!-- Tỉnh/Thành phố sẽ được thêm động từ API -->
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="district">Quận/Huyện</label>
-                            <select id="district" class="form-control" required onchange="fetchWards()">
-                                <option value="">Chọn Quận/Huyện</option>
-                                <!-- Quận/Huyện sẽ được thêm động từ API -->
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="ward">Phường/Xã</label>
-                            <select id="ward" class="form-control" required>
-                                <option value="">Chọn Phường/Xã</option>
-                                <!-- Phường/Xã sẽ được thêm động từ API -->
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block mt-4">Thêm địa chỉ</button>
-                    </form>
+                <div class="col-md-12 text-center">
+                    <span class="icon-check_circle display-3 text-success"></span>
+                    <h2 class="display-3 text-black">Thank you!</h2>
+                    <p class="lead mb-5">Bạn đã đặt hàng thành công.</p>
+                    <p><a href="/index.html" class="btn btn-md height-auto px-4 py-3 btn-primary">Quay về trang chủ</a>
+                    </p>
                 </div>
             </div>
         </div>
@@ -168,6 +135,7 @@
                     <ul class="list-unstyled" id="categoryListFooter">
                         <!-- Danh mục từ API -->
                     </ul>
+
                 </div>
 
                 <div class="col-md-6 col-lg-3">
@@ -179,9 +147,8 @@
                             <li class="email">Pharma@st.tvu.edu.vn</li>
                         </ul>
                     </div>
-
-
                 </div>
+
             </div>
             <div class="row pt-5 mt-5 text-center">
                 <div class="col-md-12">
@@ -199,9 +166,16 @@
     </footer>
 
     <script src="/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="/assets/js/jquery-ui.js"></script>
+    <script src="/assets/js/popper.min.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/owl.carousel.min.js"></script>
+    <script src="/assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="/assets/js/aos.js"></script>
     <script src="/assets/js/main.js"></script>
-    <script src="/assets/js/user.js"></script>
+    <script src="/assets/js/nav.js"></script>
+    <script src="/assets/js/footer.js"></script>
+    <script src="/assets/js/login.js"></script>
 </body>
 
 </html>

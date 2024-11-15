@@ -2,7 +2,7 @@ async function checkAdminAccess() {
     const email = localStorage.getItem("userEmail");
     
     if (!email) {
-        window.location.href = "/notfound.html";
+        window.location.href = "/pages/404.html";
         return;
     }
 
@@ -16,11 +16,11 @@ async function checkAdminAccess() {
         if (userData.role === 1) {
             console.log("Access granted to /admin");
         } else {
-            window.location.href = "/notfound.html";
+            window.location.href = "/pages/404.html";
         }
     } catch (error) {
         console.error("Error checking admin access:", error);
-        window.location.href = "/notfound.html";
+        window.location.href = "/pages/404.html";
     }
 }
 

@@ -166,6 +166,27 @@
         </div>
     </div>
 
+    <!-- Popup Order details -->
+    <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="orderModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="orderModalLabel">Chi tiết đơn hàng</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="orderModalBody">
+                    <!-- Nội dung chi tiết đơn hàng sẽ được tải vào đây -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
     <script src="../../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
     <script src="../../assets/js/off-canvas.js"></script>
@@ -174,7 +195,9 @@
     <script src="../../assets/js/hoverable-collapse.js"></script>
     <script src="../../assets/js/todolist.js"></script>
     <script src="/Admin/assets/js/role.js"></script>
-    
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const orderTableBody = document.getElementById("orderTableBody");
@@ -209,7 +232,7 @@
                             </select>
                             </td>
                             <td>
-                                <a href="/Admin/pages/order/view-order.html?id=${order.id}" class="btn btn-sm btn-info">Xem</a>
+                                <button onclick="showOrderDetails(${order.id})" class="btn btn-sm btn-info">Xem</button>
                             </td>
                         `;
 
@@ -244,6 +267,31 @@
                 alert('Lỗi khi thay đổi trạng thái đơn hàng.');
             }
         }
+
+        async function showOrderDetails(orderId) {
+            try {
+                const response = await fetch(`https://localhost:1006/get-order-by-id?id=${orderId}`);
+                if (!response.ok) throw new Error("Không thể tải chi tiết đơn hàng");
+
+                const orderDetails = await response.json();
+
+                const orderModalBody = document.getElementById('orderModalBody');
+                orderModalBody.innerHTML = `
+                    <p><strong>Mã Đơn Hàng:</strong> ${orderDetails.id}</p>
+                    <p><strong>ID Khách Hàng:</strong> ${orderDetails.customerId}</p>
+                    <p><strong>ID Địa Chỉ Khách Hàng:</strong> ${orderDetails.customerAddressId}</p>
+                    <p><strong>Trạng Thái:</strong> ${orderDetails.status === 0 ? 'Chờ đóng gói' : orderDetails.status === 1 ? 'Đang giao hàng' : 'Giao thành công'}</p>
+                    <p><strong>Ngày Đặt Hàng:</strong> ${new Date(orderDetails.createdAt).toLocaleDateString()}</p>
+                `;
+
+                const orderModal = new bootstrap.Modal(document.getElementById('orderModal'));
+                orderModal.show();
+            } catch (error) {
+                console.error("Lỗi khi tải chi tiết đơn hàng:", error);
+                alert("Không thể tải chi tiết đơn hàng.");
+            }
+        }
+
 
     </script>
 </body>

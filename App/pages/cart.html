@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Nhà thuốc - Danh mục sản phẩm</title>
+    <title>Nhà thuốc - Thanh toán</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap&subset=vietnamese">
@@ -49,7 +49,7 @@
                     <div class="main-nav d-none d-lg-block">
                         <nav class="site-navigation text-right text-md-center" role="navigation">
                             <ul class="site-menu js-clone-nav d-none d-lg-block">
-                                <li class="active"><a href="/index.html"><strong>Trang chủ</strong></a></li>
+                                <li class="active"><a href="index.html"><strong>Trang chủ</strong></a></li>
                                 <li class="has-children">
                                     <a href="#"><strong>Danh mục</strong></a>
                                     <ul class="dropdown" id="categoryList">
@@ -252,6 +252,27 @@
         </div>
     </footer>
 
+    <!-- Popup Notification -->
+    <div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="notificationTitle">Thông báo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="notificationMessage">
+                    <!-- Thông báo sẽ được đặt ở đây -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Đóng</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="/assets/js/jquery-3.3.1.min.js"></script>
     <script src="/assets/js/jquery-ui.js"></script>
     <script src="/assets/js/popper.min.js"></script>
@@ -265,66 +286,72 @@
     <script src="/assets/js/login.js"></script>
     <script src="/assets/js/popup.js"></script>
     <script src="/assets/js/register.js"></script>
-    <script src="/assets/js/cart.js"></script>
+    <script src="/assets/js/login.js"></script>
 
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            loadCart();
-            getCustomerIdByEmail();
-            loadAddresses();
+        document.addEventListener('DOMContentLoaded', async () => {
+            const userEmail = localStorage.getItem("userEmail");
+            if (userEmail) {
+                await loadCart(userEmail);
+                await getCustomerIdByEmail();
+                await loadAddresses();
+            } else {
+                console.log("Người dùng chưa đăng nhập.");
+            }
         });
 
-        function loadCart() {
-            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        async function loadCart(userEmail) {
+            const cartKey = `cart_${userEmail}`;
+            const cart = JSON.parse(localStorage.getItem(cartKey)) || [];
             const cartTableBody = document.querySelector('table tbody');
-
             let subtotal = 0;
 
             cartTableBody.innerHTML = '';
-            cart.forEach(async (item) => {
+
+            for (const item of cart) {
                 try {
                     const response = await fetch(`https://localhost:1006/get-product-detail?id=${item.productId}`);
+                    if (!response.ok) throw new Error("Không thể lấy thông tin sản phẩm.");
+
                     const product = await response.json();
                     const price = product.discountPrice || product.regularPrice;
                     const total = price * item.quantity;
                     subtotal += total;
 
                     const row = document.createElement('tr');
-
                     row.innerHTML = `
                         <td><img src="https://localhost:1005/${product.imagePath}" alt="Product Image" class="img-fluid" width="100"></td>
                         <td>${product.productName}</td>
-                        <td>${product.discountPrice ? formatCurrency(product.discountPrice) : formatCurrency(product.regularPrice)}</td>
+                        <td>${formatCurrency(price)}</td>
                         <td>${item.quantity}</td>
-                        <td>${formatCurrency((product.discountPrice || product.regularPrice) * item.quantity)}</td>
-                        <td><a href="#" class="btn btn-primary btn-sm" onclick="removeFromCart(${item.productId})">X</a></td>
+                        <td>${formatCurrency(total)}</td>
+                        <td><a href="#" class="btn btn-primary btn-sm" onclick="removeFromCart('${item.productId}', '${userEmail}')">X</a></td>
                     `;
                     cartTableBody.appendChild(row);
 
                 } catch (error) {
                     console.error('Lỗi khi lấy chi tiết sản phẩm:', error);
                 }
-                document.getElementById('subtotal').innerText = formatCurrency(subtotal);
-            });
+            }
+
+            document.getElementById('subtotal').innerText = formatCurrency(subtotal);
         }
 
         function formatCurrency(value) {
             return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
         }
 
-        function removeFromCart(productId) {
-            console.log(`Đang xóa sản phẩm với ID: ${productId}`);
-            let cart = JSON.parse(localStorage.getItem('cart')) || [];
-            const updatedCart = cart.filter(item => item.productId !== String(productId));
-            localStorage.setItem('cart', JSON.stringify(updatedCart));
-            const newCart = JSON.parse(localStorage.getItem('cart'));
-            console.log('Giỏ hàng sau khi xóa:', newCart);
+        function removeFromCart(productId, userEmail) {
+            const cartKey = `cart_${userEmail}`;
+            const cart = JSON.parse(localStorage.getItem(cartKey)) || [];
+            const updatedCart = cart.filter(item => item.productId !== productId);
+            localStorage.setItem(cartKey, JSON.stringify(updatedCart));
 
-            loadCart();
+            console.log('Giỏ hàng sau khi xóa:', updatedCart);
+            window.location.reload();
+            loadCart(userEmail);
         }
-
-
 
         let customerId;
         async function getCustomerIdByEmail() {
@@ -355,11 +382,11 @@
 
                 const addresses = await response.json();
                 const addressSelect = document.getElementById('addressSelect');
-                addressSelect.innerHTML = ""; // Xóa các lựa chọn cũ nếu có
+                addressSelect.innerHTML = "";
 
                 addresses.forEach((address) => {
                     const option = document.createElement('option');
-                    option.value = address.id; // Gán ID của địa chỉ vào value
+                    option.value = address.id;
                     option.textContent = `${address.fullName} - ${address.phone} - ${address.finalAddress}`;
                     addressSelect.appendChild(option);
                 });
@@ -369,15 +396,25 @@
         }
 
         async function checkout() {
-            const selectedAddressId = document.getElementById('addressSelect').value; // Lấy customerAddressId từ lựa chọn
-            if (!customerId || !selectedAddressId) {
-                console.error("Thiếu thông tin khách hàng hoặc địa chỉ.");
+            const userEmail = localStorage.getItem("userEmail");
+            if (!userEmail) {
+                showPopup("Bạn cần đăng nhập để tiếp tục.");
                 return;
             }
 
-            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const selectedAddressId = document.getElementById('addressSelect').value;
+            if (!customerId || !selectedAddressId) {
+                console.error("Thiếu thông tin khách hàng hoặc địa chỉ.");
+                showPopup("Vui lòng chọn địa chỉ giao hàng.");
+                return;
+            }
+
+            console.log("CustomerAddressId:", selectedAddressId);
+
+            const cartKey = `cart_${userEmail}`;
+            const cart = JSON.parse(localStorage.getItem(cartKey)) || [];
             if (cart.length === 0) {
-                alert('Giỏ hàng của bạn trống.');
+                showPopup('Giỏ hàng của bạn trống.');
                 return;
             }
 
@@ -387,8 +424,8 @@
                     productId: item.productId,
                     quantity: item.quantity
                 })),
-                customerAddressId: parseInt(selectedAddressId), // Sử dụng ID của địa chỉ đã chọn
-                paymentMethod: "COD"
+                customerAddressId: parseInt(selectedAddressId),
+                PaymentMethod: "COD"
             };
 
             try {
@@ -399,17 +436,20 @@
                 });
 
                 if (response.ok) {
-                    alert('Đặt hàng thành công!');
-                    localStorage.removeItem('cart');
-                    window.location.href = '/index.html';
+                    showPopup('Đặt hàng thành công!');
+                    localStorage.removeItem(cartKey);
+                    window.location.href = '/pages/thankyou.html';
                 } else {
-                    alert('Đặt hàng thất bại. Vui lòng thử lại.');
+                    const errorData = await response.json();
+                    console.error("Lỗi khi tạo đơn hàng:", errorData);
+                    showPopup('Đặt hàng thất bại. Vui lòng thử lại.');
                 }
             } catch (error) {
                 console.error('Lỗi trong quá trình thanh toán:', error);
-                alert('Không thể kết nối tới máy chủ.');
+                showPopup('Không thể kết nối tới máy chủ.');
             }
         }
+
 
         document.addEventListener("DOMContentLoaded", async function () {
             await getCustomerIdByEmail();

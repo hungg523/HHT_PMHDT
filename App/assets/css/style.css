@@ -1177,3 +1177,65 @@ a {
   flex: 0 0 auto; 
   width: 270px;
 }
+.team-members {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.block-38 {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.block-38-img img.team-img {
+  width: 100%;
+  max-width: 150px;
+  border-radius: 50%;
+}
+
+.block-38-header h3 {
+  margin-top: 15px;
+  font-size: 1.25rem;
+}
+
+.block-38-subheading {
+  font-size: 1rem;
+  color: #2e2ef7;
+}
+
+.block-38-body p {
+  margin-bottom: 5px;
+  font-size: 0.95rem;
+}
+.modal-dialog {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+#resendOtpButton {
+  background-color: #d3d3d3;
+  color: #000;
+  cursor: not-allowed;
+  border: none;
+}
+
+#resendOtpButton:not([disabled]) {
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+#resendOtpButton:not([disabled]):hover {
+  background-color: #0056b3;
+}

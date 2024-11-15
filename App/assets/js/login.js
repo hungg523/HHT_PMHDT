@@ -18,18 +18,51 @@ async function loginUser(event) {
         localStorage.setItem("userEmail", email);
         updateNavbar();
         closePopup('loginPopup');
-        alert("Đăng nhập thành công");
+        showPopup("Đăng nhập thành công");
       } else {
-        alert("Đăng nhập không thành công. Vui lòng kiểm tra lại tài khoản.");
+        showPopup("Đăng nhập không thành công. Vui lòng kiểm tra lại tài khoản.");
       }
     } else {
-      alert("Có lỗi xảy ra khi đăng nhập.");
+      showPopup("Có lỗi xảy ra khi đăng nhập.");
     }
   } catch (error) {
     console.error("Error during login:", error);
-    alert("Không thể kết nối tới máy chủ.");
+    showPopup("Không thể kết nối tới máy chủ.");
   }
 }
+
+function addToCart() {
+  const productId = getProductId();
+  const quantity = parseInt(document.querySelector('.form-control.text-center').value) || 1;
+  
+
+  // Lấy email của người dùng đã đăng nhập
+  const email = localStorage.getItem("userEmail");
+  if (!email) {
+    showPopup("Bạn cần đăng nhập trước khi thêm sản phẩm vào giỏ hàng.");
+    return;
+  }
+
+  // Lấy giỏ hàng theo email
+  const cartKey = `cart_${email}`;
+  const cart = JSON.parse(localStorage.getItem(cartKey)) || [];
+
+  // Thêm sản phẩm vào giỏ hàng
+  const productIndex = cart.findIndex(item => item.productId === productId);
+  if (productIndex > -1) {
+    cart[productIndex].quantity += quantity;
+  } else {
+    cart.push({ productId, quantity });
+  }
+
+  // Lưu giỏ hàng vào localStorage theo email của người dùng
+  localStorage.setItem(cartKey, JSON.stringify(cart));
+  showPopup("Sản phẩm đã được thêm vào giỏ hàng.");
+  setTimeout(() => {
+    window.location.href = "/pages/cart.html";
+  }, 3000);
+}
+
 
 
 // Hàm đăng xuất
@@ -38,12 +71,17 @@ function logout() {
 
   updateNavbar();
 
-  alert("Đăng xuất thành công.");
+  showPopup("Đăng xuất thành công.");
 }
 
 
 function getCartItemCount() {
-  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const userEmail = localStorage.getItem("userEmail");
+  if (!userEmail) return 0;
+
+  // Lấy giỏ hàng dựa trên email người dùng
+  const cartKey = `cart_${userEmail}`;
+  const cart = JSON.parse(localStorage.getItem(cartKey)) || [];
   return cart.reduce((total, item) => total + item.quantity, 0);
 }
 
@@ -54,7 +92,6 @@ function updateNavbar() {
 
   if (userEmail) {
     accountSection.innerHTML = `
-    
       <a href="/pages/cart.html" class="icons-btn d-inline-block bag">
         <span class="icon-shopping-bag"></span>
         <span class="number">${cartItemCount}</span>
@@ -65,8 +102,7 @@ function updateNavbar() {
         ${userEmail}
       </a>
       <div class="dropdown-menu dropdown-menu-right">
-        <a class="dropdown-item" href="/pages/profile.html">Cập nhật hồ sơ</a>
-        <a class="dropdown-item" href="/pages/orders.html">Thông tin đơn hàng</a>
+        <a class="dropdown-item" href="/pages/profile.html">Hồ sơ của bạn</a>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="#" onclick="logout()">Đăng xuất</a>
       </div>
@@ -78,6 +114,7 @@ function updateNavbar() {
     `;
   }
 }
+
 
 // Kiểm tra trạng thái đăng nhập khi tải trang
 document.addEventListener("DOMContentLoaded", updateNavbar);
