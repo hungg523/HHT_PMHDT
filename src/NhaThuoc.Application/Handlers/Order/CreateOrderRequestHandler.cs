@@ -7,6 +7,7 @@ using NhaThuoc.Domain.ReQuest.Order;
 using NhaThuoc.Share.DependencyInjection.Extensions;
 using NhaThuoc.Share.Enums;
 using NhaThuoc.Share.Exceptions;
+using System.Linq;
 using Entities = NhaThuoc.Domain.Entities;
 
 namespace NhaThuoc.Application.Handlers.Order
@@ -48,6 +49,7 @@ namespace NhaThuoc.Application.Handlers.Order
                         CustomerAddressId = request.CustomerAddressId,
                         Payment = request.PaymentMethod,
                         Status = OrderStatus.Pending,
+                        TotalPrice = 0,
                         CreatedAt = DateTime.Now,
                     }; 
 
@@ -61,48 +63,40 @@ namespace NhaThuoc.Application.Handlers.Order
                     orderRepository.Create(order);
                     await orderRepository.SaveChangesAsync(cancellationToken);
 
+                    decimal orderTotalPrice = 0;
+
                     foreach (var item in request.OrderItems)
                     {
                         var product = await productRepository.FindByIdAsync(item.ProductId);
                         if (product is null) product.ThrowNotFound();
 
                         decimal price = (product.DiscountPrice.HasValue && product.DiscountPrice > 0) ? (decimal)product.DiscountPrice.Value : (decimal)(product.RegularPrice ?? 0);
-
-                        if (coupon is not null)
-                        {
-                            var applyCouponEntry = new Entities.ApplyCoupon
-                            {
-                                CouponId = coupon.Id,
-                                ProductId = item.ProductId,
-                            };
-
-                            applyCouponRepository.Create(applyCouponEntry);
-                            await applyCouponRepository.SaveChangesAsync(cancellationToken);
-
-                            var applyCoupon = await applyCouponRepository.FindSingleAsync(ac => ac.CouponId == coupon.Id && ac.ProductId == item.ProductId);
-                            
-                            if (applyCoupon is not null)
-                            {
-                                decimal discount = decimal.Parse(coupon.Discount);
-                                price -= discount;
-                            }
-                        }
                         var orderItem = new Entities.OrderItem
                         {
                             OrderId = order.Id,
                             ProductId = item.ProductId,
                             Quantity = item.Quantity,
-                            TotalPrice = price * item.Quantity,
+                            TotalPrice = (decimal)(price * item.Quantity),
                         };
+                        orderTotalPrice += orderItem.TotalPrice;
                         orderItemRepository.Create(orderItem);
                     }
+
                     await orderItemRepository.SaveChangesAsync(cancellationToken);
                     if (coupon is not null)
                     {
+                        decimal discount = decimal.Parse(coupon.Discount);
+                        orderTotalPrice -= discount;
+                        if (orderTotalPrice < 0) orderTotalPrice = 0;
+
                         coupon.TimesUsed += 1;
                         couponRepository.Update(coupon);
                         await couponRepository.SaveChangesAsync(cancellationToken);
                     }
+
+                    order.TotalPrice = orderTotalPrice;
+                    orderRepository.Update(order);
+                    await orderRepository.SaveChangesAsync(cancellationToken);
 
                     await transaction.CommitAsync(cancellationToken);
                     return ApiResponse.Success();

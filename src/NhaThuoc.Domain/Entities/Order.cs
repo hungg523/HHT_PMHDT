@@ -1,6 +1,5 @@
 ﻿using NhaThuoc.Domain.Abtractions.Common;
 using NhaThuoc.Share.Enums;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace NhaThuoc.Domain.Entities
@@ -13,6 +12,7 @@ namespace NhaThuoc.Domain.Entities
         public int? CouponId { get; set; }
         public string? Payment {  get; set; }
         public OrderStatus? Status { get; set; }
+        public decimal? TotalPrice { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
 
