@@ -14,13 +14,11 @@ namespace NhaThuoc.WebApi.Controllers.Coupon
     {
         private readonly IMediator mediator;
         private readonly IMapper mapper;
-        private readonly DiscountService discountService;
 
-        public CouponController(IMediator mediator, IMapper mapper, DiscountService discountService)
+        public CouponController(IMediator mediator, IMapper mapper)
         {
             this.mediator = mediator;
             this.mapper = mapper;
-            this.discountService = discountService;
         }
 
         [HttpGet("/get-coupon-by-id")]
