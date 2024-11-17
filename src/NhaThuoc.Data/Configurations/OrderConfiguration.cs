@@ -15,6 +15,7 @@ namespace NhaThuoc.Data.Configurations
             builder.Property(x => x.CustomerAddressId).HasColumnName("CustomerAddressId");
             builder.Property(x => x.Payment).HasColumnName("Payment");
             builder.Property(x => x.Status).HasColumnName("Status");
+            builder.Property(x => x.TotalPrice).HasColumnName("TotalPrice");
             builder.Property(x => x.CreatedAt).HasColumnName("CreatedAt");
             builder.Property(x => x.UpdatedAt).HasColumnName("UpdatedAt");
 

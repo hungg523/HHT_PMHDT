@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using NhaThuoc.Application.Request.Coupon;
 using NhaThuoc.Application.Validators.Coupon;
 using NhaThuoc.Domain.Abtractions.IRepositories;
@@ -35,10 +36,15 @@ namespace NhaThuoc.Application.Handlers.Coupon
                     await transaction.CommitAsync(cancellationToken);
                     return ApiResponse.Success();
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
                     await transaction.RollbackAsync(cancellationToken);
-                    throw;
+                    return new ApiResponse
+                    {
+                        IsSuccess = false,
+                        StatusCode = StatusCodes.Status500InternalServerError,
+                        StageTrace = e.StackTrace
+                    };
                 }
             }
         }
