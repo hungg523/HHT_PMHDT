@@ -8,7 +8,6 @@ namespace NhaThuoc.Application.Request.Coupon
     {
         public string? Code { get; set; }
         public string? Description { get; set; }
-
         [JsonIgnore]
         public int? TimesUsed { get; set; } = 0;
         public int? MaxUsage { get; set; }

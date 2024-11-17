@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using NhaThuoc.Application.Handlers.Coupon;
 using NhaThuoc.Application.Request.Coupon;
 using NhaThuoc.Share.Exceptions;
-using Entities = NhaThuoc.Domain.Entities;
 
 namespace NhaThuoc.WebApi.Controllers.Coupon
 {

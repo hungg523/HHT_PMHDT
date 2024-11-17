@@ -95,5 +95,21 @@ namespace NhaThuoc.WebApi.Controllers.Order
                 throw;
             }
         }
+
+        [HttpGet("/get-order-item-by-order-id")]
+        public async Task<IActionResult> GetOrderItemByOrderId(int id)
+        {
+            try
+            {
+                var command = new GetOrderItemByOrderIdRequest();
+                command.OrderId = id;
+                var result = await mediator.Send(command);
+                return Ok(result);
+            }
+            catch (NhaThuocException)
+            {
+                throw;
+            }
+        }
     }
 }
