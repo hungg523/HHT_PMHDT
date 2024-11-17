@@ -21,6 +21,7 @@ namespace NhaThuoc.Data.Configurations
             builder.Property(x => x.CreatedAt).HasColumnName("CreatedAt"); 
             builder.Property(x => x.Role).HasColumnName("Role");
             builder.Property(x => x.OTP).HasColumnName("OTP");
+            builder.Property(x => x.OTPExpiration).HasColumnName("OTPExpiration");
         }
     }
 }
