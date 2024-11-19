@@ -203,7 +203,7 @@ let customerId;
         
         let productsData = {};
 
-        // Tải danh sách sản phẩm từ API khi trang được tải
+        // Tải danh sách sản phẩm từ API
         document.addEventListener("DOMContentLoaded", async function () {
             await getCustomerIdByEmail();
             await fetchProducts(); // Tải toàn bộ sản phẩm
@@ -230,7 +230,7 @@ let customerId;
             }
         }
         
-        // Hàm tải tất cả sản phẩm từ API và lưu vào productsData
+        // Hàm tải tất cả sản phẩm từ API
         async function fetchProducts() {
             try {
                 const response = await fetch("https://localhost:1006/get-products");
@@ -238,14 +238,13 @@ let customerId;
         
                 const products = await response.json();
                 products.forEach(product => {
-                    productsData[product.id] = product; // Lưu trữ sản phẩm theo productId
+                    productsData[product.id] = product;
                 });
             } catch (error) {
                 console.error("Lỗi khi tải sản phẩm:", error);
             }
         }
         
-        // Hàm tải danh sách đơn hàng và hiển thị thông tin sản phẩm
         async function loadOrders(customerId) {
             try {
                 const response = await fetch(`https://localhost:1006/get-order-by-customer-id?id=${customerId}`);
@@ -262,47 +261,68 @@ let customerId;
                 ordersContainer.innerHTML = "";
         
                 // Hiển thị từng đơn hàng và thông tin sản phẩm
-                orders.forEach(order => {
+                for (const order of orders) {
                     const orderElement = document.createElement("div");
                     orderElement.classList.add("order");
+        
+                    // Tải thông tin chi tiết từng sản phẩm
+                    const orderItemsHTML = await Promise.all(order.orderItems.map(async (item) => {
+                        try {
+                            const productResponse = await fetch(`https://localhost:1006/get-product-detail?id=${item.productId}`);
+                            if (!productResponse.ok) throw new Error(`Không thể tải thông tin sản phẩm ID: ${item.productId}`);
+                            
+                            const product = await productResponse.json();
+                            const price = product.discountPrice || product.regularPrice;
+        
+                            return `
+                                <li class="list-group-item d-flex align-items-center">
+                                    <img src="https://localhost:1005/${product.imagePath}" alt="${product.productName}" class="img-thumbnail me-3" style="width: 80px; height: 80px; object-fit: cover;">
+                                    <div style="padding: 10px;">
+                                        <strong>${product.productName}</strong><br>
+                                        <span>Số lượng: ${item.quantity}</span><br>
+                                        <span>Đơn giá: ${price.toLocaleString()} VND</span><br>
+                                        <span><strong>Tổng: ${(price * item.quantity).toLocaleString()} VND</strong></span>
+                                    </div>
+                                </li>
+                            `;
+                        } catch (error) {
+                            console.error(`Lỗi khi tải thông tin sản phẩm ID: ${item.productId}`, error);
+                            return `<li class="list-group-item text-danger"><strong>Không thể tải thông tin sản phẩm ID: ${item.productId}</strong></li>`;
+                        }
+                    }));
+        
+                    // Xử lý trạng thái đơn hàng
+                    const statusText = order.status === 0
+                        ? "Chờ đóng gói"
+                        : order.status === 1
+                        ? "Đang giao hàng"
+                        : "Giao hàng thành công";
         
                     orderElement.innerHTML = `
                         <hr>
                         <div class="card mb-4">
-                        <div class="card-header bg-primary text-white">
-                            <h5 class="mb-0">Mã đơn hàng: ${order.id}</h5>
+                            <div class="card-header bg-primary text-white">
+                                <h5 class="mb-0">Mã đơn hàng: ${order.id}</h5>
+                            </div>
+                            <div class="card-body">
+                                <p><strong>Email:</strong> ${order.email}</p>
+                                <p><strong>Địa chỉ:</strong> ${order.address.fullName}, ${order.address.finalAddress} - ${order.address.phone}</p>
+                                <p><strong>Trạng thái đơn hàng:</strong> ${statusText}</p>
+                                <h6 class="mt-4">Sản phẩm:</h6>
+                                <ul class="list-group">
+                                    ${orderItemsHTML.join("")}
+                                </ul>
+                                <div class="mt-4 text-end">
+                                    <strong>Tổng tiền đơn hàng: ${(order.totalPrice).toLocaleString()} VND</strong>
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <p><strong>Email:</strong> ${order.email}</p>
-                            <p><strong>Địa chỉ:</strong> ${order.address.fullName}, ${order.address.finalAddress} - ${order.address.phone}</p>
-                            <h6 class="mt-4">Sản phẩm:</h6>
-                            <ul class="list-group">
-                                ${order.orderItems.map(item => {
-                                    const product = productsData[item.productId];
-                                    return product ? `
-                                        <li class="list-group-item d-flex align-items-center">
-                                            <img src="https://localhost:1005/${product.imagePath}" alt="${product.productName}" class="img-thumbnail me-3" style="width: 80px; height: 80px; object-fit: cover;">
-                                        <div style="padding: 10px;">
-                                            <strong>${product.productName}</strong><br>
-                                            <span>Số lượng: ${item.quantity}</span>
-                                        </div>
-                                        </li>
-                                    ` : `
-                                        <li class="list-group-item text-danger">
-                                            <strong>Không tìm thấy sản phẩm ID: ${item.productId}</strong>
-                                        </li>
-                                    `;
-                                }).join("")}
-                            </ul>
-                        </div>
-                    </div>
                     `;
                     ordersContainer.appendChild(orderElement);
-                });
+                }
             } catch (error) {
                 console.error("Lỗi khi tải đơn hàng:", error);
                 showPopup("Không thể tải đơn hàng. Vui lòng thử lại.");
             }
         }
-
         

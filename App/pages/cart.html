@@ -368,6 +368,7 @@
             }
 
             document.getElementById('subtotal').innerText = formatCurrency(subtotal);
+            document.getElementById('totalAmount').innerText = formatCurrency(subtotal);
         }
 
         function formatCurrency(value) {
@@ -512,7 +513,7 @@
 
 
         document.addEventListener("DOMContentLoaded", () => {
-            updateTotals(); // Gọi khi tải trang
+            updateTotals();
         });
 
         // Hàm thanh toán (checkout)

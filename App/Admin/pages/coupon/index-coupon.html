@@ -138,12 +138,13 @@
                                         <table class="table table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th> Mã Coupon </th>
-                                                    <th> Giảm giá </th>
-                                                    <th> Mô tả </th>
-                                                    <th> Hiệu lực </th>
-                                                    <th> Thời gian </th>
-                                                    <th> Thao tác </th>
+                                                    <th>Mã Coupon</th>
+                                                    <th>Giảm giá</th>
+                                                    <th>Mô tả</th>
+                                                    <th>Thời gian</th>
+                                                    <th>Hiệu lực</th>
+                                                    <th>Lần sử dụng còn lại</th>
+                                                    <th>Thao tác</th>
                                                 </tr>
                                             </thead>
                                             <tbody id="couponTableBody">
@@ -187,22 +188,38 @@
                     couponTableBody.innerHTML = "";
                     coupons.forEach(coupon => {
                         const row = document.createElement("tr");
+
+                        // Xử lý hiệu lực
                         const isActiveBadge = coupon.isActive
                             ? `<span class="badge bg-success">Kích hoạt</span>`
                             : `<span class="badge bg-danger">Không kích hoạt</span>`;
+
+                        // Xử lý thời gian
                         const startDate = new Date(coupon.couponStartDate).toLocaleDateString();
                         const endDate = new Date(coupon.couponEndDate).toLocaleDateString();
 
+                        // Tính số lần sử dụng còn lại
+                        const remainingUses = coupon.maxUsage - coupon.timesUsed;
+                        let remainingUsesBadge;
+                        if (remainingUses <= 0) {
+                            remainingUsesBadge = `<span class="badge bg-danger">Hết lượt</span>`;
+                        } else if (remainingUses <= 5) {
+                            remainingUsesBadge = `<span class="badge bg-warning">${remainingUses} lần</span>`;
+                        } else {
+                            remainingUsesBadge = `<span class="badge bg-success">${remainingUses} lần</span>`;
+                        }
+
                         row.innerHTML = `
-              <td>${coupon.code}</td>
-              <td>${coupon.discount > 0 ? coupon.discount : "Miễn phí vận chuyển"}</td>
-              <td>${coupon.description}</td>
-              <td>${isActiveBadge}</td>
-              <td>${startDate} - ${endDate}</td>
-              <td>
-                <a href="/Admin/pages/coupon/edit-coupon.html?id=${coupon.id}" class="btn btn-warning btn-sm">Sửa</a>
-              </td>
-            `;
+                            <td>${coupon.code}</td>
+                            <td>${coupon.discount > 0 ? coupon.discount : "Miễn phí vận chuyển"}</td>
+                            <td>${coupon.description}</td>                           
+                            <td>${startDate} - ${endDate}</td>
+                            <td>${isActiveBadge}</td>
+                            <td>${remainingUsesBadge}</td>
+                            <td>
+                                <a href="/Admin/pages/coupon/edit-coupon.html?id=${coupon.id}" class="btn btn-warning btn-sm">Sửa</a>
+                            </td>
+                        `;
                         couponTableBody.appendChild(row);
                     });
                 })
