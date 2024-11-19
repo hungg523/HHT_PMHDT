@@ -2,11 +2,9 @@
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Nhà Thuốc - Thêm Danh Mục</title>
-    <!-- plugins:css -->
+    <title>Nhà Thuốc - Tạo Coupon</title>
     <link rel="stylesheet" href="../../assets/vendors/feather/feather.css">
     <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="../../assets/vendors/ti-icons/css/themify-icons.css">
@@ -16,33 +14,22 @@
     <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
     <link rel="stylesheet" href="../../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
     <link rel="stylesheet" href="../../assets/css/style.css">
-    <link rel="shortcut icon" href="../../assets/images/favicon.png" />
+    <link rel="shortcut icon" href="../../assets/images/favicon.png" />/>
 </head>
 
 <body>
+
     <div class="container-scroller">
-        <!-- partial:partials/_navbar.html -->
         <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex align-items-top flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
-                <div class="me-3">
-                    <button class="navbar-toggler navbar-toggler align-self-center" type="button"
-                        data-bs-toggle="minimize">
-                        <span class="icon-menu"></span>
-                    </button>
-                </div>
-                <div>
-                    <a class="navbar-brand brand-logo" href="/Admin/index.html">
-                        <img src="/Admin/assets/images/logo.svg" alt="logo" />
-                    </a>
-                    <a class="navbar-brand brand-logo-mini" href="/Admin/index.html">
-                        <img src="/Admin/assets/images/logo-mini.svg" alt="logo" />
-                    </a>
-                </div>
+                <a class="navbar-brand brand-logo" href="/Admin/index.html">
+                    <img src="/Admin/assets/images/logo.svg" alt="logo" />
+                </a>
             </div>
         </nav>
 
-        <!-- partial -->
         <div class="container-fluid page-body-wrapper">
+
             <!-- NavBar -->
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <ul class="nav">
@@ -132,37 +119,44 @@
                     </li>
                 </ul>
             </nav>
-
-            <!-- Main panel for the form -->
             <div class="main-panel">
                 <div class="content-wrapper">
                     <div class="row">
                         <div class="col-lg-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Thêm mới Danh Mục</h4>
-                                    <p class="card-description"> <code>Nhập thông tin danh mục</code> </p>
-                                    <form id="categoryForm">
+                                    <h4 class="card-title">Tạo mới Coupon</h4>
+                                    <p class="card-description"> <code>Nhập thông tin Coupon</code> </p>
+                                    <form id="couponForm">
                                         <div class="form-group">
-                                            <label for="parentId">Parent ID</label>
-                                            <input type="number" class="form-control" id="parentId"
-                                                placeholder="Parent ID">
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="name">Tên danh mục</label>
-                                            <input type="text" class="form-control" id="name" placeholder="Tên danh mục"
-                                                required>
+                                            <label for="couponCode">Mã Coupon</label>
+                                            <input type="text" class="form-control" id="couponCode"
+                                                placeholder="Nhập mã Coupon" required>
                                         </div>
                                         <div class="form-group">
                                             <label for="description">Mô tả</label>
-                                            <input type="text" class="form-control" id="description"
-                                                placeholder="Mô tả">
+                                            <textarea class="form-control" id="description"
+                                                placeholder="Nhập mô tả"></textarea>
                                         </div>
                                         <div class="form-group">
-                                            <label for="imageFile">Chọn ảnh</label>
-                                            <input type="file" class="form-control" id="imageFile" onchange="convertToBase64('imageFile', function(base64Image) { 
-                                                console.log(base64Image); 
-                                            })">
+                                            <label for="maxUsage">Số lần sử dụng tối đa</label>
+                                            <input type="number" class="form-control" id="maxUsage"
+                                                placeholder="Nhập số lần sử dụng tối đa" min="0">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="discount">Giảm giá</label>
+                                            <input type="number" class="form-control" id="discount"
+                                                placeholder="Nhập giảm giá">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="couponStartDate">Ngày bắt đầu</label>
+                                            <input type="datetime-local" class="form-control" id="couponStartDate"
+                                                required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="couponEndDate">Ngày kết thúc</label>
+                                            <input type="datetime-local" class="form-control" id="couponEndDate"
+                                                required>
                                         </div>
                                         <div class="form-group">
                                             <label for="isActive">Kích hoạt</label>
@@ -171,8 +165,9 @@
                                         <div id="message"
                                             style="display: none; padding: 10px; margin-top: 10px; border-radius: 5px; font-weight: bold;">
                                         </div>
-                                        <button type="button" class="btn btn-primary mt-3" onclick="submitForm()">Thêm
-                                            Danh Mục</button>
+                                        <button type="button" class="btn btn-primary mt-3"
+                                            onclick="submitCouponForm()">Tạo
+                                            Coupon</button>
                                     </form>
                                 </div>
                             </div>
@@ -181,94 +176,90 @@
                 </div>
             </div>
         </div>
-    </div>
+        <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
+        <script src="../../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+        <script src="../../assets/js/off-canvas.js"></script>
+        <script src="../../assets/js/template.js"></script>
+        <script src="../../assets/js/settings.js"></script>
+        <script src="../../assets/js/hoverable-collapse.js"></script>
+        <script src="../../assets/js/todolist.js"></script>
+        <script src="/Admin/assets/js/role.js"></script>
+        <script>
 
-    <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
-    <script src="../../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
-    <script src="../../assets/js/off-canvas.js"></script>
-    <script src="../../assets/js/template.js"></script>
-    <script src="../../assets/js/settings.js"></script>
-    <script src="../../assets/js/hoverable-collapse.js"></script>
-    <script src="../../assets/js/todolist.js"></script>
-    <script src="/Admin/assets/js/imgToBase64.js"></script>
-    <script src="/Admin/assets/js/role.js"></script>
 
-    <script>
-        function submitForm() {
-            const messageDiv = document.getElementById('message');
-            let errors = [];
+            function submitCouponForm() {
+                const messageDiv = document.getElementById('message');
+                messageDiv.style.display = 'none';
+                let errors = [];
 
-            const parentIdValue = document.getElementById('parentId').value;
-            const nameValue = document.getElementById('name').value;
-            const descriptionValue = document.getElementById('description').value;
-            const isActiveValue = document.getElementById('isActive').checked;
+                const couponCode = document.getElementById('couponCode').value.trim();
+                const description = document.getElementById('description').value.trim();
+                const maxUsage = parseInt(document.getElementById('maxUsage').value) || 0;
+                const discount = document.getElementById('discount').value;
+                const couponStartDate = document.getElementById('couponStartDate').value;
+                const couponEndDate = document.getElementById('couponEndDate').value;
+                const isActive = document.getElementById('isActive').checked;
 
-            if (!parentIdValue) {
-                errors.push("Parent Id không được để trống.");
-            } else if (parseInt(parentIdValue) <= 0) {
-                errors.push("Parent Id phải lớn hơn 0.");
-            }
+                if (!couponCode) errors.push("Mã Coupon không được để trống.");
+                if (couponCode.length > 50) errors.push("Mã Coupon không được vượt quá 50 ký tự.");
 
-            if (!nameValue) {
-                errors.push("Name không được để trống.");
-            } else if (nameValue.length > 100) {
-                errors.push("Tên không được vượt quá 100 ký tự.");
-            }
+                if (!description) errors.push("Mô tả không được để trống.");
+                if (description.length > 200) errors.push("Mô tả không được vượt quá 200 ký tự.");
 
-            if (descriptionValue && descriptionValue.length > 500) {
-                errors.push("Description không được vượt quá 500 ký tự.");
-            }
+                if (!couponStartDate) errors.push("Ngày bắt đầu không được để trống.");
+                if (!couponEndDate) errors.push("Ngày kết thúc không được để trống.");
 
-            if (isActiveValue === null) {
-                errors.push("Trạng thái hoạt động không được để trống.");
-            }
+                if (new Date(couponStartDate) >= new Date(couponEndDate)) {
+                    errors.push("Ngày kết thúc phải lớn hơn ngày bắt đầu.");
+                }
 
-            if (errors.length > 0) {
-                messageDiv.style.display = 'block';
-                messageDiv.style.backgroundColor = '#fff';
-                messageDiv.style.color = '#721c24';
-                messageDiv.innerHTML = errors.join("<br>");
-                return;
-            }
+                if (errors.length > 0) {
+                    messageDiv.style.display = 'block';
+                    messageDiv.style.backgroundColor = '#f8d7da';
+                    messageDiv.style.color = '#721c24';
+                    messageDiv.innerHTML = errors.join("<br>");
+                    return;
+                }
 
-            convertToBase64('imageFile', function (base64Image) {
-                const categoryData = {
-                    ParentId: parseInt(parentIdValue),
-                    Name: nameValue,
-                    Description: descriptionValue,
-                    ImageData: base64Image,
-                    IsActive: isActiveValue
+                const couponData = {
+                    code: couponCode,
+                    description: description,
+                    maxUsage: maxUsage,
+                    discount: discount,
+                    isActive: isActive,
+                    couponStartDate: new Date(couponStartDate).toISOString(),
+                    couponEndDate: new Date(couponEndDate).toISOString()
                 };
 
-                fetch('https://localhost:1006/create-category', {
+                fetch('https://localhost:1006/create-coupon', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify(categoryData)
+                    body: JSON.stringify(couponData)
                 })
-                    .then(response => response.json())
+                    .then(response => {
+                        if (!response.ok) throw new Error('Network response was not ok');
+                        return response.json();
+                    })
                     .then(data => {
-                        console.log('Success:', data);
                         messageDiv.style.display = 'block';
                         messageDiv.style.backgroundColor = '#d4edda';
                         messageDiv.style.color = '#155724';
-                        messageDiv.innerHTML = 'Danh mục đã được thêm thành công!';
-                        // Chuyển hướng về trang index-category.html sau 2 giây
+                        messageDiv.innerHTML = 'Coupon đã được tạo thành công!';
                         setTimeout(() => {
-                            window.location.href = '/Admin/pages/category/index-category.html';
-                        }, 1000);
+                            window.location.href = '/Admin/pages/coupon/index-coupon.html';
+                        }, 2000);
                     })
                     .catch(error => {
                         console.error('Error:', error);
                         messageDiv.style.display = 'block';
                         messageDiv.style.backgroundColor = '#f8d7da';
                         messageDiv.style.color = '#721c24';
-                        messageDiv.innerHTML = 'Có lỗi xảy ra khi thêm danh mục.';
+                        messageDiv.innerHTML = 'Có lỗi xảy ra khi tạo Coupon.';
                     });
-            });
-        }
-    </script>
+            }   
+        </script>
 </body>
 
 </html>

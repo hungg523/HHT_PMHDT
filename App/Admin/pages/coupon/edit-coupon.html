@@ -4,44 +4,18 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Nhà Thuốc - Quản Lý Đơn Hàng</title>
+    <title>Nhà Thuốc - Sửa Coupon</title>
+    <link rel="stylesheet" href="../../assets/vendors/feather/feather.css">
     <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../../assets/vendors/ti-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="../../assets/vendors/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../assets/vendors/typicons/typicons.css">
+    <link rel="stylesheet" href="../../assets/vendors/simple-line-icons/css/simple-line-icons.css">
     <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
     <link rel="stylesheet" href="../../assets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css">
     <link rel="stylesheet" href="../../assets/css/style.css">
     <link rel="shortcut icon" href="../../assets/images/favicon.png" />
 </head>
-<style>
-    /* Style for the select element when closed */
-    .status-select {
-        color: white;
-        padding: 10px;
-        border: none;
-        border-radius: 4px;
-        font-weight: bold;
-        width: 40%;
-
-    }
-
-    .status-pending {
-        background-color: #FFA500;
-        /* Chờ đóng gói */
-    }
-
-    .status-shipping {
-        background-color: #17a2b8;
-    }
-
-    .status-delivered {
-        background-color: #28a745;
-        /* Giao thành công */
-    }
-
-    .status-select option {
-        background-color: white;
-        color: black;
-    }
-</style>
 
 <body>
     <div class="container-scroller">
@@ -64,7 +38,6 @@
             </div>
         </nav>
 
-        <!-- partial -->
         <div class="container-fluid page-body-wrapper">
             <!-- NavBar -->
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
@@ -156,57 +129,57 @@
                 </ul>
             </nav>
 
+            <!-- Main panel for editing coupon -->
             <div class="main-panel">
                 <div class="content-wrapper">
                     <div class="row">
                         <div class="col-lg-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="card-title">Danh Sách Đơn Hàng</h4>
-                                    <div class="table-responsive">
-                                        <table class="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>Mã Đơn Hàng</th>
-                                                    <th>ID Khách Hàng</th>
-                                                    <th>Ngày Đặt Hàng</th>
-                                                    <th>Trạng Thái</th>
-                                                    <th>Thao Tác</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="orderTableBody">
-                                                <!-- Dữ liệu đơn hàng sẽ được hiển thị ở đây -->
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div id="message"
-                                        style="display: none; padding: 10px; margin-top: 10px; border-radius: 5px; font-weight: bold;">
-                                    </div>
+                                    <h4 class="card-title">Sửa Coupon</h4>
+                                    <p class="card-description"><code>Chỉnh sửa thông tin coupon</code></p>
+                                    <form id="editCouponForm">
+                                        <div class="form-group">
+                                            <label for="couponCode">Mã Coupon</label>
+                                            <input type="text" class="form-control" id="couponCode" readonly>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="description">Mô tả</label>
+                                            <textarea class="form-control" id="description"
+                                                placeholder="Mô tả"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="maxUsage">Số lần sử dụng tối đa</label>
+                                            <input type="number" class="form-control" id="maxUsage" min="1"
+                                                placeholder="Số lần sử dụng tối đa">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="discount">Giảm giá</label>
+                                            <input type="number" class="form-control" id="discount"
+                                                placeholder="Giảm giá ">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="couponStartDate">Ngày bắt đầu</label>
+                                            <input type="datetime-local" class="form-control" id="couponStartDate">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="couponEndDate">Ngày kết thúc</label>
+                                            <input type="datetime-local" class="form-control" id="couponEndDate">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="isActive">Kích hoạt</label>
+                                            <input type="checkbox" id="isActive">
+                                        </div>
+                                        <div id="message"
+                                            style="display: none; padding: 10px; margin-top: 10px; border-radius: 5px; font-weight: bold;">
+                                        </div>
+                                        <button type="button" class="btn btn-primary mt-3"
+                                            onclick="updateCoupon()">Lưu</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Popup Order details -->
-    <div class="modal fade" id="orderModal" tabindex="-1" role="dialog" aria-labelledby="orderModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="orderModalLabel">Chi tiết đơn hàng</h5>
-                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="orderModalBody">
-                    <!-- Nội dung chi tiết đơn hàng sẽ được tải vào đây -->
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
                 </div>
             </div>
         </div>
@@ -220,105 +193,81 @@
     <script src="../../assets/js/hoverable-collapse.js"></script>
     <script src="../../assets/js/todolist.js"></script>
     <script src="/Admin/assets/js/role.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const couponId = urlParams.get('id');
+
         document.addEventListener("DOMContentLoaded", function () {
-            const orderTableBody = document.getElementById("orderTableBody");
-            const messageDiv = document.getElementById("message");
-
-            fetch('https://localhost:1006/get-orders', {
+            fetch(`https://localhost:1006/get-coupon-by-id?id=${couponId}`, {
                 method: 'GET',
-                headers: { 'Content-Type': 'application/json' }
+                headers: {
+                    'Content-Type': 'application/json'
+                }
             })
-                .then(response => {
-                    if (!response.ok) throw new Error('Mạng không ổn định');
-                    return response.json();
-                })
+                .then(response => response.json())
                 .then(data => {
-                    orderTableBody.innerHTML = "";
-
-                    data.forEach(order => {
-                        const row = document.createElement("tr");
-
-                        row.innerHTML = `
-                            <td>${order.id}</td>
-                            <td>${order.customerId}</td>
-                            <td>${new Date(order.createdAt).toLocaleDateString()}</td>
-                            <td>
-                            <select 
-                                class="status-select ${order.status === 0 ? 'status-pending' : order.status === 1 ?
-                                'status-shipping' : 'status-delivered'}"
-                                onchange="changeOrderStatus(${order.id}, this.value)">
-                                <option value="0" ${order.status === 0 ? 'selected' : ''}>Chờ đóng gói</option>
-                                <option value="1" ${order.status === 1 ? 'selected' : ''}>Đang giao hàng</option>
-                                <option value="2" ${order.status === 2 ? 'selected' : ''}>Giao thành công</option>
-                            </select>
-                            </td>
-                            <td>
-                                <button onclick="showOrderDetails(${order.id})" class="btn btn-sm btn-info">Xem</button>
-                            </td>
-                        `;
-
-                        orderTableBody.appendChild(row);
-                    });
+                    document.getElementById('couponCode').value = data.code;
+                    document.getElementById('description').value = data.description;
+                    document.getElementById('maxUsage').value = data.maxUsage;
+                    document.getElementById('discount').value = data.discount;
+                    document.getElementById('couponStartDate').value = data.couponStartDate.slice(0, 16);
+                    document.getElementById('couponEndDate').value = data.couponEndDate.slice(0, 16);
+                    document.getElementById('isActive').checked = data.isActive;
                 })
                 .catch(error => {
-                    console.error('Error fetching orders:', error);
-                    messageDiv.style.display = 'block';
-                    messageDiv.style.backgroundColor = '#f8d7da';
-                    messageDiv.style.color = '#721c24';
-                    messageDiv.innerHTML = 'Có lỗi xảy ra khi tải danh sách đơn hàng.';
+                    console.error('Error fetching coupon:', error);
+                    alert('Có lỗi xảy ra khi tải dữ liệu coupon.');
                 });
         });
 
-        async function changeOrderStatus(orderId, status) {
-            try {
-                const response = await fetch(`https://localhost:1006/change-status-order?id=${orderId}`, {
-                    method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ status: parseInt(status) })
+        function updateCoupon() {
+            const messageDiv = document.getElementById('message');
+            const startDate = new Date(document.getElementById('couponStartDate').value);
+            const endDate = new Date(document.getElementById('couponEndDate').value);
+
+            if (endDate <= startDate) {
+                messageDiv.style.display = 'block';
+                messageDiv.style.backgroundColor = '#f8d7da';
+                messageDiv.style.color = '#721c24';
+                messageDiv.innerHTML = 'Ngày kết thúc phải lớn hơn ngày bắt đầu.';
+                return;
+            }
+
+            const couponData = {
+                code: document.getElementById('couponCode').value,
+                description: document.getElementById('description').value,
+                maxUsage: parseInt(document.getElementById('maxUsage').value),
+                discount: document.getElementById('discount').value,
+                isActive: document.getElementById('isActive').checked,
+                couponStartDate: document.getElementById('couponStartDate').value,
+                couponEndDate: document.getElementById('couponEndDate').value,
+            };
+
+            fetch(`https://localhost:1006/update-coupon?id=${couponId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(couponData)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    alert('Coupon đã được cập nhật thành công!');
+                    window.location.href = '/Admin/pages/coupon/index-coupon.html';
+                })
+                .catch(error => {
+                    console.error('Error updating coupon:', error);
+                    messageDiv.style.display = 'block';
+                    messageDiv.style.backgroundColor = '#f8d7da';
+                    messageDiv.style.color = '#721c24';
+                    messageDiv.innerHTML = 'Có lỗi xảy ra khi cập nhật coupon.';
                 });
-
-                if (!response.ok) {
-                    throw new Error('Cập nhật trạng thái thất bại');
-                }
-
-                alert('Trạng thái đơn hàng đã được cập nhật');
-                window.location.reload();
-            } catch (error) {
-                console.error('Lỗi khi thay đổi trạng thái:', error);
-                alert('Lỗi khi thay đổi trạng thái đơn hàng.');
-            }
         }
-
-        async function showOrderDetails(orderId) {
-            try {
-                const response = await fetch(`https://localhost:1006/get-order-by-id?id=${orderId}`);
-                if (!response.ok) throw new Error("Không thể tải chi tiết đơn hàng");
-
-                const orderDetails = await response.json();
-
-                const orderModalBody = document.getElementById('orderModalBody');
-                orderModalBody.innerHTML = `
-                    <p><strong>Mã Đơn Hàng:</strong> ${orderDetails.id}</p>
-                    <p><strong>ID Khách Hàng:</strong> ${orderDetails.customerId}</p>
-                    <p><strong>ID Địa Chỉ Khách Hàng:</strong> ${orderDetails.customerAddressId}</p>
-                    <p><strong>Trạng Thái:</strong> ${orderDetails.status === 0 ? 'Chờ đóng gói' : orderDetails.status === 1 ? 'Đang giao hàng' : 'Giao thành công'}</p>
-                    <p><strong>Ngày Đặt Hàng:</strong> ${new Date(orderDetails.createdAt).toLocaleDateString()}</p>
-                `;
-
-                const orderModal = new bootstrap.Modal(document.getElementById('orderModal'));
-                orderModal.show();
-            } catch (error) {
-                console.error("Lỗi khi tải chi tiết đơn hàng:", error);
-                alert("Không thể tải chi tiết đơn hàng.");
-            }
-        }
-
-
     </script>
+
 </body>
 
 </html>
