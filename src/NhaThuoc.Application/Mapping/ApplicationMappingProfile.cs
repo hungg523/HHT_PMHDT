@@ -28,14 +28,17 @@ namespace NhaThuoc.Application.Mapping
             #region Coupon
             CreateMap<Coupon, CouponCreateRequest>().ReverseMap();
             CreateMap<Coupon, CouponUpdateRequest>().ReverseMap();
+            CreateMap<Coupon, CouponDTO>().ReverseMap();
             #endregion
 
             #region Order
             CreateMap<Order, OrderDTO>()
                 .ForMember(dest => dest.Address, opt => opt.MapFrom(src => src.CustomerAddress))
                 .ForMember(dest => dest.OrderItems, opt => opt.MapFrom(src => src.OrderItems))
+                .ForMember(dest => dest.Coupon, opt => opt.MapFrom(src => src.Coupon))
                 .ReverseMap()
                 .ForMember(dest => dest.CustomerAddress, opt => opt.MapFrom(src => src.Address))
+                .ForMember(dest => dest.Coupon, opt => opt.MapFrom(src => src.Coupon))
                 .ForMember(dest => dest.OrderItems, opt => opt.MapFrom(src => src.OrderItems));
             CreateMap<CustomerAddress, CustomerAddressDTO>().ReverseMap();
             CreateMap<OrderItem, OrderItemDTO>().ReverseMap();
@@ -51,6 +54,8 @@ namespace NhaThuoc.Application.Mapping
             CreateMap<Customer, LoginRequest>().ReverseMap();
             CreateMap<Customer, RegisterRequest>().ReverseMap();
             CreateMap<Customer, AuthenCustomerRequest>().ReverseMap();
+            CreateMap<Customer, ChangePasswordRequest>().ReverseMap();
+            CreateMap<Customer, UpdateCustomerPasswordRequest>().ReverseMap();
             #endregion
         }
     }
