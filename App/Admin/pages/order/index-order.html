@@ -333,12 +333,18 @@
                         ? "Đang giao hàng"
                         : "Giao hàng thành công";
 
+                // Xử lý thông tin mã giảm giá
+                const couponHTML = orderDetails.coupon
+                    ? `<p><strong>Mã giảm giá:</strong> ${orderDetails.coupon.description} (${orderDetails.coupon.discount.toLocaleString()} VND)</p>`
+                    : `<p><strong>Mã giảm giá:</strong> Không áp dụng</p>`;
+
                 // Hiển thị thông tin trong modal
                 const orderModalBody = document.getElementById('orderModalBody');
                 orderModalBody.innerHTML = `
                     <p><strong>Email:</strong> ${orderDetails.email}</p>
                     <p><strong>Địa chỉ:</strong> ${orderDetails.address.finalAddress}</p>
                     <p><strong>Trạng thái đơn hàng:</strong> ${statusText}</p>
+                    ${couponHTML}
                     <h6 class="mt-4">Sản phẩm:</h6>
                     <ul class="list-group">
                         ${orderItemsHTML.join("")}
@@ -356,6 +362,7 @@
                 alert("Không thể tải chi tiết đơn hàng.");
             }
         }
+
 
     </script>
 </body>

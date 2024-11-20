@@ -298,6 +298,13 @@ let customerId;
                         ? "Đang giao hàng"
                         : "Giao hàng thành công";
         
+                    // Xử lý thông tin mã giảm giá
+                    const couponHTML = order.coupon
+                        ? `
+                            <p><strong>Mã giảm giá:</strong> ${order.coupon.description} (${order.coupon.discount.toLocaleString()} VND)</p>
+                          `
+                        : `<p><strong>Mã giảm giá:</strong> Không áp dụng</p>`;
+        
                     orderElement.innerHTML = `
                         <hr>
                         <div class="card mb-4">
@@ -308,6 +315,7 @@ let customerId;
                                 <p><strong>Email:</strong> ${order.email}</p>
                                 <p><strong>Địa chỉ:</strong> ${order.address.fullName}, ${order.address.finalAddress} - ${order.address.phone}</p>
                                 <p><strong>Trạng thái đơn hàng:</strong> ${statusText}</p>
+                                ${couponHTML}
                                 <h6 class="mt-4">Sản phẩm:</h6>
                                 <ul class="list-group">
                                     ${orderItemsHTML.join("")}
@@ -325,4 +333,5 @@ let customerId;
                 showPopup("Không thể tải đơn hàng. Vui lòng thử lại.");
             }
         }
+        
         
