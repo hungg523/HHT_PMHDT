@@ -231,18 +231,29 @@
 
         document.addEventListener("DOMContentLoaded", function () {
             const categorySelect = document.getElementById("categoryIds");
-
+        
+            // Bước 1: Tải danh sách danh mục từ API
             fetch('https://localhost:1006/get-categories')
                 .then(response => response.json())
                 .then(categories => {
+                    // Xóa các tùy chọn cũ trong select
                     categorySelect.innerHTML = '';
+        
+                    // Thêm tùy chọn mặc định
+                    const defaultOption = document.createElement("option");
+                    defaultOption.value = "";
+                    defaultOption.textContent = "Chọn danh mục";
+                    categorySelect.appendChild(defaultOption);
+        
+                    // Thêm các tùy chọn danh mục vào select
                     categories.forEach(category => {
                         const option = document.createElement("option");
                         option.value = category.id;
                         option.textContent = category.name;
                         categorySelect.appendChild(option);
                     });
-
+        
+                    // Bước 2: Tải thông tin sản phẩm từ API
                     fetch(`https://localhost:1006/get-product-detail?id=${productId}`, {
                         method: 'GET',
                         headers: {
@@ -251,6 +262,7 @@
                     })
                         .then(response => response.json())
                         .then(data => {
+                            // Điền thông tin sản phẩm vào các trường
                             document.getElementById('productName').value = data.productName;
                             document.getElementById('regularPrice').value = formatCurrency(data.regularPrice);
                             document.getElementById('discountPrice').value = formatCurrency(data.discountPrice);
@@ -261,12 +273,14 @@
                             document.getElementById('manufacturer').value = data.manufacturer;
                             document.getElementById('ingredients').value = data.ingredients;
                             document.getElementById('isActived').checked = data.isActived;
-
-                            const categorySelect = document.getElementById("categoryIds");
+        
+                            // Hiển thị danh mục hiện tại
                             const selectedCategory = Array.from(categorySelect.options).find(option => option.textContent === data.categoryName);
                             if (selectedCategory) {
                                 selectedCategory.selected = true;
                             }
+        
+                            // Hiển thị ảnh sản phẩm
                             if (data.imagePath) {
                                 document.getElementById('currentImage').src = data.imagePath.startsWith("data:image")
                                     ? data.imagePath
@@ -283,6 +297,7 @@
                     categorySelect.innerHTML = '<option>Không thể tải danh mục</option>';
                 });
         });
+        
 
         function formatCurrency(value) {
             return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") + " VNĐ";

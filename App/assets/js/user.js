@@ -41,14 +41,14 @@ let customerId;
                 });
 
                 if (response.ok) {
-                    alert("Cập nhật hồ sơ thành công!");
+                    showPopup("Cập nhật hồ sơ thành công!");
                     window.location.reload();
                 } else {
-                    alert("Cập nhật hồ sơ thất bại. Vui lòng thử lại.");
+                    showPopup("Cập nhật hồ sơ thất bại. Vui lòng thử lại.");
                 }
             } catch (error) {
                 console.error("Error updating profile:", error);
-                alert("Không thể kết nối tới máy chủ.");
+                showPopup("Không thể kết nối tới máy chủ.");
             }
         }
         
@@ -165,14 +165,14 @@ let customerId;
                 });
 
                 if (response.ok) {
-                    alert("Địa chỉ mới đã được thêm thành công!");
+                    showPopup("Địa chỉ mới đã được thêm thành công!");
                     window.location.reload();
                 } else {
-                    alert("Thêm địa chỉ thất bại. Vui lòng thử lại.");
+                    showPopup("Thêm địa chỉ thất bại. Vui lòng thử lại.");
                 }
             } catch (error) {
                 console.error("Error adding address:", error);
-                alert("Không thể kết nối tới máy chủ.");
+                showPopup("Không thể kết nối tới máy chủ.");
             }
         }
 
@@ -203,16 +203,7 @@ let customerId;
         
         let productsData = {};
 
-        // Tải danh sách sản phẩm từ API
-        document.addEventListener("DOMContentLoaded", async function () {
-            await getCustomerIdByEmail();
-            await fetchProducts(); // Tải toàn bộ sản phẩm
-            if (customerId) {
-                await loadOrders(customerId);
-            } else {
-                showPopup("Vui lòng đăng nhập để xem đơn hàng của bạn.");
-            }
-        });
+        
         
         async function getCustomerIdByEmail() {
             const email = localStorage.getItem("userEmail");
@@ -277,7 +268,7 @@ let customerId;
                             return `
                                 <li class="list-group-item d-flex align-items-center">
                                     <img src="https://localhost:1005/${product.imagePath}" alt="${product.productName}" class="img-thumbnail me-3" style="width: 80px; height: 80px; object-fit: cover;">
-                                    <div style="padding: 10px;">
+                                   <div style="padding: 10px; color: black;">
                                         <strong>${product.productName}</strong><br>
                                         <span>Số lượng: ${item.quantity}</span><br>
                                         <span>Đơn giá: ${price.toLocaleString()} VND</span><br>
@@ -293,11 +284,15 @@ let customerId;
         
                     // Xử lý trạng thái đơn hàng
                     const statusText = order.status === 0
-                        ? "Chờ đóng gói"
-                        : order.status === 1
-                        ? "Đang giao hàng"
-                        : "Giao hàng thành công";
-        
+                    ? "Chờ xác nhận"
+                    : order.status === 1
+                    ? "Đã xác nhận"
+                    : order.status === 2
+                    ? "Đang giao hàng"
+                    : order.status === 3
+                    ? "Thành công"
+                    : "Trạng thái không xác định";
+
                     // Xử lý thông tin mã giảm giá
                     const couponHTML = order.coupon
                         ? `

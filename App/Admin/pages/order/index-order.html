@@ -242,19 +242,34 @@
                     data.forEach(order => {
                         const row = document.createElement("tr");
 
+                        const statusClass =
+                            order.status === 0
+                                ? 'status-pending'
+                                : order.status === 1
+                                    ? 'status-confirmed'
+                                    : order.status === 2
+                                        ? 'status-shipping'
+                                        : 'status-delivered';
+
+                        const statusStyle =
+                            order.status === 1
+                                ? 'style="background-color: #9370DB;"'
+                                : '';
+
                         row.innerHTML = `
                             <td>${order.id}</td>
                             <td>${order.customerId}</td>
                             <td>${new Date(order.createdAt).toLocaleDateString()}</td>
                             <td>
-                            <select 
-                                class="status-select ${order.status === 0 ? 'status-pending' : order.status === 1 ?
-                                'status-shipping' : 'status-delivered'}"
-                                onchange="changeOrderStatus(${order.id}, this.value)">
-                                <option value="0" ${order.status === 0 ? 'selected' : ''}>Chờ đóng gói</option>
-                                <option value="1" ${order.status === 1 ? 'selected' : ''}>Đang giao hàng</option>
-                                <option value="2" ${order.status === 2 ? 'selected' : ''}>Giao thành công</option>
-                            </select>
+                                <select 
+                                    class="status-select ${statusClass}"
+                                    onchange="changeOrderStatus(${order.id}, this.value)"
+                                    ${statusStyle}>
+                                    <option value="0" ${order.status === 0 ? 'selected' : ''}>Chờ xác nhận</option>
+                                    <option value="1" ${order.status === 1 ? 'selected' : ''}>Đã xác nhận</option>
+                                    <option value="2" ${order.status === 2 ? 'selected' : ''}>Đang giao hàng</option>
+                                    <option value="3" ${order.status === 3 ? 'selected' : ''}>Thành công</option>
+                                </select>
                             </td>
                             <td>
                                 <button onclick="showOrderDetails(${order.id})" class="btn btn-sm btn-info">Xem</button>
@@ -272,6 +287,7 @@
                     messageDiv.innerHTML = 'Có lỗi xảy ra khi tải danh sách đơn hàng.';
                 });
         });
+
 
         async function changeOrderStatus(orderId, status) {
             try {
@@ -300,7 +316,18 @@
 
                 const orderDetails = await response.json();
 
-                // Tải thông tin chi tiết sản phẩm
+                const statusText = orderDetails.status === 0
+                    ? "Chờ xác nhận"
+                    : orderDetails.status === 1
+                        ? "Đã xác nhận"
+                        : orderDetails.status === 2
+                            ? "Đang giao hàng"
+                            : "Thành công";
+
+                const couponHTML = orderDetails.coupon
+                    ? `<p><strong>Mã giảm giá:</strong> ${orderDetails.coupon.description} (${orderDetails.coupon.discount.toLocaleString()} VND)</p>`
+                    : `<p><strong>Mã giảm giá:</strong> Không áp dụng</p>`;
+
                 const orderItemsHTML = await Promise.all(orderDetails.orderItems.map(async (item) => {
                     try {
                         const productResponse = await fetch(`https://localhost:1006/get-product-detail?id=${item.productId}`);
@@ -326,19 +353,6 @@
                     }
                 }));
 
-                // Xử lý trạng thái đơn hàng
-                const statusText = orderDetails.status === 0
-                    ? "Chờ đóng gói"
-                    : orderDetails.status === 1
-                        ? "Đang giao hàng"
-                        : "Giao hàng thành công";
-
-                // Xử lý thông tin mã giảm giá
-                const couponHTML = orderDetails.coupon
-                    ? `<p><strong>Mã giảm giá:</strong> ${orderDetails.coupon.description} (${orderDetails.coupon.discount.toLocaleString()} VND)</p>`
-                    : `<p><strong>Mã giảm giá:</strong> Không áp dụng</p>`;
-
-                // Hiển thị thông tin trong modal
                 const orderModalBody = document.getElementById('orderModalBody');
                 orderModalBody.innerHTML = `
                     <p><strong>Email:</strong> ${orderDetails.email}</p>
@@ -354,7 +368,6 @@
                     </div>
                 `;
 
-                // Hiển thị modal
                 const orderModal = new bootstrap.Modal(document.getElementById('orderModal'));
                 orderModal.show();
             } catch (error) {
@@ -362,7 +375,6 @@
                 alert("Không thể tải chi tiết đơn hàng.");
             }
         }
-
 
     </script>
 </body>

@@ -217,3 +217,29 @@ jQuery(document).ready(function($) {
 	searchShow();
 
 });
+//Categories Bar
+async function fetchCategories() {
+	try {
+	  const response = await fetch("https://localhost:1006/get-categories");
+	  const categories = await response.json();
+
+	  const categoriesRow = document.getElementById("categories-row");
+
+	  categories.forEach((category) => {
+		const categoryHTML = `
+		  <div class="col-6 col-md-4 col-lg-2 text-center category-item">
+			<a href="/pages/index-category.html?id=${category.id}">
+			  <img src="${category.imagePath
+			? `https://localhost:1005/${category.imagePath}`
+			: "assets/default-category.png"
+		  }" alt="${category.name}">
+			  <p>${category.name}</p>
+			</a>
+		  </div>
+		`;
+		categoriesRow.innerHTML += categoryHTML;
+	  });
+	} catch (error) {
+	  console.error("Error fetching categories:", error);
+	}
+  }

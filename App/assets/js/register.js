@@ -15,37 +15,37 @@ function showStep(step) {
     const password = document.getElementById("regPassword").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
 
-
-
-
     const userData = {
-      lastName: "Hiện chưa cập nhật...",
-      email: email,
-      password: password,
-      confirmPassword: confirmPassword
+        lastName: "Hiện chưa cập nhật...",
+        email: email,
+        password: password,
+        confirmPassword: confirmPassword
     };
 
     try {
-      const response = await fetch("https://localhost:1006/register-customer", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(userData)
-      });
+        const response = await fetch("https://localhost:1006/register-customer", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(userData)
+        });
 
-      if (response.ok) {
-        const data = await response.json();
-        userId = data.id;
-        showPopup("Đã gửi mã xác thực, kiểm tra email của bạn!");
-        showStep(2);
-        startCountdown(); 
-      } else {
-        showPopup("Đăng ký thất bại. Vui lòng thử lại.");
-      }
+        if (response.ok) {
+            const data = await response.json();
+            userId = data.id;
+            showPopup("Đã gửi mã xác thực, kiểm tra email của bạn!");
+            showStep(2);
+            startCountdown(); 
+        } else if (response.status === 409) {
+            // Trường hợp Gmail đã được sử dụng
+            showPopup("Gmail đã được sử dụng. Vui lòng thử email khác.");
+        } else {
+            showPopup("Đăng ký thất bại. Vui lòng thử lại.");
+        }
     } catch (error) {
-      console.error("Error registering user:", error);
-      showPopup("Đăng ký thất bại. Vui lòng thử lại.");
+        console.error("Error registering user:", error);
+        showPopup("Đăng ký thất bại. Vui lòng thử lại.");
     }
 }
 

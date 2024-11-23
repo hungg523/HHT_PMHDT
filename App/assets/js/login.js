@@ -91,6 +91,10 @@ function updateNavbar() {
   const accountSection = document.getElementById("accountSection");
 
   if (userEmail) {
+    
+    const emailPrefix = userEmail.split('@')[0];
+    const shortName = emailPrefix.length > 10 ? `hi, ${emailPrefix.substring(0, 10)}...` : `hi, ${emailPrefix}`;
+
     accountSection.innerHTML = `
       <a href="/pages/cart.html" class="icons-btn d-inline-block bag">
         <span class="icon-shopping-bag"></span>
@@ -99,7 +103,7 @@ function updateNavbar() {
       
       <!-- Dropdown tài khoản -->
       <a href="#" class="icons-btn d-inline-block ml-3 dropdown-toggle" data-toggle="dropdown">
-        ${userEmail}
+        ${shortName}
       </a>
       <div class="dropdown-menu dropdown-menu-right">
         <a class="dropdown-item" href="/pages/profile.html">Hồ sơ của bạn</a>
