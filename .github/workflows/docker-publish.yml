@@ -26,10 +26,10 @@ jobs:
       # Push Docker images to Docker Hub
       - name: Push Docker Images
         run: |
-          echo docker login -u lolmobi495 -p ${{ secrets.ACTION }}
+          echo "${{ secrets.ACTION }}" | docker login -u lolmobi495 --password-stdin
           services=($SERVICES)
           for service in "${services[@]}"; do
-            docker push lolmobi/doan:"${service}"
+            docker push lolmobi495/doan:"${service}"
           done
 
       # Prune unused Docker images
