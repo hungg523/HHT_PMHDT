@@ -1,13 +1,11 @@
 ﻿using AutoMapper;
 using MediatR;
-using NhaThuoc.Application.DTOs;
 using NhaThuoc.Application.Validators.Order;
 using NhaThuoc.Domain.Abtractions.IRepositories;
 using NhaThuoc.Domain.ReQuest.Order;
 using NhaThuoc.Share.DependencyInjection.Extensions;
 using NhaThuoc.Share.Enums;
 using NhaThuoc.Share.Exceptions;
-using System.Linq;
 using Entities = NhaThuoc.Domain.Entities;
 
 namespace NhaThuoc.Application.Handlers.Order
@@ -18,16 +16,14 @@ namespace NhaThuoc.Application.Handlers.Order
         private readonly IMapper mapper;
         private readonly ICouponRepository couponRepository;
         private readonly IProductRepository productRepository;
-        private readonly IApplyCouponRepository applyCouponRepository;
         private readonly IOrderItemRepository orderItemRepository;
 
-        public CreateOrderRequestHandler(IOrderRepository orderRepository, IMapper mapper, ICouponRepository couponRepository, IProductRepository productRepository, IApplyCouponRepository applyCouponRepository, IOrderItemRepository orderItemRepository)
+        public CreateOrderRequestHandler(IOrderRepository orderRepository, IMapper mapper, ICouponRepository couponRepository, IProductRepository productRepository, IOrderItemRepository orderItemRepository)
         {
             this.orderRepository = orderRepository;
             this.mapper = mapper;
             this.couponRepository = couponRepository;
             this.productRepository = productRepository;
-            this.applyCouponRepository = applyCouponRepository;
             this.orderItemRepository = orderItemRepository;
         }
 

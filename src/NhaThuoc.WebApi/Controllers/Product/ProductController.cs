@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NhaThuoc.Application.Request.Product;
 using NhaThuoc.Share.Exceptions;
+using System.Drawing.Printing;
 
 namespace NhaThuoc.WebApi.Controllers.Product
 {
@@ -51,12 +52,14 @@ namespace NhaThuoc.WebApi.Controllers.Product
         }
 
         [HttpGet("/get-name-product")]
-        public async Task<IActionResult> GetByNameProduct(string productname)
+        public async Task<IActionResult> GetByNameProduct(string productname, int? pageNumber, int? pageSize)
         {
             try
             {
                 var command = new GetByNameProductRequest();
                 command.ProductName = productname;
+                command.PageNumber = pageNumber ?? 1;
+                command.PageSize = pageSize ?? 6;
                 var result = await mediator.Send(command);
                 return Ok(result);
             }
@@ -67,11 +70,28 @@ namespace NhaThuoc.WebApi.Controllers.Product
         }
 
         [HttpGet("/get-products")]
-        public async Task<IActionResult> GetAllProduct()
+        public async Task<IActionResult> GetAllProduct(int? pageNumber, int? pageSize)
         {
             try
             {
                 var command = new GetAllProductRequest();
+                command.PageNumber = pageNumber ?? 1;
+                command.PageSize = pageSize ?? 6;
+                var result = await mediator.Send(command);
+                return Ok(result);
+            }
+            catch (NhaThuocException)
+            {
+                throw;
+            }
+        }
+
+        [HttpGet("/get-products-admin")]
+        public async Task<IActionResult> GetAllProductAdmin()
+        {
+            try
+            {
+                var command = new GetAllProductsRequest();
                 var result = await mediator.Send(command);
                 return Ok(result);
             }
@@ -82,12 +102,14 @@ namespace NhaThuoc.WebApi.Controllers.Product
         }
 
         [HttpGet("/get-products-by-category")]
-        public async Task<IActionResult> GetAllProductByCategory(int? id)
+        public async Task<IActionResult> GetAllProductByCategory(int? id, int? pageNumber, int? pageSize)
         {
             try
             {
                 var command = new GetProductByCategoryIdRequest();
                 command.CategoryId = id;
+                command.PageNumber = pageNumber ?? 1;
+                command.PageSize = pageSize ?? 6;
                 var result = await mediator.Send(command);
                 return Ok(result);
             }

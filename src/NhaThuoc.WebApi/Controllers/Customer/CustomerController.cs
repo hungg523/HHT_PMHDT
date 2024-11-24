@@ -135,6 +135,38 @@ namespace NhaThuoc.WebApi.Controllers.Customer
             }
         }
 
+        [HttpPut("/change-password")]
+        public async Task<IActionResult> ChangePassword(string? email)
+        {
+            try
+            {
+                var command = new ChangePasswordRequest();
+                command.Email = email;
+                var result = await mediator.Send(command);
+                return Ok(result);
+            }
+            catch (NhaThuocException)
+            {
+                throw;
+            }
+        }
+
+        [HttpPut("/update-customer-password")]
+        public async Task<IActionResult> UpdateCustomerPassword(string? email, [FromBody] UpdateCustomerPasswordRequest request)
+        {
+            try
+            {
+                var command = mapper.Map<UpdateCustomerPasswordRequest>(request);
+                command.Email = email;
+                var result = await mediator.Send(command);
+                return Ok(result);
+            }
+            catch (NhaThuocException)
+            {
+                throw;
+            }
+        }
+
         [HttpPost("/resend-otp")]
         public async Task<IActionResult> ResendOTP(string? email, [FromBody]ResendOTPRequest request)
         {

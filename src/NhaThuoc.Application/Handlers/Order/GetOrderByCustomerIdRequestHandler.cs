@@ -17,13 +17,20 @@ namespace NhaThuoc.Application.Handlers.Order
 
         public async Task<List<OrderDTO>> Handle(GetOrderByCustomerIdRequest request, CancellationToken cancellationToken)
         {
-            var orders = orderRepository.FindAll(o => o.CustomerId == request.Id, o => o.OrderItems, o => o.CustomerAddress, o => o.Customer).ToList();
+            var orders = orderRepository.FindAll(o => o.CustomerId == request.Id, o => o.OrderItems, o => o.CustomerAddress, o => o.Customer, o => o.Coupon).ToList();
             if (orders is null) orders.ThrowNotFound();
 
             var orderDtos = orders.Select(order => new OrderDTO
             {
                 Id = order.Id,
                 Email = order.Customer?.Email,
+                Status = order.Status,
+                Coupon = order.Coupon != null ? new CouponDTO
+                {
+                    Id = order.Coupon.Id,
+                    Description = order.Coupon.Description,
+                    Discount = order.Coupon.Discount
+                } : null,
                 Address = order.CustomerAddress != null ? new CustomerAddressDTO
                 {
                     Id = order.CustomerAddress.Id,
@@ -38,7 +45,8 @@ namespace NhaThuoc.Application.Handlers.Order
                 {
                     ProductId = oi.ProductId ?? 0,
                     Quantity = oi.Quantity ?? 0
-                }).ToList()
+                }).ToList(),
+                TotalPrice = order.TotalPrice ?? 0,
             }).ToList();
 
             return orderDtos;

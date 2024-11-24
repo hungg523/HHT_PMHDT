@@ -8,5 +8,4 @@
         public int SmtpPort { get; set; }
         public string SenderPassword { get; set; }
     }
-
 }

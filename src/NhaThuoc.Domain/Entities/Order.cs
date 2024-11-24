@@ -24,5 +24,8 @@ namespace NhaThuoc.Domain.Entities
 
         [JsonIgnore]
         public Customer? Customer { get; set; }
+
+        [JsonIgnore]
+        public Coupon? Coupon { get; set; }
     }
 }
