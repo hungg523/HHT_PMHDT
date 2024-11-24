@@ -86,6 +86,21 @@ namespace NhaThuoc.WebApi.Controllers.Product
             }
         }
 
+        [HttpGet("/get-products-admin")]
+        public async Task<IActionResult> GetAllProductAdmin()
+        {
+            try
+            {
+                var command = new GetAllProductsRequest();
+                var result = await mediator.Send(command);
+                return Ok(result);
+            }
+            catch (NhaThuocException)
+            {
+                throw;
+            }
+        }
+
         [HttpGet("/get-products-by-category")]
         public async Task<IActionResult> GetAllProductByCategory(int? id, int? pageNumber, int? pageSize)
         {

@@ -27,7 +27,7 @@ namespace NhaThuoc.Application.Handlers.Product
         }
         public async Task<PagedResponse<ProductDTO>> Handle(GetAllProductRequest request, CancellationToken cancellationToken)
         {
-            var products = productRepository.FindAll().ToList();
+            var products = productRepository.FindAll(x => x.IsActived == true).ToList();
             var totalCount = products.Count();
             var pagedProducts = products.Skip((request.PageNumber - 1) * request.PageSize).Take(request.PageSize).ToList();
             var productDtos = mapper.Map<List<ProductDTO>>(products);
