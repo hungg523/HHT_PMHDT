@@ -86,6 +86,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: .
+        file: ./src/NhaThuoc.WebApi/Dockerfile
         push: true
         tags: lolmobi495/doan:nhathuoc
 
