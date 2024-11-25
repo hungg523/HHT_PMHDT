@@ -74,16 +74,17 @@ jobs:
     # Build Docker images using Docker Compose with caching
     - name: Build Docker Images with Caching
       run: |
-        docker compose build --progress=plain --builder default --cache-from type=local,src=/tmp/.buildx-cache --cache-to type=local,dest=/tmp/.buildx-cache,mode=max
+        docker build -f ./src/NhaThuoc.WebApi/Dockerfile -t nhathuoc-webapi:latest --cache-from type=local,src=/tmp/.buildx-cache --cache-to type=local,dest=/tmp/.buildx-cache,mode=max ./src/NhaThuoc.WebApi
 
     # Push Docker images to Docker Hub
     - name: Push Docker Images
-      run: |
-        echo "${{ secrets.ACTION }}" | docker login -u lolmobi495 --password-stdin
-        services=($SERVICES)
-        for service in "${services[@]}"; do
-          docker push lolmobi495/doan:"${service}"
-        done
+      uses: docker/build-push-action@v5
+      with:
+        context: ./src/NhaThuoc.WebApi
+        push: true
+        tags: lolmobi495/doan:nhathuoc
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache,mode=max
 
     # Prune Docker builder cache
     - name: Prune Docker builder cache
