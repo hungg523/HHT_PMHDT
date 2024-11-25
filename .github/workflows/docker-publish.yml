@@ -75,7 +75,7 @@ jobs:
     - name: Build Docker Images with Caching
       uses: docker/build-push-action@v5
       with:
-        context: ./src
+        context: .
         file: ./src/NhaThuoc.WebApi/Dockerfile
         tags: lolmobi495/doan:nhathuoc
         cache-from: type=local,src=/tmp/.buildx-cache
@@ -85,7 +85,7 @@ jobs:
     - name: Push Docker Images
       uses: docker/build-push-action@v5
       with:
-        context: ./src
+        context: .
         push: true
         tags: lolmobi495/doan:nhathuoc
 
