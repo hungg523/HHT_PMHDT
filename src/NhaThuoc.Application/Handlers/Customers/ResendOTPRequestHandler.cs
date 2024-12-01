@@ -28,7 +28,7 @@ namespace NhaThuoc.Application.Handlers.Customers
                     if (customer is null) customer.ThrowNotFound();
                     var otp = Guid.NewGuid().ToString().Substring(0, 6).ToUpper();
                     customer.OTP = otp;
-                    customer.OTPExpiration = DateTime.Now.AddSeconds(90);
+                    customer.OTPExpiration = DateTime.Now.AddMinutes(10);
                     customerRepository.Update(customer);
                     await customerRepository.SaveChangesAsync(cancellationToken);
                     var subject = "Xác thực tài khoản!";

@@ -23,63 +23,35 @@ namespace NhaThuoc.WebApi.Controllers.Coupon
         [HttpGet("/get-coupon-by-id")]
         public async Task<IActionResult> GetByIdCoupon(int id)
         {
-            try
-            {
-                var command = new GetByIdCouponRequest();
-                command.Id = id;
-                var result = await mediator.Send(command);
-                return Ok(result);
-            }
-            catch (NhaThuocException)
-            {
-                throw;
-            }
+            var command = new GetByIdCouponRequest();
+            command.Id = id;
+            var result = await mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpGet("/get-coupons")]
         public async Task<IActionResult> GetAllCoupon()
         {
-            try
-            {
-                var command = new GetAllCouponRequest();
-                var result = await mediator.Send(command);
-                return Ok(result);
-            }
-            catch (NhaThuocException)
-            {
-                throw;
-            }
+            var command = new GetAllCouponRequest();
+            var result = await mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpPost("/create-coupon")]
         public async Task<IActionResult> CreateCoupon([FromBody] CouponCreateRequest request)
         {
-            try
-            {
-                var command = mapper.Map<CouponCreateRequest>(request);
-                var result = await mediator.Send(command);
-                return Ok(result);
-            }
-            catch (NhaThuocException)
-            {
-                throw;
-            }
+            var command = mapper.Map<CouponCreateRequest>(request);
+            var result = await mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpPut("/update-coupon")]
         public async Task<IActionResult> UpdateCoupon(int? id, [FromBody] CouponUpdateRequest request)
         {
-            try
-            {
-                var command = mapper.Map<CouponUpdateRequest>(request);
-                command.Id = id;
-                var result = await mediator.Send(command);
-                return Ok(result);
-            }
-            catch (NhaThuocException)
-            {
-                throw;
-            }
+            var command = mapper.Map<CouponUpdateRequest>(request);
+            command.Id = id;
+            var result = await mediator.Send(command);
+            return Ok(result);
         }
     }
 }

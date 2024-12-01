@@ -3,7 +3,6 @@ using MediatR;
 using NhaThuoc.Application.DTOs;
 using NhaThuoc.Application.Request.Order;
 using NhaThuoc.Domain.Abtractions.IRepositories;
-using NhaThuoc.Domain.Entities;
 using NhaThuoc.Share.DependencyInjection.Extensions;
 
 namespace NhaThuoc.Application.Handlers.Order

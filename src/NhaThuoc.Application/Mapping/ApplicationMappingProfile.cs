@@ -1,12 +1,12 @@
 using AutoMapper;
 using NhaThuoc.Application.DTOs;
 using NhaThuoc.Application.Request.Category;
+using NhaThuoc.Application.Request.Chat;
 using NhaThuoc.Application.Request.Coupon;
 using NhaThuoc.Application.Request.Customers.Customer;
 using NhaThuoc.Application.Request.Customers.CustomerAddress;
 using NhaThuoc.Application.Request.Product;
 using NhaThuoc.Domain.Entities;
-using NhaThuoc.Domain.ReQuest.Order;
 
 namespace NhaThuoc.Application.Mapping
 {
@@ -57,6 +57,12 @@ namespace NhaThuoc.Application.Mapping
             CreateMap<Customer, AuthenCustomerRequest>().ReverseMap();
             CreateMap<Customer, ChangePasswordRequest>().ReverseMap();
             CreateMap<Customer, UpdateCustomerPasswordRequest>().ReverseMap();
+            #endregion
+
+            #region Chat
+            CreateMap<UserMessage, GetAllConversationRequest>().ReverseMap();
+            CreateMap<AdminMessage, AdminMessage>().ReverseMap();
+            CreateMap<Conversation, CreateConversationRequest>().ReverseMap();
             #endregion
         }
     }

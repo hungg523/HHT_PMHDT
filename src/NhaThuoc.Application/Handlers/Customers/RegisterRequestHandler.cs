@@ -42,7 +42,7 @@ namespace NhaThuoc.Application.Handlers.Customers
                     {
                         existingCustomer.Password = BCrypt.Net.BCrypt.HashPassword(request.Password);
                         existingCustomer.OTP = otp;
-                        existingCustomer.OTPExpiration = DateTime.Now.AddSeconds(90);
+                        existingCustomer.OTPExpiration = DateTime.Now.AddMinutes(10);
                         customerRepository.Update(existingCustomer);
                     }
                     else
@@ -50,12 +50,12 @@ namespace NhaThuoc.Application.Handlers.Customers
                         
                         var customer = new Customer
                         {
-                            FirstName = request.FirstName ?? string.Empty,
-                            LastName = request.LastName,
+                            FirstName = request.FirstName ?? "user_",
+                            LastName = request.LastName ?? Guid.NewGuid().ToString().Substring(0, 8),
                             Email = request.Email,
                             Password = BCrypt.Net.BCrypt.HashPassword(request.Password),
                             OTP = otp,
-                            OTPExpiration = DateTime.Now.AddSeconds(90),
+                            OTPExpiration = DateTime.Now.AddMinutes(10),
                             Role = 0,
                             IsActive = false,
                             CreatedAt = request.CreatedAt

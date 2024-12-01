@@ -23,6 +23,9 @@ namespace NhaThuoc.Data.DependencyInjection.Extensions
             services.AddScoped<ICustomerAddressRepository, CustomerAddressRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IOrderItemRepository, OrderItemRepository>();
+            services.AddScoped<IUserMessageRepository, UserMessageRepository>();
+            services.AddScoped<IAdminMessageRepository, AdminMessageRepository>();
+            services.AddScoped<IConversationRepository, ConversationRepository>();
             services.Configure<EmailSettings>(configuration.GetSection("EmailSettings"));
             services.AddSingleton<EmailService>();
             return services;

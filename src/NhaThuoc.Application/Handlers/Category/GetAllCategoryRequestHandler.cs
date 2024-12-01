@@ -20,7 +20,6 @@ namespace NhaThuoc.Application.Handlers.Category
         public async Task<List<Entities.Category>> Handle(GetAllCategoryRequest request, CancellationToken cancellationToken)
         {
             var category = categoryRepository.FindAll();
-
             return mapper.Map<List<Entities.Category>>(category);
         }
     }

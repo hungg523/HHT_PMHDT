@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using NhaThuoc.Application.DTOs;
 using NhaThuoc.Application.Request.Customers.Customer;
-using NhaThuoc.Share.Exceptions;
 
 namespace NhaThuoc.WebApi.Controllers.Customer
 {
@@ -24,178 +22,96 @@ namespace NhaThuoc.WebApi.Controllers.Customer
         [HttpGet("/get-customer-by-email")]
         public async Task<IActionResult> GetCustomerByEmail(string email)
         {
-            try
-            {
-                var command = new GetCustomerByEmailRequest();
-                command.Email = email;
-                var result = await mediator.Send(command);
-                return Ok(result);
-            }
-            catch (NhaThuocException)
-            {
-                throw;
-            }
+            var command = new GetCustomerByEmailRequest();
+            command.Email = email;
+            var result = await mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpGet("/get-customer-by-id")]
         public async Task<IActionResult> GetCustomerById(int id)
         {
-            try
-            {
-                var command = new GetCustomerByIdCustomerRequest();
-                command.Id = id;
-                var result = await mediator.Send(command);
-                return Ok(result);
-            }
-            catch (NhaThuocException)
-            {
-                throw;
-            }
+            var command = new GetCustomerByIdCustomerRequest();
+            command.Id = id;
+            var result = await mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpGet("/get-roles-customer")]
         public async Task<IActionResult> GetAllCustomerRoles()
         {
-            try
-            {
-                var command = new GetAllCustomerRequest();
-                var result = await mediator.Send(command);
-                return Ok(result);
-            }
-            catch (NhaThuocException)
-            {
-                throw;
-            }
+            var command = new GetAllCustomerRequest();
+            var result = await mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpPut("/update-profile-customer")]
         public async Task<IActionResult> UpdateCustomerProfile(int? id, [FromBody] UpdateProifleCustomerRequest request)
         {
-            try
-            {
-                var command = mapper.Map<UpdateProifleCustomerRequest>(request);
-                command.Id = id;
-                var result = await mediator.Send(command);
-                return Ok(result);
-            }
-            catch (NhaThuocException)
-            {
-                throw;
-            }
+            var command = mapper.Map<UpdateProifleCustomerRequest>(request);
+            command.Id = id;
+            var result = await mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpPost("/login-customer")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
-            try
-            {
-                var response = await mediator.Send(request);
-
-                if (!response.IsSuccess)
-                {
-                    return StatusCode(response.StatusCode, response);
-                }
-
-                return Ok(response);
-            }
-            catch (NhaThuocException)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Đã có lỗi xảy ra khi đăng nhập." });
-            }
+            var command = mapper.Map<LoginRequest>(request);
+            var result = await mediator.Send(request);
+            return Ok(result);
         }
 
         [HttpPost("/register-customer")]
         public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {
-            try
-            {
-                var command = mapper.Map<RegisterRequest>(request);
-                var response = await mediator.Send(command);
-                return Ok(response);
-            }
-            catch (NhaThuocException)
-            {
-                throw;
-            }
+            var command = mapper.Map<RegisterRequest>(request);
+            var result = await mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpPut("/authen-customer")]
-        public async Task<IActionResult> AuthenCustomer(string? email,[FromBody] AuthenCustomerRequest request)
+        public async Task<IActionResult> AuthenCustomer(string? email, [FromBody] AuthenCustomerRequest request)
         {
-            try
-            {
-                var command = mapper.Map<AuthenCustomerRequest>(request);
-                command.Email = email;
-                var result = await mediator.Send(command);
-                return Ok(result);
-            }
-            catch (NhaThuocException)
-            {
-                throw;
-            }
+            var command = mapper.Map<AuthenCustomerRequest>(request);
+            command.Email = email;
+            var result = await mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpPut("/change-password")]
         public async Task<IActionResult> ChangePassword(string? email)
         {
-            try
-            {
-                var command = new ChangePasswordRequest();
-                command.Email = email;
-                var result = await mediator.Send(command);
-                return Ok(result);
-            }
-            catch (NhaThuocException)
-            {
-                throw;
-            }
+            var command = new ChangePasswordRequest();
+            command.Email = email;
+            var result = await mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpPut("/update-customer-password")]
         public async Task<IActionResult> UpdateCustomerPassword(string? email, [FromBody] UpdateCustomerPasswordRequest request)
         {
-            try
-            {
-                var command = mapper.Map<UpdateCustomerPasswordRequest>(request);
-                command.Email = email;
-                var result = await mediator.Send(command);
-                return Ok(result);
-            }
-            catch (NhaThuocException)
-            {
-                throw;
-            }
+            var command = mapper.Map<UpdateCustomerPasswordRequest>(request);
+            command.Email = email;
+            var result = await mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpPost("/resend-otp")]
-        public async Task<IActionResult> ResendOTP(string? email, [FromBody]ResendOTPRequest request)
+        public async Task<IActionResult> ResendOTP(string? email, [FromBody] ResendOTPRequest request)
         {
-            try
-            {
-                var command = mapper.Map<ResendOTPRequest>(request);
-                command.Email = email;
-                var result = await mediator.Send(command);
-                return Ok(result);
-            }
-            catch (NhaThuocException)
-            {
-                throw;
-            }
+            var command = mapper.Map<ResendOTPRequest>(request);
+            command.Email = email;
+            var result = await mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpPost("/customer-logout")]
         public async Task<IActionResult> Logout(LogoutCustomerRequest request)
         {
-            try
-            {
-                var command = mapper.Map<LogoutCustomerRequest>(request);
-                var result = await mediator.Send(command);
-                return Ok(result);
-            }
-            catch (NhaThuocException)
-            {
-                throw;
-            }
+            var command = mapper.Map<LogoutCustomerRequest>(request);
+            var result = await mediator.Send(command);
+            return Ok(result);
         }
     }
 }

@@ -18,82 +18,48 @@ namespace NhaThuoc.WebApi.Controllers.CustomerAddress
             this.mediator = mediator;
             this.mapper = mapper;
         }
+
         [HttpGet("/get-customeraddress-by-id")]
         public async Task<IActionResult> GetByIdCustomerAddress(int id)
         {
-            try
-            {
-                var command = new GetByIdCustomerAddressRequest();
-                command.Id = id;
-                var result = await mediator.Send(command);
-                return Ok(result);
-            }
-            catch (NhaThuocException)
-            {
-                throw;
-            }
+            var command = new GetByIdCustomerAddressRequest();
+            command.Id = id;
+            var result = await mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpGet("/get-customeraddresss")]
         public async Task<IActionResult> GetAllCustomerAddress()
         {
-            try
-            {
-                var command = new GetAllCustomerAddressRequest();
-                var result = await mediator.Send(command);
-                return Ok(result);
-            }
-            catch (NhaThuocException)
-            {
-                throw;
-            }
+            var command = new GetAllCustomerAddressRequest();
+            var result = await mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpPost("/create-customeraddress")]
         public async Task<IActionResult> CreateCustomerAddress([FromBody] CustomerAddressCreateRequest request)
         {
-            try
-            {
-                var command = mapper.Map<CustomerAddressCreateRequest>(request);
-                var result = await mediator.Send(command);
-                return Ok(result);
-            }
-            catch (NhaThuocException)
-            {
-                throw;
-            }
+            var command = mapper.Map<CustomerAddressCreateRequest>(request);
+            var result = await mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpPut("/update-customeraddress")]
         public async Task<IActionResult> UpdateCustomerAddress(int? id, [FromBody] CustomerAddressUpdateRequest request)
         {
-            try
-            {
-                var command = mapper.Map<CustomerAddressUpdateRequest>(request);
-                command.Id = id;
-                var result = await mediator.Send(command);
-                return Ok(result);
-            }
-            catch (NhaThuocException)
-            {
-                throw;
-            }
+            var command = mapper.Map<CustomerAddressUpdateRequest>(request);
+            command.Id = id;
+            var result = await mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpGet("/get-address-by-customer-id")]
         public async Task<IActionResult> GetCustomerAddressByCustomerId(int? id)
         {
-            try
-            {
-                var command = new GetCustomerAddressByCustomerIdRequest();
-                command.CustomerId = id;
-                var result = await mediator.Send(command);
-                return Ok(result);
-            }
-            catch (NhaThuocException)
-            {
-                throw;
-            }
+            var command = new GetCustomerAddressByCustomerIdRequest();
+            command.CustomerId = id;
+            var result = await mediator.Send(command);
+            return Ok(result);
         }
     }
 }

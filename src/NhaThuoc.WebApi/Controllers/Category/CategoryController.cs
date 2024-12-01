@@ -22,62 +22,34 @@ namespace NhaThuoc.WebApi.Controllers.Category
         [HttpPost("/create-category")]
         public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryRequest request)
         {
-            try
-            {
-                var command = mapper.Map<CreateCategoryRequest>(request);
-                var result = await mediator.Send(command);
-                return Ok(result);
-            }
-            catch (NhaThuocException)
-            {
-                throw;
-            }
+            var command = mapper.Map<CreateCategoryRequest>(request);
+            var result = await mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpPut("/update-category")]
         public async Task<IActionResult> UpdateCategory(int? id, [FromBody] UpdateCategoryRequest request)
         {
-            try
-            {
-                var command = mapper.Map<UpdateCategoryRequest>(request);
-                command.Id = id;
-                var result = await mediator.Send(command);
-                return Ok(result);
-            }
-            catch (NhaThuocException)
-            {
-                throw;
-            }
+            var command = mapper.Map<UpdateCategoryRequest>(request);
+            command.Id = id;
+            var result = await mediator.Send(command);
+            return Ok(result);
         }
         [HttpGet("/get-category-by-id")]
         public async Task<IActionResult> GetByIdCategory(int id)
         {
-            try
-            {
-                var command = new GetByIdCategoryRequest();
-                command.Id = id;
-                var result = await mediator.Send(command);
-                return Ok(result);
-            }
-            catch (NhaThuocException)
-            {
-                throw;
-            }
+            var command = new GetByIdCategoryRequest();
+            command.Id = id;
+            var result = await mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpGet("/get-categories")]
         public async Task<IActionResult> GetAllCategory()
         {
-            try
-            {
-                var command = new GetAllCategoryRequest();
-                var result = await mediator.Send(command);
-                return Ok(result);
-            }
-            catch (NhaThuocException)
-            {
-                throw;
-            }
+            var command = new GetAllCategoryRequest();
+            var result = await mediator.Send(command);
+            return Ok(result);
         }
     }
 }

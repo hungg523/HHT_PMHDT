@@ -21,95 +21,53 @@ namespace NhaThuoc.WebApi.Controllers.Order
         [HttpPost("/create-order")]
         public async Task<IActionResult> CreateOrder([FromBody] CreateOrderRequest request)
         {
-            try
-            {
-                var command = mapper.Map<CreateOrderRequest>(request);
-                var result = await mediator.Send(command);
-                return Ok(result);
-            }
-            catch (NhaThuocException)
-            {
-                throw;
-            }
+            var command = mapper.Map<CreateOrderRequest>(request);
+            var result = await mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpPut("/change-status-order")]
         public async Task<IActionResult> UpdateOrder(int? id, [FromBody] ChangeStatusOrderRequest request)
         {
-            try
-            {
-                var command = mapper.Map<ChangeStatusOrderRequest>(request);
-                command.Id = id;
-                var result = await mediator.Send(command);
-                return Ok(result);
-            }
-            catch (NhaThuocException)
-            {
-                throw;
-            }
+            var command = mapper.Map<ChangeStatusOrderRequest>(request);
+            command.Id = id;
+            var result = await mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpGet("/get-orders")]
         public async Task<IActionResult> GetAllOrder()
         {
-            try
-            {
-                var command = new GetAllOrderRequest();
-                var result = await mediator.Send(command);
-                return Ok(result);
-            }
-            catch (NhaThuocException)
-            {
-                throw;
-            }
+            var command = new GetAllOrderRequest();
+            var result = await mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpGet("/get-order-by-id")]
         public async Task<IActionResult> GetOrderById(int id)
         {
-            try
-            {
-                var command = new GetByIdOrderRequest();
-                command.Id = id;
-                var result = await mediator.Send(command);
-                return Ok(result);
-            }
-            catch (NhaThuocException)
-            {
-                throw;
-            }
+            var command = new GetByIdOrderRequest();
+            command.Id = id;
+            var result = await mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpGet("/get-order-by-customer-id")]
         public async Task<IActionResult> GetOrderByCustomerId(int id)
         {
-            try
-            {
-                var command = new GetOrderByCustomerIdRequest();
-                command.Id = id;
-                var result = await mediator.Send(command);
-                return Ok(result);
-            }
-            catch (NhaThuocException)
-            {
-                throw;
-            }
+            var command = new GetOrderByCustomerIdRequest();
+            command.Id = id;
+            var result = await mediator.Send(command);
+            return Ok(result);
         }
 
         [HttpGet("/get-order-item-by-order-id")]
         public async Task<IActionResult> GetOrderItemByOrderId(int id)
         {
-            try
-            {
-                var command = new GetOrderItemByOrderIdRequest();
-                command.OrderId = id;
-                var result = await mediator.Send(command);
-                return Ok(result);
-            }
-            catch (NhaThuocException)
-            {
-                throw;
-            }
+            var command = new GetOrderItemByOrderIdRequest();
+            command.OrderId = id;
+            var result = await mediator.Send(command);
+            return Ok(result);
         }
     }
 }
