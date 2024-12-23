@@ -52,11 +52,20 @@ namespace NhaThuoc.WebApi.Controllers.ChatBot
             return Ok(result);
         }
 
-        [HttpGet("/get-detail-message")]
-        public async Task<IActionResult> GetDetailChat(int? conversionId)
+        [HttpGet("/get-detail-message-by-conversation-id")]
+        public async Task<IActionResult> GetDetailChatByConversationId(int? conversionId)
         {
             var command = new GetMessagaByConversationIdRequest();
             command.ConversationId = conversionId;
+            var result = await mediator.Send(command);
+            return Ok(result);
+        }
+
+        [HttpGet("/get-detail-message-by-customer-id")]
+        public async Task<IActionResult> GetDetailChatByCustomerId(int? customerId)
+        {
+            var command = new GetMessageByCustomerIdRequest();
+            command.CustomerId = customerId;
             var result = await mediator.Send(command);
             return Ok(result);
         }

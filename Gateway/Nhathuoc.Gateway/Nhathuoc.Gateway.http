@@ -1,0 +1,6 @@
+@Nhathuoc.Gateway_HostAddress = http://localhost:5008
+
+GET {{Nhathuoc.Gateway_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

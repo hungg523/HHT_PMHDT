@@ -3,11 +3,8 @@ using MediatR;
 using NhaThuoc.Application.DTOs;
 using NhaThuoc.Application.Request.Product;
 using NhaThuoc.Domain.Abtractions.IRepositories;
-using NhaThuoc.Domain.Entities;
 using NhaThuoc.Share.Enums;
 using NhaThuoc.Share.Exceptions;
-using System.Linq;
-using Entities = NhaThuoc.Domain.Entities;
 
 namespace NhaThuoc.Application.Handlers.Product
 {
