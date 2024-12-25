@@ -17,5 +17,6 @@
         public string? SeoTitle { get; set; }
         public string? SeoAlias { get; set; }
         public bool? IsActived { get; set; }
+        public int? CategoryId { get; set; }
     }
 }

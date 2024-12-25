@@ -51,12 +51,7 @@ namespace NhaThuoc.Application.Handlers.Category
                 catch (Exception e)
                 {
                     await transaction.RollbackAsync(cancellationToken);
-                    return new ApiResponse
-                    {
-                        IsSuccess = false,
-                        StatusCode = StatusCodes.Status500InternalServerError,
-                        StageTrace = e.StackTrace
-                    };
+                    throw;
                 }
             }
         }
