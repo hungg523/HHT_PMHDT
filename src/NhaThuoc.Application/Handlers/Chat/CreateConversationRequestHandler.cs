@@ -32,7 +32,7 @@ namespace NhaThuoc.Application.Handlers.Chat
                 {
                     var customer = await customerRepository.FindByIdAsync(request.CustomerId);
                     if (customer == null) customer.ThrowNotFound();
-                    
+
                     var conversation = await conversationRepository.FindSingleAsync(x => x.CustomerId == request.CustomerId);
                     if (conversation is not null) conversation.ThrowConflict();
 
@@ -60,14 +60,9 @@ namespace NhaThuoc.Application.Handlers.Chat
                 catch (Exception e)
                 {
                     await transaction.RollbackAsync(cancellationToken);
-                    return new ApiResponse
-                    {
-                        IsSuccess = false,
-                        StatusCode = StatusCodes.Status500InternalServerError,
-                        StageTrace = e.StackTrace
-                    };
+                    throw;
                 }
             }
-                }
+        }
     }
 }

@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.SignalR;
 using NhaThuoc.Application.Request.Chat;
 using NhaThuoc.Domain.Abtractions.IRepositories;
 using NhaThuoc.Domain.Entities;
 using NhaThuoc.Share.DependencyInjection.Extensions;
 using NhaThuoc.Share.Exceptions;
+using NhaThuoc.Share.Service;
 
 namespace NhaThuoc.Application.Handlers.Chat
 {
@@ -13,13 +15,13 @@ namespace NhaThuoc.Application.Handlers.Chat
     {
         private readonly IUserMessageRepository userMessageRepository;
         private readonly IConversationRepository conversationRepository;
-        private readonly IMapper mapper;
+        private readonly IHubContext<ChatHub> hubContext;
 
-        public UserSendMessageRequestHandler(IUserMessageRepository userMessageRepository, IConversationRepository conversationRepository, IMapper mapper)
+        public UserSendMessageRequestHandler(IUserMessageRepository userMessageRepository, IConversationRepository conversationRepository, IHubContext<ChatHub> hubContext)
         {
             this.userMessageRepository = userMessageRepository;
             this.conversationRepository = conversationRepository;
-            this.mapper = mapper;
+            this.hubContext = hubContext;
         }
 
         public async Task<ApiResponse> Handle(UserSendMessageRequest request, CancellationToken cancellationToken)
@@ -44,18 +46,14 @@ namespace NhaThuoc.Application.Handlers.Chat
                     conversationRepository.Update(conversation);
                     await conversationRepository.SaveChangesAsync(cancellationToken);
 
+                    await hubContext.Clients.Group($"Conversation-{request.ConversationId}").SendAsync("ReceiveMessage", "User", request.Message);
                     await transaction.CommitAsync(cancellationToken);
                     return ApiResponse.Success();
                 }
                 catch (Exception e)
                 {
                     await transaction.RollbackAsync(cancellationToken);
-                    return new ApiResponse
-                    {
-                        IsSuccess = false,
-                        StatusCode = StatusCodes.Status500InternalServerError,
-                        StageTrace = e.StackTrace
-                    };
+                    throw;
                 }
             }
         }

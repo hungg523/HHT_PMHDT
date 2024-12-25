@@ -2,14 +2,13 @@ using NhaThuoc.Application.DependencyInjection.Extensions;
 using NhaThuoc.Data.DependencyInjection.Extensions;
 using NhaThuoc.Share.Service;
 using NhaThuoc.WebApi;
-using System.Net;
-using System.Net.Sockets;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddData(builder.Configuration);
 builder.Services.AddApplication();
+builder.Services.AddSignalR();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
@@ -31,7 +30,7 @@ builder.Services.AddCors(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 var app = builder.Build();
-
+app.MapHub<ChatHub>("/chat");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
