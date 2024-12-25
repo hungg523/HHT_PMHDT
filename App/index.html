@@ -534,7 +534,7 @@
         }
 
         const productContainer = document.getElementById('popularProducts');
-        productContainer.innerHTML = ''; 
+        productContainer.innerHTML = '';
 
         randomProducts.forEach(product => {
           const regularPrice = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(product.regularPrice);
@@ -558,10 +558,11 @@
                 <p class="origin" style="color: black;">
                     <strong>Origin:</strong> ${product.origin}
                 </p>
+              
                 <p class="price" style="color: black;">
                     ${product.discountPrice && product.discountPrice > 0
-                        ? `<del style="color: #aaa;">${regularPrice}</del> &mdash; <span style="color: #007bff;">${discountPrice}</span>`
-                        : `<span style="color: #007bff;">${regularPrice}</span>`}
+              ? `<del style="color: #aaa;">${regularPrice}</del> &mdash; <span style="color: #007bff;">${discountPrice}</span>`
+              : `<span style="color: #007bff;">${regularPrice}</span>`}
                 </p>
                 
                 <div class="d-flex justify-content-between align-items-center" style="color: black; font-size: 15px; gap: 5px;">

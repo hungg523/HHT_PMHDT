@@ -151,7 +151,6 @@
                           <th> Tên sản phẩm </th>
                           <th> Giá gốc </th>
                           <th> Giá khuyến mãi </th>
-                          <th> Mô tả </th>
                           <th> Thương hiệu </th>
                           <th> Kích hoạt </th>
                           <th> Thao tác </th>
@@ -218,8 +217,7 @@
                             <td><img src="https://localhost:1005/${product.imagePath}" alt="${product.name}" style="width: 32px; height: 32px; object-fit: cover;  border-radius: 4px;"></td>
                             <td>${product.productName}</td>
                             <td>${product.regularPrice.toLocaleString()} VND</td>
-                            <td>${product.discountPrice ? product.discountPrice.toLocaleString() + ' VND' : 'N/A'}</td>
-                            <td>${product.description || ""}</td>
+                            <td>${product.discountPrice ? product.discountPrice.toLocaleString() + ' VND' : 'N/A'}</td>                   
                             <td>${product.brand || ""}</td>
                             <td>${statusBadge}</td>
                             <td>

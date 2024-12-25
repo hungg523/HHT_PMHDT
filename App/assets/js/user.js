@@ -70,30 +70,6 @@ let customerId;
             }
         }
 
-        // Fetch Quận/Huyện khi Tỉnh/Thành phố
-        async function fetchDistricts() {
-            const provinceId = document.getElementById("province").value;
-            if (!provinceId) return;
-
-            try {
-                const response = await fetch(`https://api.example.com/districts?provinceId=${provinceId}`);
-                const districts = await response.json();
-
-                const districtSelect = document.getElementById("district");
-                districtSelect.innerHTML = '<option value="">Chọn Quận/Huyện</option>';
-                document.getElementById("ward").innerHTML = '<option value="">Chọn Phường/Xã</option>'; // Reset wards
-
-                districts.forEach(district => {
-                    const option = document.createElement("option");
-                    option.value = district.id;
-                    option.textContent = district.name;
-                    districtSelect.appendChild(option);
-                });
-            } catch (error) {
-                console.error("Error fetching districts:", error);
-            }
-        }
-
         async function fetchDistricts() {
             const provinceCode = document.getElementById("province").value;
             if (!provinceCode) return;

@@ -299,7 +299,7 @@
 
             if (!productName) {
                 errors.push("Tên sản phẩm không được để trống.");
-            } else if (productName.length > 100) {
+            } else if (productName.length > 200) {
                 errors.push("Tên sản phẩm không được vượt quá 100 ký tự.");
             }
 
@@ -333,20 +333,9 @@
                 errors.push("Nhà sản xuất không được để trống.");
             }
 
-            if (!ingredients) {
-                errors.push("Thành phần không được để trống.");
-            }
-
-            if (!seoTitle) {
-                errors.push("SEO Title không được để trống.");
-            }
-
-            if (!seoAlias) {
-                errors.push("SEO Alias không được để trống.");
-            }
 
             if (selectedCategories.length === 0) {
-                errors.push("Phải chọn ít nhất một danh mục.");
+                errors.push("Phải chọn một danh mục.");
             }
 
             // Nếu có lỗi, hiển thị thông báo lỗi
@@ -401,7 +390,7 @@
                         messageDiv.innerHTML = 'Sản phẩm đã được tạo thành công!';
                         // Chuyển hướng về trang index-category.html sau 2 giây
                         setTimeout(() => {
-                            window.location.href = '/Admin/pages/category/index-category.html';
+                            window.location.href = '/Admin/pages/product/index-product.html';
                         }, 1000);
                     })
                     .catch(error => {
