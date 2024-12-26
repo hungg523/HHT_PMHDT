@@ -44,7 +44,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-// Áp d?ng CORS tr??c các middleware khác
 app.UseCors("AllowSpecificOrigin");
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();

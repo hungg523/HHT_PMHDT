@@ -1,6 +1,4 @@
-﻿using AutoMapper;
-using MediatR;
-using Microsoft.AspNetCore.Http;
+﻿using MediatR;
 using Microsoft.AspNetCore.SignalR;
 using NhaThuoc.Application.Request.Chat;
 using NhaThuoc.Domain.Abtractions.IRepositories;
@@ -16,12 +14,14 @@ namespace NhaThuoc.Application.Handlers.Chat
         private readonly IUserMessageRepository userMessageRepository;
         private readonly IConversationRepository conversationRepository;
         private readonly IHubContext<ChatHub> hubContext;
+        private readonly ICustomerRepository customerRepository;
 
-        public UserSendMessageRequestHandler(IUserMessageRepository userMessageRepository, IConversationRepository conversationRepository, IHubContext<ChatHub> hubContext)
+        public UserSendMessageRequestHandler(IUserMessageRepository userMessageRepository, IConversationRepository conversationRepository, IHubContext<ChatHub> hubContext, ICustomerRepository customerRepository)
         {
             this.userMessageRepository = userMessageRepository;
             this.conversationRepository = conversationRepository;
             this.hubContext = hubContext;
+            this.customerRepository = customerRepository;
         }
 
         public async Task<ApiResponse> Handle(UserSendMessageRequest request, CancellationToken cancellationToken)
@@ -32,6 +32,8 @@ namespace NhaThuoc.Application.Handlers.Chat
                 {
                     var conversation = await conversationRepository.FindByIdAsync(request.ConversationId);
                     if (conversation is null) conversation.ThrowNotFound();
+
+                    var customer = await customerRepository.FindSingleAsync(x => x.Id == conversation.CustomerId);
 
                     var userMessage = new UserMessage
                     {
@@ -46,7 +48,7 @@ namespace NhaThuoc.Application.Handlers.Chat
                     conversationRepository.Update(conversation);
                     await conversationRepository.SaveChangesAsync(cancellationToken);
 
-                    await hubContext.Clients.Group($"Conversation-{request.ConversationId}").SendAsync("ReceiveMessage", "User", request.Message);
+                    await hubContext.Clients.Group($"Conversation-{request.ConversationId}").SendAsync("ReceiveMessage", $"User", request.Message);
                     await transaction.CommitAsync(cancellationToken);
                     return ApiResponse.Success();
                 }
