@@ -48,7 +48,7 @@ namespace NhaThuoc.Application.Handlers.Chat
                     conversationRepository.Update(conversation);
                     await conversationRepository.SaveChangesAsync(cancellationToken);
 
-                    await hubContext.Clients.Group($"Conversation-{request.ConversationId}").SendAsync("ReceiveMessage", $"User", request.Message);
+                    await hubContext.Clients.Group($"Conversation-{request.ConversationId}").SendAsync("ReceiveMessage", $"{customer.FirstName} {customer.LastName}", request.Message);
                     await transaction.CommitAsync(cancellationToken);
                     return ApiResponse.Success();
                 }
