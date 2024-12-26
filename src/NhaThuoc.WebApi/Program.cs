@@ -4,7 +4,12 @@ using NhaThuoc.Share.Service;
 using NhaThuoc.WebApi;
 
 var builder = WebApplication.CreateBuilder(args);
+HttpClientHandler handler = new HttpClientHandler
+{
+    ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true
+};
 
+HttpClient client = new HttpClient(handler);
 // Add services to the container.
 builder.Services.AddData(builder.Configuration);
 builder.Services.AddApplication();
@@ -23,7 +28,8 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowSpecificOrigin",
         policy => policy.WithOrigins("http://127.0.0.1:5500")
                         .AllowAnyHeader()
-                        .AllowAnyMethod());
+                        .AllowAnyMethod()
+                        .AllowCredentials());
 });
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

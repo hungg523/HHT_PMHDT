@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using NhaThuoc.Application.Request.Chat;
 using NhaThuoc.Domain.Abtractions.IRepositories;
 using NhaThuoc.Domain.Entities;

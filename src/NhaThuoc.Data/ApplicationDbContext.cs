@@ -13,6 +13,7 @@ namespace NhaThuoc.Data
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            modelBuilder.SeedDataGenerate();
         }
     }
 }
