@@ -474,13 +474,18 @@
   </div>
 
   <div class="contact-button">
-    <a href="https://zalo.me/0379932119" target="_blank">
-      <img src="/assets/images/zalo-icon.png" alt="Contact Us">
-    </a>
+    <button id="chatButton">Bắt đầu trò chuyện</button>
+  </div>
+
+  <div id="chatWindow" style="display: none; border: 1px solid #ccc; padding: 10px;">
+    <div id="messages" style="color: black; height: 200px; overflow-y: scroll; border: 1px solid #ddd; padding: 5px;">
+    </div>
+    <input type="text" id="messageInput" placeholder="Nhập tin nhắn" style="width: 80%;">
+    <button id="sendMessageButton">Gửi</button>
   </div>
 
 
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/6.0.2/signalr.min.js"></script>
   <script src="/assets/js/jquery-3.3.1.min.js"></script>
   <script src="/assets/js/jquery-ui.js"></script>
   <script src="/assets/js/popper.min.js"></script>
@@ -496,6 +501,7 @@
   <script src="/assets/js/register.js"></script>
   <script src="/assets/js/404.js"></script>
   <script src="/assets/js/changepassword.js"></script>
+  <script src="/assets/js/chat.js"></script>
   <script>
 
     //Popular Products
