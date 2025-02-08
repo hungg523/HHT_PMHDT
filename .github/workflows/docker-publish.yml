@@ -12,7 +12,7 @@ jobs:
       contents: write
       pull-requests: write
     steps:
-      # Step 1: Checkout repository to work with sub branch
+      # Step 1: Checkout repository to work with dev branch
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -28,7 +28,7 @@ jobs:
           signoff: false
           branch: main
           delete-branch: false
-          title: '[Example] Update report'
+          title: 'Update report'
           body: |
             Update report
             - Updated with *today's* date

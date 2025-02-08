@@ -14,14 +14,12 @@ namespace NhaThuoc.Application.Handlers.Chat
         private readonly IUserMessageRepository userMessageRepository;
         private readonly IConversationRepository conversationRepository;
         private readonly IHubContext<ChatHub> hubContext;
-        private readonly ICustomerRepository customerRepository;
 
-        public UserSendMessageRequestHandler(IUserMessageRepository userMessageRepository, IConversationRepository conversationRepository, IHubContext<ChatHub> hubContext, ICustomerRepository customerRepository)
+        public UserSendMessageRequestHandler(IUserMessageRepository userMessageRepository, IConversationRepository conversationRepository, IHubContext<ChatHub> hubContext)
         {
             this.userMessageRepository = userMessageRepository;
             this.conversationRepository = conversationRepository;
             this.hubContext = hubContext;
-            this.customerRepository = customerRepository;
         }
 
         public async Task<ApiResponse> Handle(UserSendMessageRequest request, CancellationToken cancellationToken)
@@ -32,8 +30,6 @@ namespace NhaThuoc.Application.Handlers.Chat
                 {
                     var conversation = await conversationRepository.FindByIdAsync(request.ConversationId);
                     if (conversation is null) conversation.ThrowNotFound();
-
-                    var customer = await customerRepository.FindSingleAsync(x => x.Id == conversation.CustomerId);
 
                     var userMessage = new UserMessage
                     {
@@ -48,7 +44,7 @@ namespace NhaThuoc.Application.Handlers.Chat
                     conversationRepository.Update(conversation);
                     await conversationRepository.SaveChangesAsync(cancellationToken);
 
-                    await hubContext.Clients.Group($"Conversation-{request.ConversationId}").SendAsync("ReceiveMessage", $"{customer.FirstName} {customer.LastName}", request.Message);
+                    await hubContext.Clients.Group($"Conversation-{request.ConversationId}").SendAsync("ReceiveMessage", "User", request.Message);
                     await transaction.CommitAsync(cancellationToken);
                     return ApiResponse.Success();
                 }

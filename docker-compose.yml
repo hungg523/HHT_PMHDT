@@ -5,8 +5,8 @@ services:
       context: .
       dockerfile: src/NhaThuoc.WebApi/Dockerfile
   
-  nhathuoc.gateway:
-    image: lolmobi495/doan:nhathuoc-gateway
-    build:
-      context: .
-      dockerfile: Gateway/Nhathuoc.Gateway/Dockerfile
+  # nhathuoc.gateway:
+  #   image: lolmobi495/doan:nhathuoc-gateway
+  #   build:
+  #     context: .
+  #     dockerfile: Gateway/Nhathuoc.Gateway/Dockerfile

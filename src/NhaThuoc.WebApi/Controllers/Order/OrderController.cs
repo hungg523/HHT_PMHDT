@@ -3,7 +3,6 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using NhaThuoc.Application.Request.Order;
 using NhaThuoc.Domain.ReQuest.Order;
-using NhaThuoc.Share.Exceptions;
 
 namespace NhaThuoc.WebApi.Controllers.Order
 {
@@ -67,6 +66,14 @@ namespace NhaThuoc.WebApi.Controllers.Order
             var command = new GetOrderItemByOrderIdRequest();
             command.OrderId = id;
             var result = await mediator.Send(command);
+            return Ok(result);
+        }
+
+        [HttpGet("/order-statics")]
+        public async Task<IActionResult> OrderStatics()
+        {
+            var command = new OrderStatisticsRequest();
+            var result = mediator.Send(command);
             return Ok(result);
         }
     }
