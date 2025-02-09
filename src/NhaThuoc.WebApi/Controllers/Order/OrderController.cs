@@ -69,8 +69,8 @@ namespace NhaThuoc.WebApi.Controllers.Order
             return Ok(result);
         }
 
-        [HttpGet("/order-statics")]
-        public async Task<IActionResult> OrderStatics()
+        [HttpGet("/order-statistics")]
+        public async Task<IActionResult> OrderStatistics()
         {
             var command = new OrderStatisticsRequest();
             var result = await mediator.Send(command);

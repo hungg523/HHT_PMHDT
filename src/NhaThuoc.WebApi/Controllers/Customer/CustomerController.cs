@@ -121,5 +121,13 @@ namespace NhaThuoc.WebApi.Controllers.Customer
             var result = await mediator.Send(command);
             return Ok(result);
         }
+
+        [HttpGet("/dashboard-statistics")]
+        public async Task<IActionResult> DashboardStatistics()
+        {
+            var command = new DashboardStatisticsRequest();
+            var result = await mediator.Send(command);
+            return Ok(result);
+        }
     }
 }
