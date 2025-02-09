@@ -73,7 +73,7 @@ namespace NhaThuoc.WebApi.Controllers.Order
         public async Task<IActionResult> OrderStatics()
         {
             var command = new OrderStatisticsRequest();
-            var result = mediator.Send(command);
+            var result = await mediator.Send(command);
             return Ok(result);
         }
     }

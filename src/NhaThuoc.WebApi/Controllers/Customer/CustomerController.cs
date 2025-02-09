@@ -113,5 +113,13 @@ namespace NhaThuoc.WebApi.Controllers.Customer
             var result = await mediator.Send(command);
             return Ok(result);
         }
+
+        [HttpGet("/top-customer")]
+        public async Task<IActionResult> TopCustomer()
+        {
+            var command = new TopCustomersRequest();
+            var result = await mediator.Send(command);
+            return Ok(result);
+        }
     }
 }
