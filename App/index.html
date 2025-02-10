@@ -474,7 +474,7 @@
   </div>
 
   <div class="contact-button">
-    <button id="chatButton">Bắt đầu trò chuyện</button>
+    <button id="chatButton" style="display: none;">Bắt đầu trò chuyện</button>
   </div>
 
   <div id="chatWindow" style="display: none; border: 1px solid #ccc; padding: 10px;">
@@ -585,6 +585,12 @@
       }
     }
 
+    function checkUserEmail() {
+      const userEmail = localStorage.getItem("userEmail"); // Lấy userEmail từ localStorage
+      if (userEmail) {
+        document.getElementById("chatButton").style.display = "block"; // Hiện nút
+      }
+    }
 
     //New Products
     async function fetchNewProducts() {
@@ -655,7 +661,7 @@
       }
     }
 
-
+    document.addEventListener("DOMContentLoaded", checkUserEmail);
     document.addEventListener('DOMContentLoaded', fetchNewProducts);
     document.addEventListener('DOMContentLoaded', fetchRandomProducts);
 

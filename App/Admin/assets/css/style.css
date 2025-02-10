@@ -30380,3 +30380,24 @@ dl li {
   outline: 1px solid slategrey;
 }
 /*# sourceMappingURL=maps/style.css.map */
+.col-lg-12.d-flex.flex-row .grid-margin {
+  flex: 1; /* Đảm bảo cả hai thẻ chiếm không gian ngang bằng nhau */
+  min-width: 0; /* Tránh bị tràn khung */
+  margin: 5px;
+}
+.chart-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.chartjs-wrapper {
+  position: relative;
+  height: 500px;
+  width: 100%;
+}
+
+canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
